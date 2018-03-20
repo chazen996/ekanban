@@ -20,12 +20,20 @@ import ReactDom from 'react-dom';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Example from "./components/Example";
 import Home from "./components/Home";
+import Test2 from "./components/Test2";
+import LoginPage from "./routes/LoginPage"
 
 ReactDom.render((
-  <BrowserRouter>
-    <div>
-      <Route exact  path='/' component={Home}/>
-      <Route path='/example' component={Example}/>
-    </div>
-  </BrowserRouter>
+  <div>
+    <BrowserRouter>
+      <div>
+        <Route path='/home' component={Home}/>
+        <Route path='/example' component={Example}/>
+        <Route path='/login' component={LoginPage}/>
+      </div>
+    </BrowserRouter>
+    <BrowserRouter>
+      <Route path='/test2' component={Test2} />
+    </BrowserRouter>
+  </div>
   ),document.getElementById("root"));

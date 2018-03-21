@@ -17,23 +17,22 @@ import './index.css';*/
 /*app.start('#root');*/
 // import React from 'react';
 import ReactDom from 'react-dom';
-import {BrowserRouter, Route} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import Example from "./components/Example";
-import Home from "./components/Home";
-import Test2 from "./components/Test2";
+// import Home from "./components/Home";
+// import Test2 from "./components/Test2";
 import LoginPage from "./routes/LoginPage"
+import AuthRoute from "./components/AuthRoute";
+// import LoginRoute from "./components/LoginRoute";
 
 ReactDom.render((
   <div>
     <BrowserRouter>
       <div>
-        <Route path='/home' component={Home}/>
-        <Route path='/example' component={Example}/>
-        <Route path='/login' component={LoginPage}/>
+        <AuthRoute exact path='/' ForLogin={true} component={LoginPage}/>
+        <AuthRoute path='/example' component={Example}/>
+        <AuthRoute path='/login' ForLogin={true} component={LoginPage}/>
       </div>
-    </BrowserRouter>
-    <BrowserRouter>
-      <Route path='/test2' component={Test2} />
     </BrowserRouter>
   </div>
   ),document.getElementById("root"));

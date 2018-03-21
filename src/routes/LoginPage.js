@@ -1,9 +1,11 @@
 import {Component} from 'react';
 import { Form,Icon,Input,Button } from 'antd';
+import {observer} from 'mobx-react';
 import LoginStore from '../stores/LoginStore';
 
 const FormItem = Form.Item;
 
+@observer
 class LoginPage extends Component{
   handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +15,7 @@ class LoginPage extends Component{
         LoginStore.getTokenFromWebServer(values).then(response => {
           if(response){
             console.log('Token:',response.data.token);
-            LoginStore.LoginSuccess(response.data.token);
+            LoginStore.LoginSuccess(response.data.token,values);
           }
         });
       }
@@ -21,9 +23,7 @@ class LoginPage extends Component{
   }
 
   handleTest = ()=>{
-    LoginStore.testUser().then(response => {
-      console.log(response);
-    });
+    LoginStore.setLoginStatusTrue();
   }
   render(){
     const { getFieldDecorator } = this.props.form;

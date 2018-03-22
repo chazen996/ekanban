@@ -96,9 +96,8 @@ class LoginPage extends Component{
         <div style={{display: 'flex',
           flexFlow: 'column nowrap',
           alignItems: 'center',
-          marginTop:18}}>
-          <div>基于React敏捷看板</div>
-          <div>© 2018 陈真</div>
+          marginTop:30}}>
+          <div>基于React敏捷看板&emsp;©2018 陈真</div>
           <div>技术支持：chazen@qq.com</div>
         </div>
       </Spin>

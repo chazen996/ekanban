@@ -4,15 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/stores/LoginStore.js" line="32" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="[COMMIT] 实现了电子看板">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/login/loginPage.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/board.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/assets/images/project-name.png" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc" afterPath="$PROJECT_DIR$/.eslintrc" />
+    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/routes/LoginPage.js" afterPath="$PROJECT_DIR$/src/routes/LoginPage.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/LoginStore.js" afterPath="$PROJECT_DIR$/src/stores/LoginStore.js" />
-      <change beforePath="$PROJECT_DIR$/src/utils/AuthSessionStorage.js" afterPath="$PROJECT_DIR$/src/utils/AuthSessionStorage.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -288,7 +282,7 @@
       <option name="presentableId" value="Default" />
       <updated>1521205878940</updated>
       <workItem from="1521205880768" duration="31396000" />
-      <workItem from="1521543941373" duration="35672000" />
+      <workItem from="1521543941373" duration="36057000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -318,11 +312,18 @@
       <option name="project" value="LOCAL" />
       <updated>1521616799796</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="[COMMIT] 完成登陆页面功能设计">
+      <created>1521702389900</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1521702389900</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67068000" />
+    <option name="totallyTimeSpent" value="67453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -358,7 +359,8 @@
     <MESSAGE value="[COMMIT] 尝试使用Router" />
     <MESSAGE value="[COMMIT] 解决了跨域问题，实现了登陆获取token后添加header调用后台API" />
     <MESSAGE value="[COMMIT] 完善了前端路由跳转权限验证的方式，使用AES加密对sessionStorage进行必要的加密保护，防止恶意登陆" />
-    <option name="LAST_COMMIT_MESSAGE" value="[COMMIT] 完善了前端路由跳转权限验证的方式，使用AES加密对sessionStorage进行必要的加密保护，防止恶意登陆" />
+    <MESSAGE value="[COMMIT] 完成登陆页面功能设计" />
+    <option name="LAST_COMMIT_MESSAGE" value="[COMMIT] 完成登陆页面功能设计" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />

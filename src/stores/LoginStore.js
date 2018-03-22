@@ -1,4 +1,4 @@
-// import { observable,action,computed,autorun} from 'mobx';
+import { observable,action,computed} from 'mobx';
 import axios from 'axios';
 import AuthSessionStorage from '../utils/AuthSessionStorage';
 
@@ -7,6 +7,16 @@ axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers['Content-Type'] = 'application/json';
 
 class LoginStore {
+
+  @observable loadingStatus = false;
+
+  @computed get getLoadingStatus(){
+    return this.loadingStatus;
+  }
+
+  @action setLoadingStatus(status) {
+    this.loadingStatus = status;
+  }
 
   /* 登陆成功后设置登陆状态并为全局header设置token */
   LoginSuccess(token,user) {

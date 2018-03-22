@@ -1,0 +1,21 @@
+.login-form {
+  width: 381px;
+  margin: 0 auto;
+}
+.login-form-button {
+  width: 100%;
+}
+.register-form-button {
+  cursor: not-allowed;
+  width: 100%;
+}
+.login-form-forgot {
+  float: right;
+}
+
+.login-page{
+  margin: 0 auto;
+  width: 479px;
+  height: 83vh;
+  padding-top: 7%;
+}

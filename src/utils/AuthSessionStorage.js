@@ -19,7 +19,7 @@ class AuthSessionStorge{
 
   /* 往sessionStorage中储存加密后的数据 */
   setItem(key,value){
-    sessionStorage.setItem(key,aesEncrypt(value,`${key}1`));
+    sessionStorage.setItem(key,aesEncrypt(value,`${key}:secret`));
   }
 
   /* 从sessionStorage中获取信息 */
@@ -28,7 +28,24 @@ class AuthSessionStorge{
     if(value == null){
       return null;
     }
-    return aesDecrypt(value,`${key}1`);
+    return aesDecrypt(value,`${key}:secret`);
+  }
+
+  setItemIntoLocalStorage(key,value){
+    localStorage.setItem(key,aesEncrypt(value,`${key}:secret`));
+  }
+
+  getItemFromLocalStorage(key){
+    let value = localStorage.getItem(key);
+    if(value == null){
+      return null;
+    }
+    return aesDecrypt(value,`${key}:secret`);
+  }
+
+  removeItem(key){
+    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   }
 
 }

@@ -1,6 +1,8 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
-const Example = () => {
+const Example = (props) => {
+  console.log(props.location);
   return (
     <div>
       Example
@@ -11,4 +13,4 @@ const Example = () => {
 Example.propTypes = {
 };
 
-export default Example;
+export default withRouter(Example);

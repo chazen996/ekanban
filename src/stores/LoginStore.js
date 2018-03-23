@@ -34,6 +34,7 @@ class LoginStore {
   /* 访问后台服务器获取token */
   getTokenFromWebServer(SysUser){
     return axios.post('/auth/',JSON.stringify(SysUser)).catch(error => {
+      this.setLoadingStatus(false);
       console.log(error);
     })
   }

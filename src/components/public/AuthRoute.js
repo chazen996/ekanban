@@ -1,5 +1,5 @@
 import {Route, Redirect} from 'react-router-dom';
-import AuthSessionStorge from '../utils/AuthSessionStorage';
+import AuthSessionStorge from '../../utils/AuthSessionStorage';
 
 /* 控制路由跳转前检查是否登陆，如未登陆直接跳转到login界面 */
 function checkAuth() {
@@ -26,7 +26,7 @@ const AuthRoute = ({component: Component, ForLogin, ...rest}) => {
           checkAuth() ? (
             <Redirect
               to={{
-                pathname: "/example",
+                pathname: "/home",
                 state: {from: props.location}
               }}
             />

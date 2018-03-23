@@ -18,11 +18,12 @@ import './index.css';*/
 // import React from 'react';
 import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import Example from "./components/Example";
+// import Example from "./components/Example";
 // import Home from "./components/Home";
 // import Test2 from "./components/Test2";
 import LoginPage from "./routes/LoginPage"
-import AuthRoute from "./components/AuthRoute";
+import AuthRoute from "./components/public/AuthRoute";
+import Head from "./components/public/Head";
 // import LoginRoute from "./components/LoginRoute";
 
 ReactDom.render((
@@ -30,7 +31,7 @@ ReactDom.render((
     <BrowserRouter>
       <div>
         <AuthRoute exact path='/' ForLogin={true} component={LoginPage}/>
-        <AuthRoute path='/example' component={Example}/>
+        <AuthRoute path='/home' component={Head}/>
         <AuthRoute path='/login' ForLogin={true} component={LoginPage}/>
       </div>
     </BrowserRouter>

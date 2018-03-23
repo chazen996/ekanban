@@ -21,10 +21,10 @@ const openNotification = (description) => {
 class LoginPage extends Component{
   handleSubmit = (e) => {
     e.preventDefault();
-    LoginStore.setLoadingStatus(true);
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log('Received values of form: ', values);
+        LoginStore.setLoadingStatus(true);
         LoginStore.getTokenFromWebServer(values).then(response => {
           if(response){
             /* 检查是否需要记住密码 */
@@ -37,7 +37,7 @@ class LoginPage extends Component{
             }
 
             LoginStore.LoginSuccess(response.data.token,values);
-            this.props.history.push("/example");
+            this.props.history.push("/home");
             LoginStore.setLoadingStatus(false);
           }
         });
@@ -48,7 +48,8 @@ class LoginPage extends Component{
   render(){
     const { getFieldDecorator } = this.props.form;
     return (
-      <Spin spinning={LoginStore.getLoadingStatus} size='large'>
+      <Spin spinning={LoginStore.getLoadingStatus} size='large'
+            className={loginStyles["spin-mask"]}>
         <div className={loginStyles["login-page"]}>
           <div style={{marginBottom:'6%'}}>
             <img src={board} alt='board logo' style={{width: '19%'}}/>

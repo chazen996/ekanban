@@ -19,10 +19,10 @@ class Navigator extends Component{
     const number = nameArray.length;
     let result = [];
     for(let i = 0;i<number;i++){
-      result.push(<a href={`${breadcrumbNameMap[i]}${idArray[i]}`}>{i===0?(nameArray[i]):(`/${nameArray[i]}`)}</a>);
+      result.push(<a key={i} href={`${breadcrumbNameMap[i]}${idArray[i]}`}>{i===0?(nameArray[i]):(`/${nameArray[i]}`)}</a>);
     }
     return(
-      <div>
+      <div style={{ marginLeft: '1%'}}>
         {result}
       </div>
     );

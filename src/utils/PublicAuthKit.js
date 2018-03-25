@@ -1,3 +1,4 @@
+import axios from 'axios';
 /* 使用AES对称加密算法：对数据进行加密解密操作 */
 const crypto = require('crypto');
 
@@ -15,7 +16,7 @@ function aesDecrypt(encrypted, key) {
   return decrypted;
 }
 
-class AuthSessionStorge{
+class PublicAuthKit{
 
   /* 往sessionStorage中储存加密后的数据 */
   setItem(key,value){
@@ -44,10 +45,33 @@ class AuthSessionStorge{
   }
 
   removeItem(key){
-    localStorage.removeItem(key);
     sessionStorage.removeItem(key);
   }
 
+  removeItemFromLocalStorage(key){
+    localStorage.removeItem(key);
+  }
+
+  /* 控制路由跳转前检查是否登陆，如未登陆直接跳转到login界面 */
+  checkAuth() {
+    let username = this.getItem('username');
+    let loginStatus = this.getItem('loginStatus');
+    /* 如果本地加密的登陆信息不存在或者登陆信息不合法，则返回false */
+    if(loginStatus){
+      let array = loginStatus.split(';');
+      if(array[0]===username&&array[1]==='login'){
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  /* 为auth设置token */
+  addAuthHeader(){
+    const token = this.getItem('token');
+    axios.defaults.headers['Authorization'] = token;
+  }
 }
-const authSessionStorge = new AuthSessionStorge();
-export default authSessionStorge;
+const publicAuthKit = new PublicAuthKit();
+export default publicAuthKit;

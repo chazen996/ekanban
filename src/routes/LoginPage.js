@@ -2,16 +2,16 @@ import {Component} from 'react';
 import { Form,Icon,Input,Button,Spin,Checkbox,notification } from 'antd';
 import {observer} from 'mobx-react';
 import LoginStore from '../stores/LoginStore';
-import AuthSessionStorage from '../utils/AuthSessionStorage';
+import PublicAuthKit from '../utils/PublicAuthKit';
 
-import loginStyles from "../assets/css/login/loginPage.css";
+import loginStyles from "../assets/css/loginPage.css";
 const board = require('../assets/images/board.png');
 const projectName = require('../assets/images/project-name.png');
 const FormItem = Form.Item;
 
 const openNotification = (description) => {
   notification.open({
-    message: '消息提醒：',
+    message: '消息提示：',
     description: description,
   });
 };
@@ -29,11 +29,11 @@ class LoginPage extends Component{
           if(response){
             /* 检查是否需要记住密码 */
             if(values['remember']){
-              AuthSessionStorage.setItemIntoLocalStorage('username',values['username']);
-              AuthSessionStorage.setItemIntoLocalStorage('password',values['password']);
+              PublicAuthKit.setItemIntoLocalStorage('username',values['username']);
+              PublicAuthKit.setItemIntoLocalStorage('password',values['password']);
             }else{
-              AuthSessionStorage.removeItem('username');
-              AuthSessionStorage.removeItem('password');
+              PublicAuthKit.removeItemFromLocalStorage('username');
+              PublicAuthKit.removeItemFromLocalStorage('password');
             }
 
             LoginStore.LoginSuccess(response.data.token,values);
@@ -45,6 +45,7 @@ class LoginPage extends Component{
     });
   }
 
+
   render(){
     const { getFieldDecorator } = this.props.form;
     return (
@@ -53,14 +54,14 @@ class LoginPage extends Component{
         <div className={loginStyles["login-page"]}>
           <div style={{marginBottom:'6%'}}>
             <img src={board} alt='board logo' style={{width: '19%'}}/>
-            <img src={projectName} alt='project name' style={{width:'81%'}}/>
+            <img src={projectName} alt='project name' style={{width: '77%', marginLeft: '4%', marginTop: '4%'}}/>
           </div>
           <Form onSubmit={this.handleSubmit} className={loginStyles["login-form"]}>
             <FormItem>
               {getFieldDecorator('username', {
                 rules: [{ required: true, message: '请输入用户名!' }],
                 valuePropName:'value',
-                initialValue:AuthSessionStorage.getItemFromLocalStorage('username')
+                initialValue:PublicAuthKit.getItemFromLocalStorage('username')
               })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="用户名" />
               )}
@@ -69,7 +70,7 @@ class LoginPage extends Component{
               {getFieldDecorator('password', {
                 rules: [{ required: true, message: '请输入密码!' }],
                 valuePropName:'value',
-                initialValue:AuthSessionStorage.getItemFromLocalStorage('password')
+                initialValue:PublicAuthKit.getItemFromLocalStorage('password')
               })(
                 <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="密码" />
               )}
@@ -77,8 +78,8 @@ class LoginPage extends Component{
             <FormItem>
               {getFieldDecorator('remember', {
                 valuePropName: 'checked',
-                initialValue: (AuthSessionStorage.getItemFromLocalStorage('username')&&
-                  AuthSessionStorage.getItemFromLocalStorage('password'))?true:false,
+                initialValue: (PublicAuthKit.getItemFromLocalStorage('username')&&
+                  PublicAuthKit.getItemFromLocalStorage('password'))?true:false,
               })(
                 <Checkbox>记住用户名和密码</Checkbox>
               )}
@@ -87,7 +88,7 @@ class LoginPage extends Component{
                 登陆
               </Button>
 
-              <Button type='dashed' className={loginStyles["register-form-button"]} onClick={openNotification.bind(this,'暂未开放注册，请咨询管理员')}>
+              <Button type='dashed' className={loginStyles["register-form-button"]} onClick={openNotification.bind(this,'暂未开放注册，详情请咨询管理员')}>
                   立即注册
               </Button>
             </FormItem>

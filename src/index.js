@@ -23,7 +23,9 @@ import { BrowserRouter } from 'react-router-dom';
 // import Test2 from "./components/Test2";
 import LoginPage from "./routes/LoginPage"
 import AuthRoute from "./components/public/AuthRoute";
-import Head from "./components/public/Head";
+import HomePage from "./routes/HomePage";
+import RegisterPage from "./routes/RegisterPage";
+// import Head from "./components/public/Head";
 // import LoginRoute from "./components/LoginRoute";
 
 ReactDom.render((
@@ -31,8 +33,9 @@ ReactDom.render((
     <BrowserRouter>
       <div>
         <AuthRoute exact path='/' ForLogin={true} component={LoginPage}/>
-        <AuthRoute path='/home' component={Head}/>
+        <AuthRoute path='/home' component={HomePage}/>
         <AuthRoute path='/login' ForLogin={true} component={LoginPage}/>
+        <AuthRoute path='/register' component={RegisterPage}/>
       </div>
     </BrowserRouter>
   </div>

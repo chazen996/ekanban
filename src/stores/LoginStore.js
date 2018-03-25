@@ -5,7 +5,6 @@ import Config from '../utils/Config';
 import {message} from 'antd';
 
 /* 全局配置baseURL和Content-Type类型 */
-// axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.baseURL = Config.baseURL;
 axios.defaults.headers['Content-Type'] = Config.ContentType;
 
@@ -21,20 +20,14 @@ class LoginStore {
     this.loadingStatus = status;
   }
 
-  /* 登陆成功后设置登陆状态并为全局header设置token */
+  /* 登陆成功后设置登陆状态；为请求头增设token */
   LoginSuccess(token,user) {
     PublicAuthKit.setItem('username',user['username']);
     PublicAuthKit.setItem('loginStatus',`${user['username']};login`);
     PublicAuthKit.setItem('token',`Bearer ${token}`);
 
     PublicAuthKit.addAuthHeader();
-    // LoginStore.addAuthHeader(AuthSessionStorage.getItem('token'));
   }
-
-  /* 根据token全局设置header */
-  // static addAuthHeader(token){
-  //   axios.defaults.headers['Authorization'] = token;
-  // }
 
   /* 访问后台服务器获取token */
   getTokenFromWebServer(SysUser){

@@ -22,7 +22,7 @@ function beforeUpload(file) {
   return isJPG && isLt2M;
 }
 
-class Avatar extends Component {
+class AuthUpload extends Component {
   state = {
     loading: false,
   };
@@ -70,4 +70,4 @@ class Avatar extends Component {
   }
 }
 
-export default Avatar;
+export default AuthUpload;

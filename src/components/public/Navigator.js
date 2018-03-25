@@ -2,9 +2,6 @@ import {Component} from 'react';
 // import {withRouter} from 'react-router-dom';
 
 class Navigator extends Component{
-  // constructor(props){
-  //   super(props);
-  // }
   render(){
     const breadcrumbNameMap = {
       0: '/home',

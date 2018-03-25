@@ -45,6 +45,9 @@ class LoginPage extends Component{
     });
   }
 
+  handleOnRegister = ()=>{
+    this.props.history.push("/register");
+  }
 
   render(){
     const { getFieldDecorator } = this.props.form;
@@ -88,7 +91,7 @@ class LoginPage extends Component{
                 登陆
               </Button>
 
-              <Button type='dashed' className={loginStyles["register-form-button"]} onClick={openNotification.bind(this,'暂未开放注册，详情请咨询管理员')}>
+              <Button className={loginStyles["register-form-button"]} onClick={this.handleOnRegister}>
                   立即注册
               </Button>
             </FormItem>

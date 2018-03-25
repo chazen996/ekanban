@@ -2,7 +2,7 @@ import {Component} from 'react';
 import {Form,Input,Select} from 'antd';
 import RegisterStore from '../stores/RegisterStore';
 import Config from "../utils/Config";
-import Avatar from "../components/Register/Avatar";
+import AuthUpload from "../components/register/AuthUpload";
 
 const FormItem = Form.Item;
 
@@ -56,7 +56,7 @@ class RegisterPage extends Component{
     return (
       <Form onSubmit={this.handleOnSubmit}>
         <FormItem>
-          <Avatar/>
+          <AuthUpload/>
         </FormItem>
         <FormItem
           label="邮箱地址">

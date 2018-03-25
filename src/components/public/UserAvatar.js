@@ -14,7 +14,7 @@ class UserAvatar extends Component{
   }
 
   handleOnLogOut = ()=>{
-    /* 清除登陆信息并将页面重定向到login页面;清楚token信息 */
+    /* 清除登陆信息并将页面重定向到login页面;清除token信息（header无需移除，每个store的header需要自行重新设置） */
     PublicAuthKit.removeItem('username');
     PublicAuthKit.removeItem('loginStatus');
     PublicAuthKit.removeItem('token');

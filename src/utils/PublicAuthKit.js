@@ -72,6 +72,13 @@ class PublicAuthKit{
     const token = this.getItem('token');
     axios.defaults.headers['Authorization'] = token;
   }
+
+  /* 利用随机数和时间戳生成一个不会重复的ID,并将其入队 */
+  generateNoneDuplicateID(randomLength) {
+    return Number(
+      Math.random().toString().substr(
+        3, randomLength) + Date.now()).toString(36);
+  }
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

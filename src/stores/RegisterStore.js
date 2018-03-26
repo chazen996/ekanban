@@ -7,8 +7,24 @@ class RegisterStore {
     PublicAuthKit.addAuthHeader();
   }
 
+  // @observable uploading = false;
+  //
+  // @computed get getUploading(){
+  //   return this.uploading;
+  // }
+  //
+  // @action setUploading(status){
+  //   this.uploading = status;
+  // }
+
   checkUsernameFromWebServer(username){
-    return axios.get(`/user/checkUsername?username=${username}`).catch(err=>{
+    return axios.get(`/auth/checkUsername?username=${username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  registerUser(user,tempAvatarName){
+    return axios.post(`/auth/register?tempAvatarName=${tempAvatarName}`,JSON.stringify(user)).catch(err=>{
       console.log(err);
     });
   }

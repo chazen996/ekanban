@@ -1,8 +1,8 @@
 import { Upload, Icon, message } from 'antd';
 import {Component} from 'react';
-import registerStyles from '../../assets/css/registerPage.css';
+// import registerStyles from '../../assets/css/registerPage.css';
 import Config from '../../utils/Config';
-import PublicAuthKit from '../../utils/PublicAuthKit';
+require("../../assets/css/registerPage.css");
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -38,33 +38,46 @@ class AuthUpload extends Component {
         loading: false,
       }));
     }
+    if (info.file.status ==='error') {
+      message.error('文件上传失败，请检查网络连接!');
+      this.setState({
+        loading:false,
+      });
+      return;
+    }
   }
   render() {
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
+        <div className="ant-upload-text">上传头像</div>
       </div>
     );
     const imageUrl = this.state.imageUrl;
 
-    const actionURL = `${Config.baseURL}/user/testuploadimg`;
-    const token = PublicAuthKit.getItem('token');
-    const header = {
-      'authorization':token
-    }
+    const actionURL = `${Config.baseURL}/auth/uploadimg`;
+
+    // const token = PublicAuthKit.getItem('token');
+    // const header = {
+    //   'authorization':token
+    // }
     return (
       <Upload
         name="avatar"
+        data={this.props.paraData}
         listType="picture-card"
-        className={registerStyles["avatar-uploader"]}
+        className="avatar-uploader"
         showUploadList={false}
         action={actionURL}
-        headers={header}
+        // headers={header}
         beforeUpload={beforeUpload}
         onChange={this.handleChange}
+        style={{
+          width:80,
+          height:80
+        }}
       >
-        {imageUrl ? <img src={imageUrl} alt="" /> : uploadButton}
+        {imageUrl ? <img src={imageUrl} alt="user avatar" style={{height:64,width:64}}/> : uploadButton}
       </Upload>
     );
   }

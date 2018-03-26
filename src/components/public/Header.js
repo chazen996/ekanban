@@ -3,6 +3,7 @@ import Navigator from './Navigator';
 import {Modal} from 'antd';
 import {observer} from 'mobx-react';
 // require('../../assets/css/header.css');
+import PublicuthKit from "../../utils/PublicAuthKit";
 import headStyles from "../../assets/css/header.css";
 import UserAvatar from "./UserAvatar";
 import HomeStore from "../../stores/HomeStore";
@@ -22,7 +23,7 @@ class Header extends Component{
         <img src={board} alt='board logo' style={{height: '72%',marginLeft:'3%',userSelect:'none'}}/>
         <img src={projectName} alt='project name' style={{height:'65%',marginLeft:'1%',userSelect:'none'}}/>
         <Navigator naviData={this.props.naviData}/>
-        <UserAvatar username='peng'/>
+        <UserAvatar username={PublicuthKit.getItem('username')}/>
 
 
         <Modal

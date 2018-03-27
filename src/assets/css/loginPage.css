@@ -1,3 +1,4 @@
+@import "global.css";
 .login-form {
   width: 381px;
   margin: 0 auto;
@@ -15,11 +16,7 @@
 .login-page{
   margin: 0 auto;
   width: 479px;
-  height: 83vh;
+  height: 529px;
   padding-top: 7%;
 }
 
-/* 覆盖antd默认样式 */
-.spin-mask{
-  max-height: none !important;
-}

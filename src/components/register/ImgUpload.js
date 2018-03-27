@@ -2,7 +2,7 @@ import { Upload, Icon, message } from 'antd';
 import {Component} from 'react';
 // import registerStyles from '../../assets/css/registerPage.css';
 import Config from '../../utils/Config';
-require("../../assets/css/registerPage.css");
+
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -22,7 +22,7 @@ function beforeUpload(file) {
   return isJPG && isLt2M;
 }
 
-class AuthUpload extends Component {
+class ImgUpload extends Component {
   state = {
     loading: false,
   };
@@ -64,7 +64,7 @@ class AuthUpload extends Component {
     return (
       <Upload
         name="avatar"
-        data={this.props.paraData}
+        data={this.props.imgTempName}
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
@@ -83,4 +83,4 @@ class AuthUpload extends Component {
   }
 }
 
-export default AuthUpload;
+export default ImgUpload;

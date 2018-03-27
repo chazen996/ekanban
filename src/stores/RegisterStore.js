@@ -1,4 +1,4 @@
-// import { observable,action,computed} from 'mobx';
+import { observable,action,computed} from 'mobx';
 import axios from 'axios';
 import PublicAuthKit from "../utils/PublicAuthKit";
 
@@ -7,15 +7,15 @@ class RegisterStore {
     PublicAuthKit.addAuthHeader();
   }
 
-  // @observable uploading = false;
-  //
-  // @computed get getUploading(){
-  //   return this.uploading;
-  // }
-  //
-  // @action setUploading(status){
-  //   this.uploading = status;
-  // }
+  @observable registerLoading = false;
+
+  @computed get getRegisterLoading(){
+    return this.registerLoading;
+  }
+
+  @action setRegisterLoading(status){
+    this.registerLoading = status;
+  }
 
   checkUsernameFromWebServer(username){
     return axios.get(`/auth/checkUsername?username=${username}`).catch(err=>{

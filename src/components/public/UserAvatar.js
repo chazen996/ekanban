@@ -38,7 +38,7 @@ class UserAvatar extends Component{
           </Menu.Item>
         </Menu>
       )}>
-        <img className={headStyles["user-avatar"]} src={`${Config.baseURL}/images/${this.props.username}.jpg` } alt='user avatar' />
+        <img className={headStyles["user-avatar"]} src={`${Config.baseURL}/images/${this.props.username}.jpg` } alt='avatar' />
       </Dropdown>
     );
   }

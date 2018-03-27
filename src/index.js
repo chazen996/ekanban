@@ -31,9 +31,9 @@ ReactDom.render((
   <div>
     <BrowserRouter>
       <div>
-        <AuthRoute exact path='/' ForLogin={true} component={LoginPage}/>
+        <AuthRoute exact path='/' component={HomePage}/>
         <AuthRoute path='/home' component={HomePage}/>
-        <Route path='/login' ForLogin={true} component={LoginPage}/>
+        <Route path='/login' component={LoginPage}/>
         <Route path='/register' component={RegisterPage}/>
       </div>
     </BrowserRouter>

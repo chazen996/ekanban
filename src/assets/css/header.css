@@ -1,9 +1,11 @@
+@import "global.css";
 .header-container{
   height: 62px;
   background: #e9ebef;
   display: flex;
   flex-flow: row;
   align-items: center;
+  box-shadow: 0 2px 8px #dad6d6;
 }
 
 .user-avatar{

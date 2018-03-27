@@ -53,7 +53,7 @@ class LoginPage extends Component{
     const { getFieldDecorator } = this.props.form;
     return (
       <Spin spinning={LoginStore.getLoadingStatus} size='large'
-            className={loginStyles["spin-mask"]}>
+            className="spin-mask">
         <div className={loginStyles["login-page"]}>
           <div style={{marginBottom:'6%'}}>
             <img src={board} alt='board logo' style={{width: '19%'}}/>
@@ -92,7 +92,7 @@ class LoginPage extends Component{
               </Button>
 
               <Button className={loginStyles["register-form-button"]} onClick={this.handleOnRegister}>
-                  立即注册
+                立即注册
               </Button>
             </FormItem>
           </Form>

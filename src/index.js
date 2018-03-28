@@ -35,6 +35,8 @@ ReactDom.render((
         <AuthRoute path='/home' component={HomePage}/>
         <Route path='/login' component={LoginPage}/>
         <Route path='/register' component={RegisterPage}/>
+        {/* 临时测试 */}
+        {/*<Route path='/test' component={ForgetPasswordContent}/>*/}
       </div>
     </BrowserRouter>
   </div>

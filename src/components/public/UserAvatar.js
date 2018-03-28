@@ -9,9 +9,6 @@ import PublicAuthKit from "../../utils/PublicAuthKit";
 
 @observer
 class UserAvatar extends Component{
-  handleOnChangePassword = ()=>{
-    HomeStore.setShowChangePasswordModal(true);
-  }
 
   handleOnLogOut = ()=>{
     /* 清除登陆信息并将页面重定向到login页面;清除token信息（header无需移除，每个store的header需要自行重新设置） */
@@ -27,7 +24,9 @@ class UserAvatar extends Component{
       <Dropdown overlay={(
         <Menu>
           <Menu.Item>
-            <a href="javascript:void(0)" onClick={this.handleOnChangePassword}>修改密码</a>
+            <a href="javascript:void(0)" onClick={()=>{
+              HomeStore.setShowChangePasswordModal(true);
+            }}>修改密码</a>
           </Menu.Item>
           <Menu.Item>
             <a href="javascript:void(0)">个人信息</a>

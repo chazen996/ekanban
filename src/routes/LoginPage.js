@@ -1,20 +1,21 @@
 import {Component} from 'react';
-import { Form,Icon,Input,Button,Spin,Checkbox,notification } from 'antd';
+import { Form,Icon,Input,Button,Spin,Checkbox,Modal } from 'antd';
 import {observer} from 'mobx-react';
 import LoginStore from '../stores/LoginStore';
 import PublicAuthKit from '../utils/PublicAuthKit';
+import ForgetPasswordContent from '../components/login/ForgetPasswordContent';
 
 import loginStyles from "../assets/css/loginPage.css";
 const board = require('../assets/images/board.png');
 const projectName = require('../assets/images/project-name.png');
 const FormItem = Form.Item;
 
-const openNotification = (description) => {
-  notification.open({
-    message: '消息提示：',
-    description: description,
-  });
-};
+// const openNotification = (description) => {
+//   notification.open({
+//     message: '消息提示：',
+//     description: description,
+//   });
+// };
 
 
 @observer
@@ -24,7 +25,7 @@ class LoginPage extends Component{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         // console.log('Received values of form: ', values);
-        LoginStore.setLoadingStatus(true);
+        LoginStore.setMaskLoadingStatus(true);
         LoginStore.getTokenFromWebServer(values).then(response => {
           if(response){
             /* 检查是否需要记住密码 */
@@ -38,7 +39,7 @@ class LoginPage extends Component{
 
             LoginStore.LoginSuccess(response.data.token,values);
             this.props.history.push("/home");
-            LoginStore.setLoadingStatus(false);
+            LoginStore.setMaskLoadingStatus(false);
           }
         });
       }
@@ -49,11 +50,25 @@ class LoginPage extends Component{
     this.props.history.push("/register");
   }
 
+
   render(){
     const { getFieldDecorator } = this.props.form;
     return (
-      <Spin spinning={LoginStore.getLoadingStatus} size='large'
+      <Spin spinning={LoginStore.getMaskLoadingStatus} size='large'
             className="spin-mask">
+        <Modal
+          title="忘记密码"
+          visible={LoginStore.getShowForgetPasswordModal}
+          footer={null}
+          onCancel={()=>{
+            LoginStore.setShowChangePasswordModal(false);
+            LoginStore.setCurrentStep(0);
+          }}
+        >
+          <ForgetPasswordContent/>
+        </Modal>
+
+
         <div className={loginStyles["login-page"]}>
           <div style={{marginBottom:'6%'}}>
             <img src={board} alt='board logo' style={{width: '19%'}}/>
@@ -86,7 +101,9 @@ class LoginPage extends Component{
               })(
                 <Checkbox>记住用户名和密码</Checkbox>
               )}
-              <a className={loginStyles["login-form-forgot"]} href="javascript:void(0)" onClick={openNotification.bind(this,'如需修改密码，请联系管理员')}><Icon type="question-circle-o" style={{color:'#01368a'}} />&ensp;忘记密码</a>
+              <a className={loginStyles["login-form-forgot"]} href="javascript:void(0)" onClick={()=>{
+                LoginStore.setShowChangePasswordModal(true);
+              }}><Icon type="question-circle-o" style={{color:'#01368a'}} />&ensp;忘记密码</a>
               <Button type="primary" htmlType="submit" className={loginStyles["login-form-button"]}>
                 登陆
               </Button>

@@ -9,15 +9,41 @@ axios.defaults.baseURL = Config.baseURL;
 axios.defaults.headers['Content-Type'] = Config.ContentType;
 
 class LoginStore {
+  @observable maskLoadingStatus = false;
+  @observable showForgetPasswordModal = false;
+  @observable currentStep = 0;
+  @observable confirmChangePasswordButtonLoadingStatus = false;
 
-  @observable loadingStatus = false;
-
-  @computed get getLoadingStatus(){
-    return this.loadingStatus;
+  @computed get getMaskLoadingStatus(){
+    return this.maskLoadingStatus;
   }
 
-  @action setLoadingStatus(status) {
-    this.loadingStatus = status;
+  @computed get getShowForgetPasswordModal(){
+    return this.showForgetPasswordModal;
+  }
+
+  @computed get getCurrentStep(){
+    return this.currentStep;
+  }
+
+  @computed get getConfirmChangePasswordButtonLoadingStatus(){
+    return this.confirmChangePasswordButtonLoadingStatus;
+  }
+
+  @action setMaskLoadingStatus(status) {
+    this.maskLoadingStatus = status;
+  }
+
+  @action setShowChangePasswordModal(status) {
+    this.showForgetPasswordModal = status;
+  }
+
+  @action setCurrentStep(currentStep) {
+    this.currentStep = currentStep;
+  }
+
+  @action setConfirmChangePasswordButtonLoadingStatus(status){
+    this.confirmChangePasswordButtonLoadingStatus = status;
   }
 
   /* 登陆成功后设置登陆状态；为请求头增设token */
@@ -86,6 +112,24 @@ class LoginStore {
 
       message.error(errMessage);
     })
+  }
+
+  checkUsernameFromWebServer(username){
+    return axios.get(`/auth/checkUsername?username=${username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  confirmUserIdentity(targetUser){
+    return axios.post(`/auth/confirmUserIdentity`,JSON.stringify(targetUser)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  updatePasswordWithSecretQuestion(targetUser){
+    return axios.post(`/auth/updatePasswordWithSecretQuestion`,JSON.stringify(targetUser)).catch(err=>{
+      console.log(err);
+    });
   }
 
 }

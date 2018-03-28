@@ -85,7 +85,7 @@ class RegisterPage extends Component{
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
     if (value && value !== form.getFieldValue('password')) {
-      callback('两次密码输入不相同，请重新输入!');
+      callback('两次密码输入不同!');
     } else {
       callback();
     }
@@ -97,21 +97,31 @@ class RegisterPage extends Component{
   }
 
   validateUsername = (rule, value, callback) =>{
-    if(value==null||value===""){
-      callback();
-    }else{
-      RegisterStore.checkUsernameFromWebServer(value).then(response => {
-        if(response){
-          if(response.data==="have"){
-            callback("用户名已存在，请重新输入！");
-          }else if(response.data==="not-have"){
-            callback();
-          }
-        }else{
-          callback("网络异常，无法确认用户名是否有效，请稍后重试！");
+    RegisterStore.checkUsernameFromWebServer(value).then(response => {
+      if(response){
+        if(response.data==="have"){
+          callback("用户名已存在，请重新输入！");
+        }else if(response.data==="not-have"){
+          callback();
         }
-      });
-    }
+      }else{
+        callback("网络异常，无法确认用户名是否有效，请稍后重试！");
+      }
+    });
+  }
+
+  validateEmailAddress = (rule, value, callback)=>{
+    RegisterStore.checkEmailAddressFromWebServer(value).then(response => {
+      if(response){
+        if(response.data==="have"){
+          callback("当前邮箱已被使用，请重新输入！");
+        }else if(response.data==="not-have"){
+          callback();
+        }
+      }else{
+        callback("网络异常，无法确认邮箱地址是否有效，请稍后重试！");
+      }
+    });
   }
 
   render(){
@@ -182,7 +192,8 @@ class RegisterPage extends Component{
                     required: true, message: '请输入用户名！',
                   },{
                     validator: this.validateUsername
-                  }]
+                  }],
+                  validateFirst:true
                 })(
                   <Input placeholder="请输入用户名"/>
                 )}
@@ -226,7 +237,10 @@ class RegisterPage extends Component{
                     type: 'email', message: '邮箱格式不正确！',
                   }, {
                     required: true, message: '请输入邮箱地址！',
+                  },{
+                    validator:this.validateEmailAddress
                   }],
+                  validateFirst:true
                 })(
                   <Input placeholder="请输入您的常用邮箱" />
                 )}
@@ -237,7 +251,7 @@ class RegisterPage extends Component{
                 {...formItemLayout}>
                 {getFieldDecorator('secretQuestion', {
                   rules: [
-                    { required: true, message: '请选择密保问题!' },
+                    { required: true, message: '请选择密保问题！' },
                   ],initialValue:0
                 })(
                   <Select>

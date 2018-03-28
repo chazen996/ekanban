@@ -13,9 +13,6 @@ const projectName = require('../../assets/images/project-name.png');
 
 @observer
 class Header extends Component{
-  handleOnCancelChangePassword = ()=>{
-    HomeStore.setShowChangePasswordModal(false);
-  }
 
   render(){
     return(
@@ -31,7 +28,9 @@ class Header extends Component{
           visible={HomeStore.getShowChangePasswordModal}
           okText="确认"
           cancelText="取消"
-          onCancel={this.handleOnCancelChangePassword}
+          onCancel={()=>{
+            HomeStore.setShowChangePasswordModal(false);
+          }}
         >
           <p>Some contents...</p>
           <p>Some contents...</p>

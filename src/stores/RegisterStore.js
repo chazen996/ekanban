@@ -23,6 +23,12 @@ class RegisterStore {
     });
   }
 
+  checkEmailAddressFromWebServer(emailAddress){
+    return axios.get(`/auth/checkEmailAddress?emailAddress=${emailAddress}`).catch(err=>{
+      console.log(err);
+    })
+  }
+
   registerUser(user,tempAvatarName){
     return axios.post(`/auth/register?tempAvatarName=${tempAvatarName}`,JSON.stringify(user)).catch(err=>{
       console.log(err);

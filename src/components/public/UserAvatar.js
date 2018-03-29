@@ -10,15 +10,6 @@ import PublicAuthKit from "../../utils/PublicAuthKit";
 @observer
 class UserAvatar extends Component{
 
-  handleOnLogOut = ()=>{
-    /* 清除登陆信息并将页面重定向到login页面;清除token信息（header无需移除，每个store的header需要自行重新设置） */
-    PublicAuthKit.removeItem('username');
-    PublicAuthKit.removeItem('loginStatus');
-    PublicAuthKit.removeItem('token');
-
-    this.props.history.push("/login");
-  }
-
   render(){
     return (
       <Dropdown overlay={(
@@ -29,11 +20,15 @@ class UserAvatar extends Component{
             }}>修改密码</a>
           </Menu.Item>
           <Menu.Item>
-            <a href="javascript:void(0)">个人信息</a>
+            <a href="javascript:void(0)" onClick={()=>{
+              HomeStore.setShowPersonalInfoModal(true);
+              HomeStore.setUserInfoMaskLoadingStatus(true);
+              HomeStore.loadUserInfoFromWebServer(PublicAuthKit.getItem('username'));
+            }}>个人信息</a>
           </Menu.Item>
           <Menu.Divider/>
           <Menu.Item>
-            <a href="javascript:void(0)" onClick={this.handleOnLogOut}>退出登陆</a>
+            <a href="javascript:void(0)" onClick={this.props.handleOnLogOut}>退出登陆</a>
           </Menu.Item>
         </Menu>
       )}>

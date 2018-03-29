@@ -1,12 +1,11 @@
 import { observable,action,computed} from 'mobx';
 import axios from 'axios';
 import PublicAuthKit from '../utils/PublicAuthKit';
-import Config from '../utils/Config';
+// import Config from '../utils/Config';
 import {message} from 'antd';
 
 /* 全局配置baseURL和Content-Type类型 */
-axios.defaults.baseURL = Config.baseURL;
-axios.defaults.headers['Content-Type'] = Config.ContentType;
+
 
 class LoginStore {
   @observable maskLoadingStatus = false;
@@ -58,7 +57,7 @@ class LoginStore {
   /* 访问后台服务器获取token */
   getTokenFromWebServer(SysUser){
     return axios.post('/auth/',JSON.stringify(SysUser)).catch(err => {
-      this.setLoadingStatus(false);
+      this.setMaskLoadingStatus(false);
       console.log(err);
       let errMessage = null;
       if (err && err.response) {

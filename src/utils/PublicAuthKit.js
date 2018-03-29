@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Config from "./Config";
 /* 使用AES对称加密算法：对数据进行加密解密操作 */
 const crypto = require('crypto');
 
@@ -71,6 +72,9 @@ class PublicAuthKit{
   addAuthHeader(){
     const token = this.getItem('token');
     axios.defaults.headers['Authorization'] = token;
+
+    axios.defaults.baseURL = Config.baseURL;
+    axios.defaults.headers['Content-Type'] = Config.ContentType;
   }
 
   /* 利用随机数和时间戳生成一个不会重复的ID,并将其入队 */

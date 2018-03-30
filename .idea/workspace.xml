@@ -6,22 +6,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/assets/css/homePage.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/home/ProjectCard.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/header.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/assets/yay.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/Example.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/Test1.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/Test2.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/components/public/Header.js" afterPath="$PROJECT_DIR$/src/components/public/Header.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/public/UserAvatar.js" afterPath="$PROJECT_DIR$/src/components/public/UserAvatar.js" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
       <change beforePath="$PROJECT_DIR$/src/routes/HomePage.js" afterPath="$PROJECT_DIR$/src/routes/HomePage.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes/RegisterPage.js" afterPath="$PROJECT_DIR$/src/routes/RegisterPage.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/HomeStore.js" afterPath="$PROJECT_DIR$/src/stores/HomeStore.js" />
-      <change beforePath="$PROJECT_DIR$/src/utils/PublicAuthKit.js" afterPath="$PROJECT_DIR$/src/utils/PublicAuthKit.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -51,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeStore.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HomeStore.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stores/HomeStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="77" column="49" lean-forward="false" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
+            <state relative-caret-position="1060">
+              <caret line="74" column="11" lean-forward="true" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -111,14 +97,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HomePage.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/routes/HomePage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="154" column="71" lean-forward="false" selection-start-line="154" selection-start-column="71" selection-end-line="154" selection-end-column="71" />
+            <state relative-caret-position="220">
+              <caret line="56" column="9" lean-forward="true" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
-                <element signature="e#2736#4005#0" expanded="false" />
+                <element signature="e#2796#4065#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -274,8 +260,8 @@
         <option value="$PROJECT_DIR$/src/assets/css/homePage.css" />
         <option value="$PROJECT_DIR$/src/components/home/ProjectCard.js" />
         <option value="$PROJECT_DIR$/src/components/public/Header.js" />
-        <option value="$PROJECT_DIR$/src/routes/HomePage.js" />
         <option value="$PROJECT_DIR$/src/stores/HomeStore.js" />
+        <option value="$PROJECT_DIR$/src/routes/HomePage.js" />
       </list>
     </option>
   </component>
@@ -463,7 +449,7 @@
       <workItem from="1522118381168" duration="16620000" />
       <workItem from="1522209555959" duration="21840000" />
       <workItem from="1522299017508" duration="19679000" />
-      <workItem from="1522378215129" duration="26054000" />
+      <workItem from="1522378215129" duration="26500000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -556,11 +542,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522339439899</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="[commit] 实现了首页项目渲染；新建项目的功能">
+      <created>1522429396688</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1522429396688</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218759000" />
+    <option name="totallyTimeSpent" value="219205000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -605,7 +598,8 @@
     <MESSAGE value="[commit] 优化了css文件结构；完善了用户注册页面(仅剩最后的电子邮件查重验证)" />
     <MESSAGE value="[commit] 实现了电子邮件查重验证功能；完成了忘记密码的模态框和分步条的设计与实现；调整部分模糊store字段名称；添加了了页面ico" />
     <MESSAGE value="[commit] 实现了修改用户头像的功能，用户可在登陆后在个人信息页面修改个人头像；实现并完善了用户个人页面的信息展示；实现并完善了修改用户密码的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 实现了修改用户头像的功能，用户可在登陆后在个人信息页面修改个人头像；实现并完善了用户个人页面的信息展示；实现并完善了修改用户密码的功能" />
+    <MESSAGE value="[commit] 实现了首页项目渲染；新建项目的功能" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 实现了首页项目渲染；新建项目的功能" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -989,23 +983,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/HomePage.js">
+    <entry file="file://$PROJECT_DIR$/src/stores/HomeStore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="154" column="71" lean-forward="false" selection-start-line="154" selection-start-column="71" selection-end-line="154" selection-end-column="71" />
+        <state relative-caret-position="1060">
+          <caret line="74" column="11" lean-forward="true" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#2736#4005#0" expanded="false" />
+            <element signature="e#0#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stores/HomeStore.js">
+    <entry file="file://$PROJECT_DIR$/src/routes/HomePage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="77" column="49" lean-forward="false" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
+        <state relative-caret-position="220">
+          <caret line="56" column="9" lean-forward="true" selection-start-line="56" selection-start-column="9" selection-end-line="56" selection-end-column="9" />
           <folding>
-            <element signature="e#0#49#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#2796#4065#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -52,7 +52,8 @@ class HomePage extends Component{
         );
       }else{
         participatingProject.push(
-          <ProjectCard projectName={project['projectName']} projectDescription={project['projectDescription']}/>
+          <ProjectCard projectName={project['projectName']}
+                       projectDescription={project['projectDescription']} createdDate={project['createdDate']}/>
         );
       }
     }

@@ -4,8 +4,8 @@ import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import HomeStore from '../../stores/HomeStore';
 import Config from '../../utils/Config';
-import headStyles from "../../assets/css/header.css";
-import PublicAuthKit from "../../utils/PublicAuthKit";
+import homePageStyles from "../../assets/css/homePage.css";
+// import PublicAuthKit from "../../utils/PublicAuthKit";
 
 @observer
 class UserAvatar extends Component{
@@ -22,8 +22,8 @@ class UserAvatar extends Component{
           <Menu.Item>
             <a href="javascript:void(0)" onClick={()=>{
               HomeStore.setShowPersonalInfoModal(true);
-              HomeStore.setUserInfoMaskLoadingStatus(true);
-              HomeStore.loadUserInfoFromWebServer(PublicAuthKit.getItem('username'));
+              // HomeStore.setUserInfoMaskLoadingStatus(true);
+              // HomeStore.loadUserInfoFromWebServer(PublicAuthKit.getItem('username'));
             }}>个人信息</a>
           </Menu.Item>
           <Menu.Divider/>
@@ -32,7 +32,7 @@ class UserAvatar extends Component{
           </Menu.Item>
         </Menu>
       )}>
-        <img className={headStyles["user-avatar"]} src={`${Config.baseURL}/images/${this.props.username}.jpg` } alt='avatar' />
+        <img className={homePageStyles["user-avatar"]} src={`${Config.baseURL}/images/${this.props.username}.jpg` } alt='avatar' />
       </Dropdown>
     );
   }

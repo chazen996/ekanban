@@ -83,6 +83,25 @@ class PublicAuthKit{
       Math.random().toString().substr(
         3, randomLength) + Date.now()).toString(36);
   }
+
+  /* 深度拷贝函数 */
+  deepCopy(obj) {
+    if (obj instanceof Array) {
+      const array = [];
+      for (let i = 0; i < obj.length; i += 1) {
+        array[i] = this.deepCopy(obj[i]);
+      }
+      return array;
+    } else if (obj instanceof Object) {
+      const newObj = {};
+      Object.keys(obj).forEach((field) => {
+        newObj[field] = this.deepCopy(obj[field]);
+      });
+      return newObj;
+    } else {
+      return obj;
+    }
+  }
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

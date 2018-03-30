@@ -1,4 +1,5 @@
 import { observable,action,computed} from 'mobx';
+import {message} from 'antd';
 import axios from 'axios';
 import PublicAuthKit from "../utils/PublicAuthKit";
 
@@ -9,9 +10,13 @@ class HomeStore {
 
   @observable showChangePasswordModal = false;
   @observable showPersonalInfoModal = false;
-  @observable userInfoMaskLoadingStatus = false;
+  @observable userInfoMaskLoadingStatus = true;
   @observable userInfo = {};
   @observable personalInfoButtonDisabled = true;
+  @observable homePageMaskLoadingStatus = true;
+  @observable projects = [];
+  @observable showCreateProjectModal = false;
+  @observable createProjectMaskLoadingStatus = false;
 
   @computed get getShowChangePasswordModal(){
     return this.showChangePasswordModal;
@@ -29,6 +34,18 @@ class HomeStore {
   }
   @computed get getPersonalInfoButtonDisabled(){
     return this.personalInfoButtonDisabled;
+  }
+  @computed get getHomePageMaskLoadingStatus(){
+    return this.homePageMaskLoadingStatus;
+  }
+  @computed get getProjects(){
+    return this.projects;
+  }
+  @computed get getShowCreateProjectModal(){
+    return this.showCreateProjectModal;
+  }
+  @computed get getCreateProjectMaskLoadingStatus(){
+    return this.createProjectMaskLoadingStatus;
   }
 
   @action setShowChangePasswordModal(status){
@@ -48,12 +65,40 @@ class HomeStore {
       this.setUserInfoMaskLoadingStatus(false);
       if(response){
         this.userInfo = response.data;
+        this.getProjectFromWebServer(this.userInfo['username']).then(response=>{
+          this.setHomePageMaskLoadingStatus(false);
+          /* 无数据时返回的时null */
+          if(response){
+            this.setProjects(response.data);
+          }else{
+            message.error('网络错误，请稍后再试！');
+          }
+        });
+      }else{
+        this.setHomePageMaskLoadingStatus(false);
+        message.error('网络错误，请稍后再试！');
       }
     });
   }
 
   @action setPersonalInfoButtonDisabled(status){
     this.personalInfoButtonDisabled = status;
+  }
+
+  @action setHomePageMaskLoadingStatus(status){
+    this.homePageMaskLoadingStatus = status;
+  }
+
+  @action setProjects(projects){
+    this.projects = projects;
+  }
+
+  @action setShowCreateProjectModal(status){
+    this.showCreateProjectModal = status;
+  }
+
+  @action setCreateProjectMaskLoadingStatus(status){
+    this.createProjectMaskLoadingStatus = status;
   }
 
   updatePassword(user,oldPassword){
@@ -70,6 +115,18 @@ class HomeStore {
 
   changeUserAvatar(username){
     return axios.get(`user/changeUserAvatar?username=${username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  getProjectFromWebServer(username){
+    return axios.get(`project/getProject?username=${username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  createProject(project,username){
+    return axios.post(`project/createProject?username=${username}`,JSON.stringify(project)).catch(err=>{
       console.log(err);
     });
   }

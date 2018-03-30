@@ -4,7 +4,7 @@ import {Modal,Form,Input,message,Spin,Button} from 'antd';
 import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import PublicAuthKit from "../../utils/PublicAuthKit";
-import headStyles from "../../assets/css/header.css";
+import homePageStyles from "../../assets/css/homePage.css";
 import UserAvatar from "./UserAvatar";
 import HomeStore from "../../stores/HomeStore";
 import ImgUpload from "../home/ImgUpload";
@@ -60,7 +60,7 @@ class Header extends Component{
     const { getFieldDecorator } = this.props.form;
     const userInfo = HomeStore.getUserInfo;
     return(
-      <div className={headStyles["header-container"]}>
+      <div className={homePageStyles["header-container"]} id="header">
         <img src={board} alt='board logo' style={{height: '72%',marginLeft:'3%',userSelect:'none'}}/>
         <img src={projectName} alt='project name' style={{height:'65%',marginLeft:'1%',userSelect:'none'}}/>
         <Navigator naviData={this.props.naviData}/>
@@ -80,7 +80,7 @@ class Header extends Component{
             this.props.form.validateFieldsAndScroll((err, values) => {
               if(!err){
                 targetUser["username"] = PublicAuthKit.getItem('username');
-                targetUser["password"] = this.props.form.getFieldValue('password')
+                targetUser["password"] = this.props.form.getFieldValue('password');
                 const oldPassword = this.props.form.getFieldValue('oldPassword');
                 HomeStore.updatePassword(targetUser,oldPassword).then(response=>{
                   if(response){
@@ -173,7 +173,7 @@ class Header extends Component{
             });
           }}
         >
-          <Spin spinning={HomeStore.getUserInfoMaskLoadingStatus}>
+          <Spin spinning={HomeStore.getUserInfoMaskLoadingStatus} size='large' className="spin-mask">
             <div>
               <ImgUpload username={PublicAuthKit.getItem('username')}/>
               <div>

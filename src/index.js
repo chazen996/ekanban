@@ -24,6 +24,7 @@ import LoginPage from "./routes/LoginPage"
 import AuthRoute from "./components/public/AuthRoute";
 import HomePage from "./routes/HomePage";
 import RegisterPage from "./routes/RegisterPage";
+import ProjectCard from "./components/home/ProjectCard";
 // import Head from "./components/public/Head";
 // import LoginRoute from "./components/LoginRoute";
 
@@ -36,7 +37,7 @@ ReactDom.render((
         <Route path='/login' component={LoginPage}/>
         <Route path='/register' component={RegisterPage}/>
         {/* 临时测试 */}
-        {/*<Route path='/test' component={ForgetPasswordContent}/>*/}
+        <Route path='/test' component={ProjectCard}/>
       </div>
     </BrowserRouter>
   </div>

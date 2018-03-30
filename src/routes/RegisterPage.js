@@ -26,7 +26,6 @@ class RegisterPage extends Component{
   }
 
   componentDidMount(){
-    // alert("我被执行了");
     this.resizeBodyContent();
     window.onresize = () => {
       this.resizeBodyContent();

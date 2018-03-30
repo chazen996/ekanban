@@ -21,3 +21,14 @@
 .user-avatar:hover{
   border: 1px solid white;
 }
+
+.project-card{
+  width: 220px;
+  margin: 12px 19px;
+}
+
+.project-card-container{
+  display:flex;
+  flex-wrap:wrap;
+  min-height: 140px;
+}

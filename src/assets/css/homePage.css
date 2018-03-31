@@ -23,12 +23,21 @@
 }
 
 .project-card{
-  width: 220px;
-  margin: 12px 19px;
+  width: 234px;
+  margin: 14px 14px;
 }
 
 .project-card-container{
   display:flex;
   flex-wrap:wrap;
   min-height: 140px;
+}
+
+:global(.ant-collapse-content-box){
+  padding:0 !important;
+  padding-bottom: 12px !important;
+  padding-right: 14px !important;
+}
+:global(.ant-collapse-content.ant-collapse-content-active){
+  padding:0 !important;
 }

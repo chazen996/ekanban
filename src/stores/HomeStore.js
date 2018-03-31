@@ -15,6 +15,7 @@ class HomeStore {
   @observable personalInfoButtonDisabled = true;
   @observable homePageMaskLoadingStatus = true;
   @observable projects = [];
+  @observable projectsBackUp = [];
   @observable showCreateProjectModal = false;
   @observable createProjectMaskLoadingStatus = false;
 
@@ -47,6 +48,9 @@ class HomeStore {
   @computed get getCreateProjectMaskLoadingStatus(){
     return this.createProjectMaskLoadingStatus;
   }
+  @computed get getProjectsBackUp(){
+    return this.projectsBackUp;
+  }
 
   @action setShowChangePasswordModal(status){
     this.showChangePasswordModal = status;
@@ -67,9 +71,10 @@ class HomeStore {
         this.userInfo = response.data;
         this.getProjectFromWebServer(this.userInfo['username']).then(response=>{
           this.setHomePageMaskLoadingStatus(false);
-          /* 无数据时返回的时null */
+          /* 无数据时返回的是null */
           if(response){
             this.setProjects(response.data);
+            this.setProjectsBackUp(response.data);
           }else{
             message.error('网络错误，请稍后再试！');
           }
@@ -101,6 +106,10 @@ class HomeStore {
     this.createProjectMaskLoadingStatus = status;
   }
 
+  @action setProjectsBackUp(projects){
+    this.projectsBackUp = projects;
+  }
+
   updatePassword(user,oldPassword){
     return axios.post(`user/updatePassword?oldPassword=${oldPassword}`,JSON.stringify(user)).catch(err=>{
       console.log(err);
@@ -129,6 +138,12 @@ class HomeStore {
     return axios.post(`project/createProject?username=${username}`,JSON.stringify(project)).catch(err=>{
       console.log(err);
     });
+  }
+
+  deleteProject(projectId,username){
+    return axios.get(`project/deleteProject?username=${username}&projectId=${projectId}`).catch(err=>{
+      console.log(err);
+    })
   }
 }
 

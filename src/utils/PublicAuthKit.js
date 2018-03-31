@@ -102,6 +102,11 @@ class PublicAuthKit{
       return obj;
     }
   }
+
+  /* 删除两端的空格 */
+  trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, '');
+  }
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

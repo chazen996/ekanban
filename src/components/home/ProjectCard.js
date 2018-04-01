@@ -1,36 +1,15 @@
 import {Component} from 'react';
-import {Card,Icon,Dropdown,Menu,message} from 'antd';
+import {Card,Icon,Dropdown,Menu} from 'antd';
 import homePageStyles from '../../assets/css/homePage.css';
-import HomeStore from '../../stores/HomeStore';
-import PublicAuthKit from '../../utils/PublicAuthKit';
 
 class ProjectCard extends Component{
 
-  handleOnDelete=(projectId)=>{
-    HomeStore.setHomePageMaskLoadingStatus(true);
-    HomeStore.deleteProject(projectId,PublicAuthKit.getItem('username')).then(response=>{
-      if(response){
-        if(response.data==='success'){
-          /* 删除成功后需要刷新数据源 */
-          HomeStore.getProjectFromWebServer(PublicAuthKit.getItem('username')).then(response=>{
-            HomeStore.setCreateProjectMaskLoadingStatus(false);
-            if(response){
-              HomeStore.setHomePageMaskLoadingStatus(false);
-              message.success('删除成功');
-              HomeStore.setProjects(response.data);
-              HomeStore.setProjectsBackUp(response.data);
-            }else{
-              message.error('网络错误，请稍后再试！');
-            }
-          });
-        }else if(response.data==='failure'){
-          message.error('删除失败，请稍后再试！');
-        }
-      }else{
-        HomeStore.setHomePageMaskLoadingStatus(false);
-        message.error('网络错误，请稍后再试！');
-      }
-    });
+  handleOnDeleteProject=(projectId)=>{
+    this.props.handleOnDeleteProject(projectId);
+  };
+
+  handleOnEditProject=(projectId)=>{
+    this.props.handleOnEditProject(projectId);
   };
   render(){
     const createdDateStr = this.props.createdDate;
@@ -44,18 +23,20 @@ class ProjectCard extends Component{
                   <Menu>
                     <Menu.Item>
                       {!this.props.operable?(
-                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}}>编辑</a>
-                      ):(
-                        <a href="javascript:void(0)" onClick={()=>{
-
+                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
+                          this.props.handleOnCannotClick();
                         }}>编辑</a>
+                      ):(
+                        <a href="javascript:void(0)" onClick={this.handleOnEditProject.bind(this,projectId)}>编辑</a>
                       )}
                     </Menu.Item>
                     <Menu.Item>
                       {!this.props.operable?(
-                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}}>删除</a>
+                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
+                          this.props.handleOnCannotClick();
+                        }}>删除</a>
                       ):(
-                        <a href="javascript:void(0)" onClick={this.handleOnDelete.bind(this,projectId)}>删除</a>
+                        <a href="javascript:void(0)" onClick={this.handleOnDeleteProject.bind(this,projectId)}>删除</a>
                       )}
 
                     </Menu.Item>

@@ -18,6 +18,9 @@ class HomeStore {
   @observable projectsBackUp = [];
   @observable showCreateProjectModal = false;
   @observable createProjectMaskLoadingStatus = false;
+  @observable editTargetProjectId = -1;
+  @observable showEditTargetProjectModal = false;
+  @observable editProjectMaskLoadingStatus = false;
 
   @computed get getShowChangePasswordModal(){
     return this.showChangePasswordModal;
@@ -50,6 +53,18 @@ class HomeStore {
   }
   @computed get getProjectsBackUp(){
     return this.projectsBackUp;
+  }
+
+  @computed get getShowEditTargetProjectModal(){
+    return this.showEditTargetProjectModal;
+  }
+
+  @computed get getEditTargetProjectId(){
+    return this.editTargetProjectId;
+  }
+
+  @computed get getEditProjectMaskLoadingStatus(){
+    return this.editProjectMaskLoadingStatus;
   }
 
   @action setShowChangePasswordModal(status){
@@ -110,6 +125,18 @@ class HomeStore {
     this.projectsBackUp = projects;
   }
 
+  @action setEditTargetProjectId(projectId){
+    this.editTargetProjectId = projectId;
+  }
+
+  @action setShowEditTargetProjectModal(status){
+    this.showEditTargetProjectModal = status;
+  }
+
+  @action setEditProjectMaskLoadingStatus(status){
+    this.editProjectMaskLoadingStatus = status;
+  }
+
   updatePassword(user,oldPassword){
     return axios.post(`user/updatePassword?oldPassword=${oldPassword}`,JSON.stringify(user)).catch(err=>{
       console.log(err);
@@ -144,6 +171,12 @@ class HomeStore {
     return axios.get(`project/deleteProject?username=${username}&projectId=${projectId}`).catch(err=>{
       console.log(err);
     })
+  }
+
+  updateProject(project,username){
+    return axios.post(`project/updateProject?username=${username}`,JSON.stringify(project)).catch(err=>{
+      console.log(err);
+    });
   }
 }
 

@@ -2,13 +2,15 @@ import {Component} from 'react';
 import {Spin,Collapse,Icon,Modal,Form,Input,message,Table,Divider,Tag,Pagination} from 'antd';
 import {observer} from 'mobx-react';
 import Header from '../components/public/Header';
+import EditProjectModal from '../components/home/EditProjectModal';
+import CreateProjectModal from '../components/home/CreateProjectModal';
 import HomeStore from '../stores/HomeStore';
 import PublicAuthKit from '../utils/PublicAuthKit';
 import ProjectCard from '../components/home/ProjectCard';
 import homePageStyles from "../assets/css/homePage.css";
 
 const Panel = Collapse.Panel;
-const FormItem = Form.Item;
+// const FormItem = Form.Item;
 const Search = Input.Search;
 
 @observer
@@ -60,6 +62,52 @@ class HomePage extends Component{
     HomeStore.setProjects(resultArray);
   }
 
+  handleOnDeleteProject = (projectId)=>{
+    Modal.confirm({
+      title: '您确定要删除此项目?',
+      content: '删除项目后将无法恢复，请谨慎操作',
+      okText:'确认',
+      cancelText:'取消',
+      onOk() {
+        HomeStore.setHomePageMaskLoadingStatus(true);
+        HomeStore.deleteProject(projectId,PublicAuthKit.getItem('username')).then(response=>{
+          if(response){
+            if(response.data==='success'){
+              /* 删除成功后需要刷新数据源 */
+              HomeStore.getProjectFromWebServer(PublicAuthKit.getItem('username')).then(response=>{
+                HomeStore.setCreateProjectMaskLoadingStatus(false);
+                if(response){
+                  HomeStore.setHomePageMaskLoadingStatus(false);
+                  message.success('删除成功');
+                  HomeStore.setProjects(response.data);
+                  HomeStore.setProjectsBackUp(response.data);
+                }else{
+                  message.error('网络错误，请稍后再试！');
+                }
+              });
+            }else if(response.data==='failure'){
+              message.error('删除失败，请稍后再试！');
+            }
+          }else{
+            HomeStore.setHomePageMaskLoadingStatus(false);
+            message.error('网络错误，请稍后再试！');
+          }
+        });
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
+
+  handleOnCannotClick = ()=>{
+    message.warning('权限不足，无法进行相关操作');
+  }
+
+  handleOnEditProject = (projectId)=>{
+    HomeStore.setEditTargetProjectId(projectId);
+    HomeStore.setShowEditTargetProjectModal(true);
+  }
 
   render(){
     const naviData = {
@@ -77,7 +125,8 @@ class HomePage extends Component{
       for(let project of projects){
         const projectItem = (
           <ProjectCard key={project['projectId']} projectName={project['projectName']} operable={project['createdBy']===userInfo['id']}
-                       projectId={project['projectId']}  projectDescription={project['projectDescription']} createdDate={project['createdDate']}/>);
+                       projectId={project['projectId']}  projectDescription={project['projectDescription']} handleOnCannotClick={this.handleOnCannotClick}
+                       createdDate={project['createdDate']} handleOnDeleteProject={this.handleOnDeleteProject} handleOnEditProject={this.handleOnEditProject}/>);
         if(project['createdBy']===userInfo['id']){
           ownerProject.push(
             projectItem
@@ -109,7 +158,8 @@ class HomePage extends Component{
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                paddingTop: 14
               }}>
                 <span style={{ color: 'rgba(0,0,0,0.45)'}}>暂无内容</span>
               </div>
@@ -137,7 +187,8 @@ class HomePage extends Component{
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                paddingTop: 14
               }}>
                 <span style={{ color: 'rgba(0,0,0,0.45)'}}>暂无内容</span>
               </div>
@@ -167,7 +218,16 @@ class HomePage extends Component{
         title: '项目名称',
         dataIndex: 'projectName',
         key: 'projectName',
-        width:'15%'
+        width:'15%',
+        sorter: (a, b) => {
+          if(a.projectName>b.projectName){
+            return 1;
+          }else if(a.projectName===b.projectName){
+            return 0;
+          }else{
+            return -1;
+          }
+        }
       }, {
         title:'用户角色',
         key:'userRole',
@@ -188,16 +248,33 @@ class HomePage extends Component{
         title: '创建时间',
         dataIndex: 'createdDate',
         key: 'createdDate',
-        width:'20%'
+        width:'20%',
+        sorter: (a, b) => {
+          if(a.createdDate>b.createdDate){
+            return 1;
+          }else if(a.createdDate===b.createdDate){
+            return 0;
+          }else{
+            return -1;
+          }
+        }
       },{
         title: '操作',
         key: 'action',
         width:'10%',
         render: (text, record) => (
           <span>
-            <Icon type="delete" />
+            {record.createdBy===userInfo['id']?(
+              <Icon type="delete" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnDeleteProject.bind(this,record.projectId)}/>
+            ):(
+              <Icon type="delete" style={{cursor:'not-allowed'}} onClick={this.handleOnCannotClick}/>
+            )}
             <Divider type="vertical" />
-            <Icon type="edit" />
+            {record.createdBy===userInfo['id']?(
+              <Icon type="edit" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnEditProject.bind(this,record.projectId)}/>
+            ):(
+              <Icon type="edit" style={{cursor:'not-allowed'}} onClick={this.handleOnCannotClick}/>
+            )}
           </span>
         ),
       }];
@@ -210,8 +287,7 @@ class HomePage extends Component{
       result = (<Table dataSource={projects} columns={columns} locale={{emptyText:'暂无数据',}} />);
     }
 
-
-    const { getFieldDecorator } = this.props.form;
+    // const { getFieldDecorator } = this.props.form;
     return (
       <Spin spinning={HomeStore.getHomePageMaskLoadingStatus} size='large' className="spin-mask">
         <Header naviData={naviData}/>
@@ -242,7 +318,8 @@ class HomePage extends Component{
                 placeholder="输入项目名称"
                 onChange={this.handleOnSearch}
                 enterButton
-                style={{width:350,position:'absolute',right:0}}
+                style={{width:350,position:'absolute',right:0,height:30 }}
+
               />
             </div>
             <div>
@@ -251,75 +328,9 @@ class HomePage extends Component{
           </div>
         </div>
 
-        <Modal
-          title="新建项目"
-          visible={HomeStore.getShowCreateProjectModal}
-          destroyOnClose={true}
-          okText='确定'
-          cancelText='取消'
-          onCancel={()=>{
-            HomeStore.setShowCreateProjectModal(false);
-          }}
-          onOk={()=>{
-            this.props.form.validateFieldsAndScroll((err, values) => {
-              if(!err){
-                HomeStore.setCreateProjectMaskLoadingStatus(true);
+        <CreateProjectModal />
 
-                let username = userInfo['username'];
-                const project = {};
-                project['projectName'] = this.props.form.getFieldValue('projectName');
-                project['projectDescription'] = this.props.form.getFieldValue('projectDescription');
-                project['createdBy'] = userInfo['id'];
-                HomeStore.createProject(project,username).then(response=>{
-                  if(response){
-                    if(response.data==='success'){
-                      /* 创建成功后需要刷新数据源 */
-                      HomeStore.getProjectFromWebServer(userInfo.username).then(response=>{
-                        HomeStore.setCreateProjectMaskLoadingStatus(false);
-                        if(response){
-                          HomeStore.setShowCreateProjectModal(false);
-                          message.success('创建成功');
-                          HomeStore.setProjects(response.data);
-                          HomeStore.setProjectsBackUp(response.data);
-                        }else{
-                          message.error('网络错误，请稍后再试！');
-                        }
-                      });
-                    }else if(response.data==='failure'){
-                      message.error('创建失败，请稍后再试！');
-                    }
-                  }else{
-                    HomeStore.setCreateProjectMaskLoadingStatus(false);
-                    message.error('网络错误，请稍后再试！');
-                  }
-                });
-              }
-            });
-          }}
-        >
-          <Spin size='large' className="spin-mask" spinning={HomeStore.getCreateProjectMaskLoadingStatus}>
-            <Form>
-              <FormItem
-                label="项目名称"
-                hasFeedback>
-                {getFieldDecorator('projectName', {
-                  rules: [{ required: true, message: '请输入项目名称！' }],
-                })(
-                  <Input placeholder="请输入项目名称" />
-                )}
-              </FormItem>
-              <FormItem
-                label="项目描述"
-                hasFeedback>
-                {getFieldDecorator('projectDescription', {
-                  rules: [{ required: true, message: '请输入项目描述！' }],
-                })(
-                  <Input.TextArea placeholder="请输入项目描述" autosize={false} rows={4}/>
-                )}
-              </FormItem>
-            </Form>
-          </Spin>
-        </Modal>
+        <EditProjectModal />
       </Spin>
     );
   }

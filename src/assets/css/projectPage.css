@@ -1,0 +1,11 @@
+@import "global.css";
+
+.own-avatar{
+  border-radius: 100px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 8px;
+  position: absolute;
+}

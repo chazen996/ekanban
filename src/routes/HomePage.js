@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import {Spin,Collapse,Icon,Modal,Form,Input,message,Table,Divider,Tag,Pagination} from 'antd';
 import {observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 import Header from '../components/public/Header';
 import EditProjectModal from '../components/home/EditProjectModal';
 import CreateProjectModal from '../components/home/CreateProjectModal';
@@ -219,6 +220,13 @@ class HomePage extends Component{
         dataIndex: 'projectName',
         key: 'projectName',
         width:'15%',
+        render: (text, record) => (
+          <span>
+            <a href="javascript:void(0)" onClick={()=>{
+              this.props.history.push(`/project/${record.projectId}`);
+            }}>{record.projectName}</a>
+          </span>
+        ),
         sorter: (a, b) => {
           if(a.projectName>b.projectName){
             return 1;
@@ -300,7 +308,7 @@ class HomePage extends Component{
               <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
                 HomeStore.setShowCreateProjectModal(true);
               }}/>
-              <Icon type="bars" style={{fontSize:20,marginLeft:16,cursor:'pointer',fontWeight: 'bold',position: 'relative',top: 2}} onClick={()=>{
+              <Icon type="swap" style={{fontSize:20,marginLeft:16,cursor:'pointer',fontWeight: 'bold',position: 'relative',top: 2}} onClick={()=>{
                 if(this.state.displayStatus==='card'){
                   message.success('已切换到列表显示状态！');
                 }else if(this.state.displayStatus==='table'){
@@ -338,4 +346,4 @@ class HomePage extends Component{
 
 }
 
-export default Form.create()(HomePage);
+export default withRouter(Form.create()(HomePage));

@@ -1,5 +1,6 @@
 import {Component} from 'react';
 import {Card,Icon,Dropdown,Menu} from 'antd';
+import {withRouter} from 'react-router-dom';
 import homePageStyles from '../../assets/css/homePage.css';
 
 class ProjectCard extends Component{
@@ -45,7 +46,9 @@ class ProjectCard extends Component{
                   <Icon type="ellipsis" style={{ fontSize: 18,cursor:'pointer'}}/>
                 </Dropdown>
               }>
-          <div style={{height:75}}>
+          <div style={{height:75,cursor:'pointer'}} onClick={()=>{
+            this.props.history.push(`/project/${projectId}`);
+          }}>
             <div style={{height:42,textOverflow:'ellipsis', display: '-webkit-box',
               WbkitBoxOrient: 'vertical',
               WebkitLineClamp: '2',
@@ -56,7 +59,7 @@ class ProjectCard extends Component{
               right: 24
             }}><span style={{fontSize:12,color:'rgba(0,0,0,0.45)'}}>{`${createdDate.getFullYear()}年${createdDate.getMonth()+1}月${createdDate.getDate()}日`}</span></div>
           </div>
-          <div id={`${this.props.projectId}-popupContainer`} data-projectid={this.props.projectId}/>
+          <div id={`${this.props.projectId}-popupContainer`}/>
         </Card>
       </div>
 
@@ -64,4 +67,4 @@ class ProjectCard extends Component{
   }
 }
 
-export default ProjectCard;
+export default withRouter(ProjectCard);

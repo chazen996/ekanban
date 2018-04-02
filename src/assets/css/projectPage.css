@@ -9,3 +9,15 @@
   margin-left: 8px;
   position: absolute;
 }
+
+.user-item-container{
+  width:270px;
+  height:52px;
+  background:#f5f5f5e6;;
+  display: flex;
+  border-bottom:1px solid #3333;
+}
+
+:global(.ant-pagination-item-link){
+  background: #f5f5f5 !important;
+}

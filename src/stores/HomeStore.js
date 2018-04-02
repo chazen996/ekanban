@@ -79,7 +79,7 @@ class HomeStore {
     this.userInfoMaskLoadingStatus = status;
   }
 
-  @action loadUserInfoFromWebServer(username){
+  @action loadData(username){
     this.getPersonalInfo(username).then(response=>{
       this.setUserInfoMaskLoadingStatus(false);
       if(response){

@@ -26,7 +26,7 @@ import HomePage from "./routes/HomePage";
 import RegisterPage from "./routes/RegisterPage";
 import ProjectPage from "./routes/ProjectPage";
 // import Head from "./components/public/Head";
-// import LoginRoute from "./components/LoginRoute";
+import UserItem from "./components/project/UserItem";
 
 ReactDom.render((
   <div>
@@ -37,8 +37,9 @@ ReactDom.render((
         <Route path='/login' component={LoginPage}/>
         <Route path='/register' component={RegisterPage}/>
         {/* 临时测试 */}
-        <Route path='/project/:projectId' component={ProjectPage}/>
+        {/*<Route path='/project/:projectId' component={ProjectPage}/>*/}
         <Route path='/project' component={ProjectPage}/>
+        <Route path='/test' component={UserItem}/>
       </div>
     </BrowserRouter>
   </div>

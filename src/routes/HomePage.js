@@ -34,7 +34,7 @@ class HomePage extends Component{
       this.resizeBodyContent();
     };
 
-    HomeStore.loadUserInfoFromWebServer(PublicAuthKit.getItem('username'));
+    HomeStore.loadData(PublicAuthKit.getItem('username'));
   }
 
   componentWillUnmount(){
@@ -320,7 +320,7 @@ class HomePage extends Component{
               }}/>
               <Icon type="reload"  style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
                 HomeStore.setHomePageMaskLoadingStatus(true);
-                HomeStore.loadUserInfoFromWebServer(userInfo['username']);
+                HomeStore.loadData(userInfo['username']);
               }}/>
               <Search
                 placeholder="输入项目名称"

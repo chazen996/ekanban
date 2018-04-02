@@ -74,7 +74,7 @@ class UserItem extends Component{
           alignItems:'center',
           width:70,
         }}>
-          <Icon type="close" style={{fontSize: 18,color: '#ff4d4f',cursor:'pointer'}} onClick={this.handleOnRemoveUser.bind(this,this.props.user.id)}/>
+          <Icon type="close" style={{fontSize: 18,color: '#ff4d4f',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnRemoveUser.bind(this,this.props.user.id)}/>
         </div>
       </div>
     );

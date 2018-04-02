@@ -13,7 +13,9 @@ class UserList extends Component{
     super(props);
 
     this.state = {
-      currentPage:1
+      currentPage:1,
+      showSearchUserPanel:'none',
+      userForSearchPanel:[]
     };
   }
 
@@ -39,10 +41,31 @@ class UserList extends Component{
 
     allUserUnderProject = allUserUnderProject.slice((currentPage-1)*pageSize,(currentPage*pageSize));
     /* 分页操作end */
+
+    /* 渲染用户数据start */
     const result = [];
     for(let item of allUserUnderProject){
-      result.push(<UserItem user={item}/>);
+      result.push(<UserItem key={item.id} user={item}/>);
     }
+    /* 渲染用户数据end */
+    /* 搜索用户面板相关start */
+    const showSearchUserPanelDisplay = this.state.showSearchUserPanel;
+    const showSearchUserPanelStyle = {
+      background: '#fafafa',
+      width: '100%',
+      height: 50,
+      position: 'absolute',
+      top: 27,
+      zIndex: 2,
+      boxShadow: '#6666662e 4px 4px 10px',
+      display:showSearchUserPanelDisplay
+    };
+
+    // const userForSearchPanel = this.state.userForSearchPanel;
+    // for(let item of userForSearchPanel){
+    //
+    // }
+    /* 搜索用户面板相关end */
 
     return (
       <div style={{width: 270,height: 480,background: '#3333'}}>
@@ -66,35 +89,78 @@ class UserList extends Component{
           height:28,
           borderBottom:'1px solid white',
           display: 'flex',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          position:'relative',
         }}>
           <Input.Search
             placeholder="搜索用户"
             onSearch={value => console.log(value)}
             style={{ width: '100%' }}
             size='small'
+            onChange={(event)=>{
+              const value = event.target.value;
+              if(value!==''){
+                this.setState({
+                  showSearchUserPanel:'flex'
+                });
+              }else{
+                this.setState({
+                  showSearchUserPanel:'none'
+                });
+              }
+            }}
           />
-        </div>
-        <div style={{
-          height:408,
-          borderBottom:'1px solid white',
-          position:'relative'
-        }}>
-          <div>
-            {result}
+          <div style={showSearchUserPanelStyle}>
+            <div>
+              <div>
+                chazen996
+              </div>
+              <div>
+                <Icon type="user-add" />
+                <Icon type="user-delete" />
+              </div>
+            </div>
           </div>
-          <div style={{
-            position: 'absolute',
-            bottom: 5,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center'
-          }}><Pagination simple current={currentPage} pageSize={pageSize} total={totalNumber} onChange={(page, pageSize)=>{
-            this.setState({
-              currentPage:page
-            });
-          }} /></div>
         </div>
+        {
+          result.length!==0?(
+            <div style={{
+              height:408,
+              borderBottom:'1px solid white',
+              position:'relative'
+            }}>
+              <div>
+                {result}
+              </div>
+              <div style={{
+                position: 'absolute',
+                bottom: 5,
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                paddingTop:7,
+                borderTop:'1px solid white'
+              }}><Pagination simple current={currentPage} pageSize={pageSize} total={totalNumber} onChange={(page, pageSize)=>{
+                this.setState({
+                  currentPage:page
+                });
+              }} /></div>
+            </div>
+          ):(
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 408
+            }}>
+              <span style={{
+                color: 'rgba(0, 0, 0, 0.2)',
+                fontSize: 16
+              }}>暂无内容</span>
+            </div>
+          )
+        }
+
       </div>
     );
   }

@@ -38,7 +38,7 @@ ReactDom.render((
         <Route path='/register' component={RegisterPage}/>
         {/* 临时测试 */}
         {/*<Route path='/project/:projectId' component={ProjectPage}/>*/}
-        <Route path='/project' component={ProjectPage}/>
+        <AuthRoute exact path='/project/:projectId' component={ProjectPage}/>
         <Route path='/test' component={UserItem}/>
       </div>
     </BrowserRouter>

@@ -1,26 +1,13 @@
 import {Component} from 'react';
-
-import {Icon,Row,Col,message} from 'antd';
+import {withRouter} from 'react-router-dom';
+import {Icon,Row,Col} from 'antd';
 import projectPageStyles from "../../assets/css/projectPage.css";
 import Config from "../../utils/Config";
-import ProjectStore from '../../stores/ProjectStore';
+// import ProjectStore from '../../stores/ProjectStore';
 
 class UserItem extends Component{
   handleOnRemoveUser(userId){
-    /* 获取projectId */
-    const projectId = 26;
-    ProjectStore.removeUserFromProject(projectId,userId).then(response=>{
-      if(response){
-        if(response.data==="success"){
-          message.success('移除用户成功！');
-          ProjectStore.loadData(projectId);
-        }else if(response.data==="failure"){
-          message.error('移除用户失败，请稍后再试！');
-        }
-      }else{
-        message.error('网络错误，请稍后再试！');
-      }
-    });
+    this.props.handleOnRemoveUser(userId);
   }
   render(){
 
@@ -58,7 +45,7 @@ class UserItem extends Component{
               </Col>
             </Row>
             <Row>
-              <Col span={8}>
+              <Col span={7} offset={1}>
                 <span>邮箱:</span>
               </Col>
               <Col span={16}>
@@ -81,4 +68,4 @@ class UserItem extends Component{
   }
 }
 
-export default UserItem;
+export default withRouter(UserItem);

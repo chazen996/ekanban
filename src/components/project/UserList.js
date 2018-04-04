@@ -1,11 +1,13 @@
 import {Component} from 'react';
-import {Input,Icon,Pagination} from 'antd';
+import {Input,Icon,Pagination,message,Modal} from 'antd';
 import {observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 import Config from "../../utils/Config";
 import projectPageStyles from '../../assets/css/projectPage.css';
 import PublicAuthKit from '../../utils/PublicAuthKit';
 import ProjectStore from "../../stores/ProjectStore";
 import UserItem from "./UserItem";
+import UserItemForSearchPanel from "./UserItemForSearchPanel";
 
 @observer
 class UserList extends Component{
@@ -19,13 +21,52 @@ class UserList extends Component{
     };
   }
 
-  componentDidMount(){
-    ProjectStore.loadData(26);
+  handleOnRemoveUser=(userId)=>{
+    /* 获取projectId */
+    const projectId = this.props.match.params.projectId;
+    ProjectStore.removeUserFromProject(projectId,userId).then(response=>{
+      if(response){
+        if(response.data==="success"){
+          message.success('移除用户成功！');
+          ProjectStore.loadData(projectId);
+        }else if(response.data==="failure"){
+          message.error('移除用户失败，请稍后再试！');
+        }
+      }else{
+        message.error('网络错误，请稍后再试！');
+      }
+    });
+  }
+
+  handleOnExitProjectGroup = (userId)=>{
+    const projectId = this.props.match.params.projectId;
+    Modal.confirm({
+      title: '确定退出当前项目组?',
+      content: '退出当前项目组后，无法查看项目下的任何信息，请谨慎操作',
+      onOk() {
+        ProjectStore.removeUserFromProject(projectId,userId).then(response=>{
+          if(response){
+            if(response.data==='success'){
+              message.success('退出当前项目组成功');
+              setTimeout(window.location.href="/home",1500);
+            }else if(response.data==='failure'){
+              message.error('操作失败，请稍后再试!');
+            }
+          }else{
+            message.error('网络错误，请稍后再试！');
+          }
+        });
+      },
+      onCancel() {},
+      okText:'确定',
+      cancelText:'取消'
+    });
   }
 
   render(){
-    let allUserUnderProject = ProjectStore.getAllUserUnderProject;
-    /* 过滤掉自身 */
+    const userInfo = ProjectStore.getUserInfo;
+    let allUserUnderProject = PublicAuthKit.deepCopy(ProjectStore.getAllUserUnderProject);
+    /* 自身数据不应显示在列表当中 */
     for(let i=0;i<allUserUnderProject.length;i++){
       if(allUserUnderProject[i].username===PublicAuthKit.getItem('username')){
         allUserUnderProject.splice(i,1);
@@ -45,7 +86,7 @@ class UserList extends Component{
     /* 渲染用户数据start */
     const result = [];
     for(let item of allUserUnderProject){
-      result.push(<UserItem key={item.id} user={item}/>);
+      result.push(<UserItem key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser}/>);
     }
     /* 渲染用户数据end */
     /* 搜索用户面板相关start */
@@ -53,18 +94,26 @@ class UserList extends Component{
     const showSearchUserPanelStyle = {
       background: '#fafafa',
       width: '100%',
-      height: 50,
       position: 'absolute',
       top: 27,
       zIndex: 2,
       boxShadow: '#6666662e 4px 4px 10px',
-      display:showSearchUserPanelDisplay
+      display:showSearchUserPanelDisplay,
+      flexDirection:'column'
     };
 
-    // const userForSearchPanel = this.state.userForSearchPanel;
-    // for(let item of userForSearchPanel){
-    //
-    // }
+    let userForSearchPanel = this.state.userForSearchPanel;
+    /* 当前登陆用户不应显示在搜索框中 */
+    for(let i=0;i<userForSearchPanel.length;i++){
+      if(userForSearchPanel[i].username===PublicAuthKit.getItem('username')){
+        userForSearchPanel.splice(i,1);
+      }
+    }
+    userForSearchPanel = userForSearchPanel.slice(0,5);
+    const userForSearchPanelArray = [];
+    for(let item of userForSearchPanel){
+      userForSearchPanelArray.push(<UserItemForSearchPanel key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser}/>);
+    }
     /* 搜索用户面板相关end */
 
     return (
@@ -83,7 +132,7 @@ class UserList extends Component{
             right: 10,
             fontSize: 15,
             cursor:'pointer'
-          }} />
+          }} onClick={ this.handleOnExitProjectGroup.bind(this,userInfo.id)}/>
         </div>
         <div style={{
           height:28,
@@ -94,7 +143,13 @@ class UserList extends Component{
         }}>
           <Input.Search
             placeholder="搜索用户"
-            onSearch={value => console.log(value)}
+            onBlur={(event)=>{
+              console.log(window.event.srcElement);
+              this.setState({
+                showSearchUserPanel:'none',
+                userForSearchPanel:[]
+              });
+            }}
             style={{ width: '100%' }}
             size='small'
             onChange={(event)=>{
@@ -103,6 +158,16 @@ class UserList extends Component{
                 this.setState({
                   showSearchUserPanel:'flex'
                 });
+                ProjectStore.getUserLikeTheUsername(value).then(response=>{
+                  if(response){
+                    this.setState({
+                      userForSearchPanel:response.data
+                    });
+                  }else{
+                    message.error('网络错误，查询失败');
+                  }
+                });
+
               }else{
                 this.setState({
                   showSearchUserPanel:'none'
@@ -110,16 +175,29 @@ class UserList extends Component{
               }
             }}
           />
-          <div style={showSearchUserPanelStyle}>
-            <div>
-              <div>
-                chazen996
+          <div style={showSearchUserPanelStyle} onMouseDown={(event)=>{
+            /* 神来之笔：阻止input的失焦事件的检测，可实现点击其他区域隐藏该div，而自身的点击事件不会处罚input的失焦事件 */
+            event.preventDefault();
+          }}>
+            {userForSearchPanelArray.length===0?(
+              <div style={{
+                background: '#fafafa',
+                width: '100%',
+                position: 'absolute',
+                zIndex: 2,
+                boxShadow: '#6666662e 4px 4px 10px',
+                height:50,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <span style={{
+                  color:'rgba(0,0,0,0.45)'
+                }}>暂无内容</span>
               </div>
-              <div>
-                <Icon type="user-add" />
-                <Icon type="user-delete" />
-              </div>
-            </div>
+            ):(
+              userForSearchPanelArray
+            )}
           </div>
         </div>
         {
@@ -167,4 +245,4 @@ class UserList extends Component{
 
 }
 
-export default UserList;
+export default withRouter(UserList);

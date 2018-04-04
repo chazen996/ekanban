@@ -9,8 +9,11 @@ import UserAvatar from "./UserAvatar";
 import HomeStore from "../../stores/HomeStore";
 import ImgUpload from "../home/ImgUpload";
 
-const board = require('../../assets/images/board-vertical.png');
-const projectName = require('../../assets/images/project-name.png');
+import board from "../../assets/images/board-vertical.png";
+import projectName from "../../assets/images/project-name.png";
+
+// const board = require('');
+// const projectName = require('');
 const FormItem = Form.Item;
 
 const targetUser = {};
@@ -154,7 +157,7 @@ class Header extends Component{
             this.props.form.validateFieldsAndScroll((err, values) => {
               if(!err){
                 targetUser["username"] = PublicAuthKit.getItem('username');
-                targetUser["password"] = this.props.form.getFieldValue('password')
+                targetUser["password"] = this.props.form.getFieldValue('password');
                 const oldPassword = this.props.form.getFieldValue('oldPassword');
                 HomeStore.updatePassword(targetUser,oldPassword).then(response=>{
                   if(response){

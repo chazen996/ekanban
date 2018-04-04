@@ -79,25 +79,49 @@ class HomeStore {
     this.userInfoMaskLoadingStatus = status;
   }
 
+  @action setUserInfo(userInfo){
+    this.userInfo = userInfo;
+  }
+
   @action loadData(username){
-    this.getPersonalInfo(username).then(response=>{
-      this.setUserInfoMaskLoadingStatus(false);
-      if(response){
-        this.userInfo = response.data;
-        this.getProjectFromWebServer(this.userInfo['username']).then(response=>{
-          this.setHomePageMaskLoadingStatus(false);
-          /* 无数据时返回的是null */
-          if(response){
-            this.setProjects(response.data);
-            this.setProjectsBackUp(response.data);
-          }else{
-            message.error('网络错误，请稍后再试！');
-          }
-        });
+    this.getAllDataFromWebServer(username).then(axios.spread((personalInfo,projects)=>{
+      this.setHomePageMaskLoadingStatus(false);
+      if(personalInfo&&projects){
+        this.setUserInfo(personalInfo.data);
+        this.setProjects(projects.data);
+        this.setProjectsBackUp(projects.data);
       }else{
-        this.setHomePageMaskLoadingStatus(false);
         message.error('网络错误，请稍后再试！');
       }
+    }));
+
+    // this.getPersonalInfo(username).then(response=>{
+    //   // this.setUserInfoMaskLoadingStatus(false);
+    //   if(response){
+    //     this.setUserInfo(response.data);
+    //     // this.userInfo = response.data;
+    //     this.getProjectFromWebServer(this.userInfo['username']).then(response=>{
+    //       this.setHomePageMaskLoadingStatus(false);
+    //       /* 无数据时返回的是null */
+    //       if(response){
+    //         this.setProjects(response.data);
+    //         this.setProjectsBackUp(response.data);
+    //       }else{
+    //         message.error('网络错误，请稍后再试！');
+    //       }
+    //     });
+    //   }else{
+    //     this.setHomePageMaskLoadingStatus(false);
+    //     message.error('网络错误，请稍后再试！');
+    //   }
+    // });
+  }
+  @action getAllDataFromWebServer(username){
+    return axios.all([
+      this.getPersonalInfo(username),
+      this.getProjectFromWebServer(username),
+    ]).catch(err=>{
+      console.log(err);
     });
   }
 

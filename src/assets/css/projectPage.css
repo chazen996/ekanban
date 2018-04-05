@@ -21,3 +21,7 @@
 :global(.ant-pagination-item-link){
   background: #f5f5f5 !important;
 }
+
+:global(.ant-calendar-picker){
+  width:100%;
+}

@@ -1,10 +1,12 @@
 import {Component} from 'react';
-import {Spin} from 'antd';
+import {Spin,Tabs,Icon} from 'antd';
 import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import Header from '../components/public/Header';
 import UserList from '../components/project/UserList';
+import SprintTable from '../components/project/SprintTable';
 import ProjectStore from '../stores/ProjectStore';
+import CreateSprintModal from '../components/project/CreateSprintModal';
 
 @observer
 class ProjectPage extends Component{
@@ -26,10 +28,10 @@ class ProjectPage extends Component{
   }
 
   render(){
-
     const projectId = this.props.match.params.projectId;
+    const projectInfo = ProjectStore.getProjectInfo;
     const naviData = {
-      'nameArray': ['首页','项目'],
+      'nameArray': ['首页',projectInfo.projectName],
       'idArray': [' ',projectId]
     };
 
@@ -38,6 +40,27 @@ class ProjectPage extends Component{
         <Header naviData={naviData}/>
         <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5}}>
           <div style={{width:1326,height:535}}>
+            <div style={{ width:1056,height: '100%',display: 'inline-block'}}>
+              <Tabs>
+                <Tabs.TabPane tab="迭代" key="1">
+                  <div style={{height:34,position:'relative'}}>
+                    <span style={{
+                      fontSize:17
+                    }}>迭代列表:</span>
+                    <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
+                      ProjectStore.setShowCreateSprintModal(true);
+                    }}/>
+                    <Icon type="reload"  style={{fontSize:16,marginLeft:16,cursor:'pointer'}}/>
+                  </div>
+                  <div style={{height:490}}>
+                    <SprintTable />
+                  </div>
+
+                  <CreateSprintModal />
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="看板" key="2">Content of Tab Pane 2</Tabs.TabPane>
+              </Tabs>
+            </div>
             <UserList/>
           </div>
         </div>

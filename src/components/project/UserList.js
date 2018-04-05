@@ -42,26 +42,70 @@ class UserList extends Component{
     const projectId = this.props.match.params.projectId;
     Modal.confirm({
       title: '确定退出当前项目组?',
-      content: '退出当前项目组后，无法查看项目下的任何信息，请谨慎操作',
+      content: '退出当前项目组后，无法查看项目下的任何信息，请谨慎操作!',
       onOk() {
-        ProjectStore.removeUserFromProject(projectId,userId).then(response=>{
-          if(response){
-            if(response.data==='success'){
-              message.success('退出当前项目组成功');
-              setTimeout(window.location.href="/home",1500);
-            }else if(response.data==='failure'){
-              message.error('操作失败，请稍后再试!');
+        const projectInfo = ProjectStore.getProjectInfo;
+        if(userId===projectInfo.createdBy){
+          message.error('您当前为项目所有者，请先尝试转移控制权!');
+        }else{
+          ProjectStore.removeUserFromProject(projectId,userId).then(response=>{
+            if(response){
+              if(response.data==='success'){
+                message.success('退出当前项目组成功');
+                setTimeout(window.location.href="/home",1500);
+              }else if(response.data==='failure'){
+                message.error('操作失败，请稍后再试!');
+              }
+              /*****/
+              // else if(response.data==='only-one-user'){
+              //   ProjectStore.getAllUserUnderProjectFromWebServer(projectId,PublicAuthKit.getItem('username')).then(response=>{
+              //     if(response){
+              //       if(response.data.length===1){
+              //         if(response.data[0].username===PublicAuthKit.getItem('username')){
+              //           message.error('当前项目组下无其他成员，暂时无法退出！');
+              //         }else{
+              //           message.error('网络错误，请稍后再试！');
+              //           setTimeout(window.location.reload(),1500);
+              //         }
+              //       }else{
+              //         message.error('网络错误，请稍后再试！');
+              //         setTimeout(window.location.reload(),1500);
+              //       }
+              //     }else{
+              //       message.error('网络错误，请稍后再试！');
+              //     }
+              //   })
+              // }
+              /*****/
+
+
+            }else{
+              message.error('网络错误，请稍后再试！');
             }
-          }else{
-            message.error('网络错误，请稍后再试！');
-          }
-        });
+          });
+        }
       },
       onCancel() {},
       okText:'确定',
       cancelText:'取消'
     });
   }
+
+  handleOnChangeControlRight=(userId)=>{
+    const projectId = this.props.match.params.projectId;
+    ProjectStore.changeProjectControlRight(projectId,userId).then(response=>{
+      if(response){
+        if(response.data==='success'){
+          message.success('转让控制权成功！');
+          ProjectStore.loadData(projectId);
+        }else if(response.data==='failure'){
+          message.error('转让失败，请稍后再试！');
+        }
+      }else{
+        message.error('网络错误，请稍后再试！');
+      }
+    });
+  };
 
   render(){
     const userInfo = ProjectStore.getUserInfo;
@@ -86,7 +130,7 @@ class UserList extends Component{
     /* 渲染用户数据start */
     const result = [];
     for(let item of allUserUnderProject){
-      result.push(<UserItem key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser}/>);
+      result.push(<UserItem key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser} handleOnChangeControlRight={this.handleOnChangeControlRight}/>);
     }
     /* 渲染用户数据end */
     /* 搜索用户面板相关start */
@@ -112,12 +156,12 @@ class UserList extends Component{
     userForSearchPanel = userForSearchPanel.slice(0,5);
     const userForSearchPanelArray = [];
     for(let item of userForSearchPanel){
-      userForSearchPanelArray.push(<UserItemForSearchPanel key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser}/>);
+      userForSearchPanelArray.push(<UserItemForSearchPanel key={item.id} user={item} handleOnRemoveUser={this.handleOnRemoveUser} handleOnChangeControlRight={this.handleOnChangeControlRight}/>);
     }
     /* 搜索用户面板相关end */
 
     return (
-      <div style={{width: 270,height: 480,background: '#3333'}}>
+      <div style={{width: 270,height: 480,background: '#3333',border: '2px solid #e8e8e8',boxSizing: 'content-box',display: 'inline-block',verticalAlign: 'top'}}>
         <div style={{
           height:44,
           borderBottom:'1px solid white',

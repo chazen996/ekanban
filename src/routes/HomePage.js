@@ -224,7 +224,13 @@ class HomePage extends Component{
           <span>
             <a href="javascript:void(0)" onClick={()=>{
               this.props.history.push(`/project/${record.projectId}`);
-            }}>{record.projectName}</a>
+            }} style={{
+              display: 'inline-block',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              maxWidth: 165,
+            }} title={record.projectName}>{record.projectName}</a>
           </span>
         ),
         sorter: (a, b) => {
@@ -249,9 +255,20 @@ class HomePage extends Component{
         }
       }, {
         title: '项目描述',
-        dataIndex: 'projectDescription',
         key: 'projectDescription',
-        width:'40%'
+        width:'40%',
+        render:(text,record)=>{
+          return (
+            <div style={{
+              maxWidth: 450,
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap'
+            }} title={record.projectDescription}>
+              {record.projectDescription}
+            </div>
+          );
+        }
       }, {
         title: '创建时间',
         dataIndex: 'createdDate',

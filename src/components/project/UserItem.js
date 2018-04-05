@@ -3,14 +3,25 @@ import {withRouter} from 'react-router-dom';
 import {Icon,Row,Col} from 'antd';
 import projectPageStyles from "../../assets/css/projectPage.css";
 import Config from "../../utils/Config";
+import ProjectStore from "../../stores/ProjectStore";
 // import ProjectStore from '../../stores/ProjectStore';
 
 class UserItem extends Component{
   handleOnRemoveUser(userId){
     this.props.handleOnRemoveUser(userId);
   }
+  handleOnChangeControlRight(userId){
+    this.props.handleOnChangeControlRight(userId);
+  }
   render(){
-
+    let operable = {
+      assignable:false,
+    };
+    const userInfo = ProjectStore.getUserInfo;
+    const projectInfo = ProjectStore.getProjectInfo;
+    if (userInfo.id === projectInfo.createdBy) {
+      operable.assignable = true;
+    }
     return (
       <div className={projectPageStyles["user-item-container"]}>
         <div style={{
@@ -41,7 +52,18 @@ class UserItem extends Component{
                 <span>用户名:</span>
               </Col>
               <Col span={16}>
-                <div>{this.props.user.username}</div>
+                <div>
+                  <span>{this.props.user.username}</span>
+                  {projectInfo.createdBy===this.props.user.id?(
+                    <span style={{
+                      fontSize: 12,
+                      color: 'orange',
+                      border: '1px solid',
+                      borderRadius: 3,
+                      marginLeft: 2
+                    }}>组长</span>
+                  ):(null)}
+                </div>
               </Col>
             </Row>
             <Row>
@@ -57,11 +79,18 @@ class UserItem extends Component{
         </div>
         <div style={{
           display:'flex',
-          justifyContent:'center',
+          justifyContent:'space-evenly',
           alignItems:'center',
           width:70,
         }}>
           <Icon type="close" style={{fontSize: 18,color: '#ff4d4f',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnRemoveUser.bind(this,this.props.user.id)}/>
+          {
+            operable.assignable?(
+              <Icon type="fork"  style={{fontSize: 12,color: 'blue',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnChangeControlRight.bind(this,this.props.user.id)}/>
+            ):(
+              <Icon type="fork"  style={{fontSize: 12,color: 'rgba(0,0,0,0.45)',cursor:'not-allowed',fontStyle: 'italic'}}/>
+            )
+          }
         </div>
       </div>
     );

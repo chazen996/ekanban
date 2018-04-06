@@ -1,12 +1,27 @@
 import {Component} from 'react';
-import {Table,Icon,Tag,Divider,Switch} from 'antd';
+import {Table,Icon,Tag,Divider,Switch,Button} from 'antd';
 import {observer} from 'mobx-react';
 import ProjectStore from "../../stores/ProjectStore";
 import PublicAuthKit from "../../utils/PublicAuthKit";
+import Config from "../../utils/Config";
 
 @observer
 class SprintTable extends Component{
 
+  handleOnEditSprint=(sprintId)=>{
+    ProjectStore.setEditOrView('edit');
+    ProjectStore.setTargetSprintId(sprintId);
+    ProjectStore.setShowEditOrViewSprintModal(true);
+  };
+  handleOnViewSprint=(sprintId)=>{
+    ProjectStore.setEditOrView('view');
+    ProjectStore.setTargetSprintId(sprintId);
+    ProjectStore.setShowEditOrViewSprintModal(true);
+  };
+  handleOnCreateCard=(sprintId)=>{
+    ProjectStore.setTargetSprintId(sprintId);
+    ProjectStore.setShowCreateCardModal(true);
+  };
   render(){
     const userInfo = ProjectStore.getUserInfo;
     const sprints = PublicAuthKit.deepCopy(ProjectStore.getSprints);
@@ -23,7 +38,7 @@ class SprintTable extends Component{
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap'
-          }} title={record.sprintName}>{record.sprintName}</a>
+          }} title={record.sprintName} onClick={this.handleOnViewSprint.bind(this,record.sprintId)}>{record.sprintName}</a>
         </span>
       ),
       sorter: (a, b) => {
@@ -98,7 +113,7 @@ class SprintTable extends Component{
             )}
           <Divider type="vertical" />
           {record.createdBy===userInfo['id']?(
-            <Icon type="edit" style={{cursor:'pointer',color:'#1890ff'}}/>
+            <Icon type="edit" style={{cursor:'pointer',color:'#1890ff'}}  onClick={this.handleOnEditSprint.bind(this,record.sprintId)}/>
           ):(
             <Icon type="edit" style={{cursor:'not-allowed'}}/>
           )}
@@ -120,9 +135,11 @@ class SprintTable extends Component{
         render: (text, record) => (
           <span>
             {record.cardType==='other'?(
-              <Tag color="#f50">{record.cardDescription}</Tag>
+              <Tag style={{maxWidth:107,overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}
+                   color={Config.cardTypeColor.other} title={record.cardDescription}>{record.cardDescription}</Tag>
             ):(
-              <Tag color="#f50">{record.cardType}</Tag>
+              <Tag style={{maxWidth:107,overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis'}}
+                   color={Config.cardTypeColor[record.cardType]} title={record.cardDescription}>{record.cardType}</Tag>
             )}
           </span>
         )
@@ -152,6 +169,16 @@ class SprintTable extends Component{
           }}>暂无</span>
         ),
       },{
+        title: '状态',
+        key: 'cardStatus',
+        width:'10%',
+        render: (text, record) => (
+          <span style={{
+            color: 'rgba(0,0,0,0.45)',
+            border: '1px solid'
+          }}>{record.cardStatus}</span>
+        ),
+      },{
         title: '操作',
         key: 'action',
         width:'10%',
@@ -174,8 +201,25 @@ class SprintTable extends Component{
       for(let item of record.cardList){
         item.key = item.cardId;
       }
+      let result = null;
+      if(record.cardList.length===0){
+        result = (<div style={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>暂无内容</div>);
+      }else{
+        result = (
+          <Table dataSource={record.cardList} columns={cardColumn}/>
+        );
+      }
       return (
-        <Table dataSource={record.cardList} columns={cardColumn}/>
+        <div>
+          <div style={{height:34}}>
+            <Button type='primary' size='small' onClick={this.handleOnCreateCard.bind(this,record.sprintId)}>新建任务</Button>
+          </div>
+          {result}
+        </div>
       );
     };
 

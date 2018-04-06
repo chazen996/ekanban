@@ -3,7 +3,6 @@ import {Modal,Form,Spin,Input,message,DatePicker } from 'antd';
 import ProjectStore from "../../stores/ProjectStore";
 import {observer} from 'mobx-react';
 
-
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 @observer
@@ -14,7 +13,7 @@ class CreateSprintModal extends Component{
     const projectInfo = ProjectStore.getProjectInfo;
     return (
       <Modal
-        title="新建项目"
+        title="新建迭代"
         visible={ProjectStore.getShowCreateSprintModal}
         destroyOnClose={true}
         okText='确定'
@@ -37,6 +36,7 @@ class CreateSprintModal extends Component{
               sprint['createdBy'] = userInfo['id'];
               sprint['startDate'] = rangeTimeValue[0];
               sprint['endDate'] = rangeTimeValue[1];
+              sprint['projectId'] = projectInfo.projectId;
               ProjectStore.createSprint(sprint).then(response=>{
                 if(response){
                   if(response.data==='success'){
@@ -54,6 +54,7 @@ class CreateSprintModal extends Component{
                     });
                   }else if(response.data==='failure'){
                     message.error('创建失败，请稍后再试！');
+                    ProjectStore.setCreateSprintMaskLoadingStatus(false);
                   }
                 }else{
                   ProjectStore.setCreateSprintMaskLoadingStatus(false);

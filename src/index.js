@@ -26,7 +26,7 @@ import HomePage from "./routes/HomePage";
 import RegisterPage from "./routes/RegisterPage";
 import ProjectPage from "./routes/ProjectPage";
 // import Head from "./components/public/Head";
-import UserItem from "./components/project/UserItem";
+import CreateCardModal from "./components/project/CreateCardModal";
 
 ReactDom.render((
   <div>
@@ -39,7 +39,7 @@ ReactDom.render((
         {/* 临时测试 */}
         {/*<Route path='/project/:projectId' component={ProjectPage}/>*/}
         <AuthRoute exact path='/project/:projectId' component={ProjectPage}/>
-        <Route path='/test' component={UserItem}/>
+        <Route path='/test' component={CreateCardModal}/>
       </div>
     </BrowserRouter>
   </div>

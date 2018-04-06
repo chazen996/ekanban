@@ -5,6 +5,12 @@ const Config = {
     0:'您母亲的姓名是?',
     1:'您配偶的姓名是?',
     2:'您的出生地是?',
+  },
+  cardTypeColor:{
+    "story":"#87d068",
+    "task":"#2db7f5",
+    "bug":"red",
+    "other":"#800080"
   }
 };
 

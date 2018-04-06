@@ -47,6 +47,7 @@ class CreateProjectModal extends Component{
                     });
                   }else if(response.data==='failure'){
                     message.error('创建失败，请稍后再试！');
+                    HomeStore.setCreateProjectMaskLoadingStatus(false);
                   }
                 }else{
                   HomeStore.setCreateProjectMaskLoadingStatus(false);

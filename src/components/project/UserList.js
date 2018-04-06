@@ -108,6 +108,7 @@ class UserList extends Component{
   };
 
   render(){
+    const projectInfo = ProjectStore.projectInfo;
     const userInfo = ProjectStore.getUserInfo;
     let allUserUnderProject = PublicAuthKit.deepCopy(ProjectStore.getAllUserUnderProject);
     /* 自身数据不应显示在列表当中 */
@@ -161,7 +162,7 @@ class UserList extends Component{
     /* 搜索用户面板相关end */
 
     return (
-      <div style={{width: 270,height: 480,background: '#3333',border: '2px solid #e8e8e8',boxSizing: 'content-box',display: 'inline-block',verticalAlign: 'top'}}>
+      <div style={{width: 270,height: 480,background: '#3333',border: '2px solid #e8e8e8',boxSizing: 'content-box',display: 'inline-block',verticalAlign: 'top',marginTop: 43}}>
         <div style={{
           height:44,
           borderBottom:'1px solid white',
@@ -170,6 +171,16 @@ class UserList extends Component{
           position:'relative'
         }}>
           <img className={projectPageStyles["own-avatar"]} src={`${Config.baseURL}/images/${PublicAuthKit.getItem('username')}.jpg` } alt='avatar' />
+          {projectInfo.createdBy===userInfo.id?(
+            <span style={{
+              fontSize: 12,
+              color: '#ff6000',
+              border: '1px solid',
+              borderRadius: 3,
+              marginLeft: 43,
+              position:'absolute'
+            }}>组长</span>
+          ):(null)}
           <span style={{margin: '0 auto',fontSize: 16,fontWeight: 'bolder'}}>用户列表</span>
           <Icon type="menu-fold" style={{
             position: 'absolute',

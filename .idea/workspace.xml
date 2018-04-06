@@ -5,18 +5,19 @@
     <bookmark url="file://$PROJECT_DIR$/.idea/workspace.xml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="[commit] 项目页面下导航可实时显示项目名称；调整了用户列表的边框样式">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/project/CreateSprintModal.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/project/SprintTable.js" />
+    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/project/CardType.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/project/CreateCardModal.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/project/EditAndViewSprintModal.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/assets/css/projectPage.css" afterPath="$PROJECT_DIR$/src/assets/css/projectPage.css" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/UserItem.js" afterPath="$PROJECT_DIR$/src/components/project/UserItem.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js" afterPath="$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/CreateProjectModal.js" afterPath="$PROJECT_DIR$/src/components/home/CreateProjectModal.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/project/CreateSprintModal.js" afterPath="$PROJECT_DIR$/src/components/project/CreateSprintModal.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/project/SprintTable.js" afterPath="$PROJECT_DIR$/src/components/project/SprintTable.js" />
       <change beforePath="$PROJECT_DIR$/src/components/project/UserList.js" afterPath="$PROJECT_DIR$/src/components/project/UserList.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/public/Navigator.js" afterPath="$PROJECT_DIR$/src/components/public/Navigator.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes/HomePage.js" afterPath="$PROJECT_DIR$/src/routes/HomePage.js" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" afterPath="$PROJECT_DIR$/src/index.js" />
       <change beforePath="$PROJECT_DIR$/src/routes/ProjectPage.js" afterPath="$PROJECT_DIR$/src/routes/ProjectPage.js" />
       <change beforePath="$PROJECT_DIR$/src/stores/ProjectStore.js" afterPath="$PROJECT_DIR$/src/stores/ProjectStore.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Config.js" afterPath="$PROJECT_DIR$/src/utils/Config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,13 +34,14 @@
       <file leaf-file-name="UserList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="36" />
+            <state relative-caret-position="192">
+              <caret line="176" column="29" lean-forward="false" selection-start-line="176" selection-start-column="29" selection-end-line="176" selection-end-column="29" />
               <folding>
+                <element signature="e#0#32#0" expanded="true" />
                 <element signature="e#1964#2008#0" expanded="false" />
-                <element signature="e#8802#8853#0" expanded="false" />
-                <element signature="e#8880#9142#0" expanded="false" />
-                <element signature="e#9285#9339#0" expanded="false" />
+                <element signature="e#9177#9228#0" expanded="false" />
+                <element signature="e#9255#9517#0" expanded="false" />
+                <element signature="e#9660#9714#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -48,22 +50,10 @@
       <file leaf-file-name="ProjectStore.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stores/ProjectStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="171" column="6" lean-forward="false" selection-start-line="171" selection-start-column="6" selection-end-line="171" selection-end-column="6" />
+            <state relative-caret-position="224">
+              <caret line="239" column="113" lean-forward="true" selection-start-line="239" selection-start-column="113" selection-end-line="239" selection-end-column="113" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserItem.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/project/UserItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="860">
-              <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,8 +62,8 @@
       <file leaf-file-name="ProjectPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/ProjectPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="51" column="24" lean-forward="true" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
+            <state relative-caret-position="140">
+              <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -81,11 +71,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateSprintModal.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/project/CreateSprintModal.js">
+      <file leaf-file-name="CreateCardModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/CreateCardModal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="160">
-              <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+              <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -93,21 +83,57 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectPage.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/css/projectPage.css">
+      <file leaf-file-name="CardType.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/CardType.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="25" column="13" lean-forward="true" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+            <state relative-caret-position="440">
+              <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SprintTable.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CreateSprintModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/CreateSprintModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="56" column="73" lean-forward="false" selection-start-line="56" selection-start-column="73" selection-end-line="56" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditAndViewSprintModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewSprintModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-660">
+              <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SprintTable.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/project/SprintTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1400">
-              <caret line="11" column="66" lean-forward="false" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
+            <state relative-caret-position="280">
+              <caret line="141" column="95" lean-forward="false" selection-start-line="141" selection-start-column="95" selection-end-line="141" selection-end-column="95" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -115,36 +141,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/HomePage.js">
+      <file leaf-file-name="Config.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/Config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="320" column="12" lean-forward="false" selection-start-line="320" selection-start-column="12" selection-end-line="348" selection-end-column="18" />
-              <folding>
-                <element signature="e#10956#12300#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginPage.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/LoginPage.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-                <element signature="e#4497#4607#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginStore.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stores/LoginStore.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-980">
-              <caret line="4" column="29" lean-forward="true" selection-start-line="4" selection-start-column="29" selection-end-line="4" selection-end-column="29" />
+            <state relative-caret-position="120">
+              <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -162,14 +163,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Modal.</find>
-      <find>modal.c</find>
-      <find>modal.</find>
-      <find>projectId = 26</find>
-      <find>projectId = 2</find>
-      <find>params.pro</find>
-      <find>deletePr</find>
-      <find>require</find>
       <find>handleOn</find>
       <find>Header</find>
       <find>require('..</find>
@@ -184,7 +177,6 @@
       <find>img</find>
       <find>reload</find>
       <find>用户列表</find>
-      <find>projectInfo</find>
       <find>Icon</find>
       <find>ProjectStore.getUserLikeTheUsername(value).then(response=&gt;{</find>
       <find>UserItem</find>
@@ -192,6 +184,15 @@
       <find>Tag</find>
       <find>CreateProjectMaskLoadingStatus</find>
       <find>请选择起止时间</find>
+      <find>targetPro</find>
+      <find>handleOnEditSpr</find>
+      <find>startAndEndDate</find>
+      <find>projectInfo</find>
+      <find>CardTypeChecked</find>
+      <find>任务类型</find>
+      <find>请输入迭代</find>
+      <find>sprintDescription</find>
+      <find>新建跌打</find>
     </findStrings>
     <replaceStrings>
       <replace>targetUser</replace>
@@ -214,16 +215,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/components/LoginRoute.js" />
-        <option value="$PROJECT_DIR$/src/components/AuthRoute.js" />
-        <option value="$PROJECT_DIR$/.eslintrc" />
-        <option value="$PROJECT_DIR$/src/assets/css/login/loginPage.css" />
         <option value="$PROJECT_DIR$/src/components/public/Apps.js" />
         <option value="$PROJECT_DIR$/src/components/Example.js" />
         <option value="$PROJECT_DIR$/src/components/public/Head.js" />
         <option value="$PROJECT_DIR$/src/routes/Register.js" />
         <option value="$PROJECT_DIR$/src/utils/AuthSessionStorage.js" />
-        <option value="$PROJECT_DIR$/src/utils/Config.js" />
         <option value="$PROJECT_DIR$/src/assets/css/register.css" />
         <option value="$PROJECT_DIR$/src/components/Register/Avatar.js" />
         <option value="$PROJECT_DIR$/src/components/public/AuthRoute.js" />
@@ -243,11 +239,9 @@
         <option value="$PROJECT_DIR$/src/utils/PublicAuthKit.js" />
         <option value="$PROJECT_DIR$/src/assets/css/homePage.css" />
         <option value="$PROJECT_DIR$/src/components/home/EditProjectModal.js" />
-        <option value="$PROJECT_DIR$/src/components/home/CreateProjectModal.js" />
         <option value="$PROJECT_DIR$/src/components/home/ProjectCard.js" />
         <option value="$PROJECT_DIR$/src/components/public/UserAvatar.js" />
         <option value="$PROJECT_DIR$/src/stores/HomeStore.js" />
-        <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/.webpackrc" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/package.json" />
@@ -256,15 +250,22 @@
         <option value="$PROJECT_DIR$/src/routes/RegisterPage.js" />
         <option value="$PROJECT_DIR$/src/routes/LoginPage.js" />
         <option value="$PROJECT_DIR$/src/components/public/Navigator.js" />
-        <option value="$PROJECT_DIR$/src/components/project/UserList.js" />
         <option value="$PROJECT_DIR$/src/components/project/UserItem.js" />
         <option value="$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js" />
         <option value="$PROJECT_DIR$/src/routes/HomePage.js" />
-        <option value="$PROJECT_DIR$/src/stores/ProjectStore.js" />
-        <option value="$PROJECT_DIR$/src/routes/ProjectPage.js" />
-        <option value="$PROJECT_DIR$/src/components/project/SprintTable.js" />
         <option value="$PROJECT_DIR$/src/assets/css/projectPage.css" />
         <option value="$PROJECT_DIR$/src/components/project/CreateSprintModal.js" />
+        <option value="$PROJECT_DIR$/src/components/home/CreateProjectModal.js" />
+        <option value="$PROJECT_DIR$/src/components/project/EditAndViewSprintModal.js" />
+        <option value="$PROJECT_DIR$/src/components/project/UserList.js" />
+        <option value="$PROJECT_DIR$/src/components/project/CardTag.js" />
+        <option value="$PROJECT_DIR$/src/index.js" />
+        <option value="$PROJECT_DIR$/src/components/project/CardType.js" />
+        <option value="$PROJECT_DIR$/src/stores/ProjectStore.js" />
+        <option value="$PROJECT_DIR$/src/routes/ProjectPage.js" />
+        <option value="$PROJECT_DIR$/src/utils/Config.js" />
+        <option value="$PROJECT_DIR$/src/components/project/CreateCardModal.js" />
+        <option value="$PROJECT_DIR$/src/components/project/SprintTable.js" />
       </list>
     </option>
   </component>
@@ -384,6 +385,12 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="stores" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ekanban" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ekanban" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -458,7 +465,7 @@
       <workItem from="1522378215129" duration="26565000" />
       <workItem from="1522465678425" duration="44127000" />
       <workItem from="1522642029574" duration="57918000" />
-      <workItem from="1522907692425" duration="22462000" />
+      <workItem from="1522907692425" duration="42938000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -607,11 +614,18 @@
       <option name="project" value="LOCAL" />
       <updated>1522830856179</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="[commit] 完善项目页面">
+      <created>1522948067978</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1522948067978</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="343777000" />
+    <option name="totallyTimeSpent" value="364253000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -666,7 +680,8 @@
     <MESSAGE value="[commit] 增加了用户搜索面板（完成了部分ui设计）" />
     <MESSAGE value="[commit] 通过配置webpack，使用pathRewrite将project的请求定向到根目录/（返回index.html，解决二级路由下静态图片不显示以及刷新后空白的问题）" />
     <MESSAGE value="[commit] 项目页面下导航可实时显示项目名称；调整了用户列表的边框样式" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 项目页面下导航可实时显示项目名称；调整了用户列表的边框样式" />
+    <MESSAGE value="[commit] 完善项目页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 完善项目页面" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -675,9 +690,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utils/md5.js" />
-    <entry file="file://$PROJECT_DIR$/src/components/LoginRoute.js" />
-    <entry file="file://$PROJECT_DIR$/src/utils/Base64.js" />
     <entry file="file://$PROJECT_DIR$/src/assets/yay.jpg" />
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/react.d.ts">
       <provider selected="true" editor-type-id="text-editor">
@@ -690,6 +702,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-228">
           <caret line="6" column="32" lean-forward="false" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -786,26 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/EditProjectModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="67" column="17" lean-forward="false" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/home/CreateProjectModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1168">
-          <caret line="16" column="29" lean-forward="true" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css/loginPage.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
@@ -836,16 +829,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/stores/HomeStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="169" column="2" lean-forward="false" selection-start-line="169" selection-start-column="2" selection-end-line="173" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/home/ProjectCard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -858,14 +841,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="40">
           <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/Config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" column="2" lean-forward="false" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
           <folding />
         </state>
       </provider>
@@ -900,13 +875,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="41" column="43" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="43" />
           <folding />
         </state>
       </provider>
@@ -940,25 +908,7 @@
         <state relative-caret-position="-520">
           <caret line="68" column="14" lean-forward="false" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="75" column="48" lean-forward="false" selection-start-line="75" selection-start-column="48" selection-end-line="75" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#1519#1654#0" expanded="false" />
-            <element signature="e#1679#1876#0" expanded="false" />
-            <element signature="e#1903#2093#0" expanded="false" />
-            <element signature="e#2554#2697#0" expanded="false" />
-            <element signature="e#2775#2855#0" expanded="false" />
-            <element signature="e#2979#3075#0" expanded="false" />
-            <element signature="e#3174#3253#0" expanded="false" />
-            <element signature="e#3383#3479#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -968,20 +918,7 @@
         <state relative-caret-position="860">
           <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="36" />
-          <folding>
-            <element signature="e#1964#2008#0" expanded="false" />
-            <element signature="e#8802#8853#0" expanded="false" />
-            <element signature="e#8880#9142#0" expanded="false" />
-            <element signature="e#9285#9339#0" expanded="false" />
+            <element signature="e#0#32#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1015,36 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/ProjectPage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="51" column="24" lean-forward="true" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/stores/ProjectStore.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="171" column="6" lean-forward="false" selection-start-line="171" selection-start-column="6" selection-end-line="171" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#49#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/SprintTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1400">
-          <caret line="11" column="66" lean-forward="false" selection-start-line="11" selection-start-column="66" selection-end-line="11" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css/projectPage.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1053,12 +960,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/CreateSprintModal.js">
+    <entry file="file://$PROJECT_DIR$/src/stores/HomeStore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="83" column="28" lean-forward="false" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="28" />
+        <state relative-caret-position="124">
+          <caret line="169" column="2" lean-forward="false" selection-start-line="169" selection-start-column="2" selection-end-line="173" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/EditProjectModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/home/CreateProjectModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="49" column="71" lean-forward="false" selection-start-line="49" selection-start-column="71" selection-end-line="49" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="75" column="12" lean-forward="false" selection-start-line="75" selection-start-column="12" selection-end-line="83" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#32#0" expanded="false" />
+            <element signature="e#1519#1654#0" expanded="false" />
+            <element signature="e#1679#1876#0" expanded="false" />
+            <element signature="e#1903#2093#0" expanded="false" />
+            <element signature="e#2554#2697#0" expanded="false" />
+            <element signature="e#2775#2855#0" expanded="false" />
+            <element signature="e#2979#3075#0" expanded="false" />
+            <element signature="e#3174#3253#0" expanded="false" />
+            <element signature="e#3383#3479#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="176" column="29" lean-forward="false" selection-start-line="176" selection-start-column="29" selection-end-line="176" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#1964#2008#0" expanded="false" />
+            <element signature="e#9177#9228#0" expanded="false" />
+            <element signature="e#9255#9517#0" expanded="false" />
+            <element signature="e#9660#9714#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewSprintModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660">
+          <caret line="24" column="36" lean-forward="true" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/CreateSprintModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="56" column="73" lean-forward="false" selection-start-line="56" selection-start-column="73" selection-end-line="56" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="41" column="47" lean-forward="false" selection-start-line="41" selection-start-column="47" selection-end-line="41" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/ProjectPage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="55" column="36" lean-forward="false" selection-start-line="55" selection-start-column="36" selection-end-line="55" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/Config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/CardType.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="25" column="26" lean-forward="true" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/CreateCardModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/stores/ProjectStore.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="239" column="113" lean-forward="true" selection-start-line="239" selection-start-column="113" selection-end-line="239" selection-end-column="113" />
+          <folding>
+            <element signature="e#0#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/SprintTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="141" column="95" lean-forward="false" selection-start-line="141" selection-start-column="95" selection-end-line="141" selection-end-column="95" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

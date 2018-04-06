@@ -16,7 +16,25 @@ class ProjectStore{
   @observable sprints = [];
   @observable showCreateSprintModal = false;
   @observable createSprintMaskLoadingStatus = false;
+  @observable showEditOrViewSprintModal = false;
+  @observable targetSprintId = -1;
+  @observable editOrViewPrintMaskLoadingStatus = false;
+  @observable editOrView = 'edit';
+  @observable cardTypeChecked = 'story';
+  @observable showCreateCardModal = false;
+  @observable createCardMaskLoadingStatus = false;
 
+  @computed get getCreateCardMaskLoadingStatus(){
+    return this.createCardMaskLoadingStatus;
+  }
+
+  @computed get getShowCreateCardModal(){
+    return this.showCreateCardModal;
+  }
+
+  @computed get getCardTypeChecked(){
+    return this.cardTypeChecked;
+  }
   @computed get getAllUserUnderProject(){
     return this.allUserUnderProject;
   }
@@ -43,6 +61,50 @@ class ProjectStore{
 
   @computed get getCreateSprintMaskLoadingStatus(){
     return this.createSprintMaskLoadingStatus;
+  }
+
+  @computed get getShowEditOrViewSprintModal(){
+    return this.showEditOrViewSprintModal;
+  }
+
+  @computed get getTargetSprintId(){
+    return this.targetSprintId;
+  }
+
+  @computed get getEditOrViewPrintMaskLoadingStatus(){
+    return this.editOrViewPrintMaskLoadingStatus;
+  }
+
+  @computed get getEditOrView(){
+    return this.editOrView;
+  }
+
+  @action setCreateCardMaskLoadingStatus(status){
+    this.createCardMaskLoadingStatus = status;
+  }
+
+  @action setShowCreateCardModal(status){
+    this.showCreateCardModal = status;
+  }
+
+  @action setCardTypeChecked(type){
+    this.cardTypeChecked = type;
+  }
+
+  @action setEditOrView(status){
+    this.editOrView = status;
+  }
+
+  @action setEditOrViewPrintMaskLoadingStatus(status){
+    this.editOrViewPrintMaskLoadingStatus = status;
+  }
+
+  @action setTargetSprintId(sprintId){
+    this.targetSprintId = sprintId;
+  }
+
+  @action setShowEditOrViewSprintModal(status){
+    this.showEditOrViewSprintModal = status;
   }
 
   @action setCreateSprintMaskLoadingStatus(status){
@@ -164,6 +226,18 @@ class ProjectStore{
 
   createSprint(sprint){
     return axios.post(`sprint/createSprint?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(sprint)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  updateSprint(sprint){
+    return axios.post(`sprint/updateSprint?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(sprint)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  createCard(card){
+    return axios.post(`card/createCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(card)).catch(err=>{
       console.log(err);
     });
   }

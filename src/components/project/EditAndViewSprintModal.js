@@ -37,7 +37,7 @@ class EditAndViewSprintModal extends Component{
           onOk={()=>{
             this.props.form.validateFieldsAndScroll((err, values) => {
               if(!err){
-                ProjectStore.setEditOrViewPrintMaskLoadingStatus(true);
+                ProjectStore.setEditOrViewSprintMaskLoadingStatus(true);
                 const rangeTimeValue = [
                   values.startAndEndDate[0].format('YYYY-MM-DD HH:mm:ss'),
                   values.startAndEndDate[1].format('YYYY-MM-DD HH:mm:ss'),
@@ -55,7 +55,7 @@ class EditAndViewSprintModal extends Component{
                     if(response.data==='success'){
                       /* 创建成功后需要刷新数据源 */
                       ProjectStore.getSprintsFromWebServer(projectInfo.projectId).then(response=>{
-                        ProjectStore.setEditOrViewPrintMaskLoadingStatus(false);
+                        ProjectStore.setEditOrViewSprintMaskLoadingStatus(false);
                         if(response){
                           ProjectStore.setShowEditOrViewSprintModal(false);
                           message.success('修改成功！');
@@ -67,10 +67,10 @@ class EditAndViewSprintModal extends Component{
                       });
                     }else if(response.data==='failure'){
                       message.error('修改失败，请稍后再试！');
-                      ProjectStore.setEditOrViewPrintMaskLoadingStatus(false);
+                      ProjectStore.setEditOrViewSprintMaskLoadingStatus(false);
                     }
                   }else{
-                    ProjectStore.setEditOrViewPrintMaskLoadingStatus(false);
+                    ProjectStore.setEditOrViewSprintMaskLoadingStatus(false);
                     message.error('网络错误，请稍后再试！');
                   }
                 });
@@ -78,7 +78,7 @@ class EditAndViewSprintModal extends Component{
             });
           }}
         >
-          <Spin size='large' className="spin-mask" spinning={ProjectStore.getEditOrViewPrintMaskLoadingStatus}>
+          <Spin size='large' className="spin-mask" spinning={ProjectStore.getEditOrViewSprintMaskLoadingStatus}>
             <Form>
               <FormItem
                 label="迭代名称"
@@ -129,7 +129,7 @@ class EditAndViewSprintModal extends Component{
           }}
           footer={null}
         >
-          <Spin size='large' className="spin-mask" spinning={ProjectStore.getEditOrViewPrintMaskLoadingStatus}>
+          <Spin size='large' className="spin-mask" spinning={false}>
             <Form>
               <FormItem
                 label="迭代名称">

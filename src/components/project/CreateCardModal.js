@@ -76,7 +76,7 @@ class CreateCardModal extends Component{
           });
         }}
       >
-        <Spin size='large' className="spin-mask" spinning={ProjectStore.getCreateSprintMaskLoadingStatus}>
+        <Spin size='large' className="spin-mask" spinning={ProjectStore.getCreateCardMaskLoadingStatus}>
           <Form>
             <FormItem
               label="任务类型">

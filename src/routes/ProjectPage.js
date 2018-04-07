@@ -9,6 +9,7 @@ import ProjectStore from '../stores/ProjectStore';
 import CreateSprintModal from '../components/project/CreateSprintModal';
 import EditAndViewSprintModal from '../components/project/EditAndViewSprintModal';
 import CreateCardModal from '../components/project/CreateCardModal';
+import EditAndViewCardModal from '../components/project/EditAndViewCardModal';
 
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -36,6 +37,7 @@ class ProjectPage extends Component{
   render(){
     const projectId = this.props.match.params.projectId;
     const projectInfo = ProjectStore.getProjectInfo;
+    const userInfo = ProjectStore.getUserInfo;
     const naviData = {
       'nameArray': ['首页',projectInfo.projectName],
       'idArray': [' ',projectId]
@@ -54,21 +56,26 @@ class ProjectPage extends Component{
                       <span style={{
                         fontSize:17
                       }}>迭代列表:</span>
-                      <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
-                        ProjectStore.setShowCreateSprintModal(true);
-                      }}/>
+                      {userInfo.id===projectInfo.createdBy?(
+                        <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
+                          ProjectStore.setShowCreateSprintModal(true);
+                        }}/>
+                      ):(
+                        <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'not-allowed',color:"#00000047"}}/>
+                      )}
                       <Icon type="reload"  style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
                         ProjectStore.setProjectPageMaskLoadingStatus(true);
                         ProjectStore.loadData(this.props.match.params.projectId);
                       }}/>
                     </div>
-                    <div style={{height:490}}>
+                    <div>
                       <SprintTable />
                     </div>
 
                     <CreateSprintModal />
                     <EditAndViewSprintModal/>
                     <CreateCardModal />
+                    <EditAndViewCardModal />
                   </Tabs.TabPane>
                   <Tabs.TabPane tab="看板" key="2">Content of Tab Pane 2</Tabs.TabPane>
                 </Tabs>

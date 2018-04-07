@@ -15,12 +15,16 @@ class UserItem extends Component{
   }
   render(){
     let operable = {
+      removable:true,
       assignable:false,
     };
     const userInfo = ProjectStore.getUserInfo;
     const projectInfo = ProjectStore.getProjectInfo;
     if (userInfo.id === projectInfo.createdBy) {
       operable.assignable = true;
+    }
+    if(this.props.user.id === projectInfo.createdBy){
+      operable.removable = false;
     }
     return (
       <div className={projectPageStyles["user-item-container"]}>
@@ -83,7 +87,13 @@ class UserItem extends Component{
           alignItems:'center',
           width:70,
         }}>
-          <Icon type="close" style={{fontSize: 18,color: '#ff4d4f',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnRemoveUser.bind(this,this.props.user.id)}/>
+          {
+            operable.removable?(
+              <Icon type="close" style={{fontSize: 18,color: '#ff4d4f',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnRemoveUser.bind(this,this.props.user.id)}/>
+            ):(
+              <Icon type="close" style={{fontSize: 18,color: 'rgba(0,0,0,0.45)',cursor:'not-allowed',fontStyle: 'italic'}} />
+            )
+          }
           {
             operable.assignable?(
               <Icon type="fork"  style={{fontSize: 12,color: 'blue',cursor:'pointer',fontStyle: 'italic'}} onClick={this.handleOnChangeControlRight.bind(this,this.props.user.id)}/>

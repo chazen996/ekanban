@@ -9,7 +9,7 @@ const RangePicker = DatePicker.RangePicker;
 class CreateSprintModal extends Component{
   render(){
     const { getFieldDecorator } = this.props.form;
-    const userInfo = ProjectStore.getUserInfo;
+    // const userInfo = ProjectStore.getUserInfo;
     const projectInfo = ProjectStore.getProjectInfo;
     return (
       <Modal
@@ -33,7 +33,6 @@ class CreateSprintModal extends Component{
               const sprint = {};
               sprint['sprintName'] = this.props.form.getFieldValue('sprintName');
               sprint['sprintDescription'] = this.props.form.getFieldValue('sprintDescription');
-              sprint['createdBy'] = userInfo['id'];
               sprint['startDate'] = rangeTimeValue[0];
               sprint['endDate'] = rangeTimeValue[1];
               sprint['projectId'] = projectInfo.projectId;

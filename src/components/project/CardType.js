@@ -8,7 +8,7 @@ import Config from "../../utils/Config";
 class CardType extends  Component{
   handleOnCardTypeClick = (type)=>{
     ProjectStore.setCardTypeChecked(type);
-  }
+  };
   render(){
     const cardType = (type)=>{
 

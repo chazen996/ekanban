@@ -42,7 +42,9 @@ class UserItemForSearchPanel extends Component{
     for(let item of allUserUnderProject) {
       if (item.id === this.props.user.id) {
         operable['addable'] = false;
-        operable['removable'] = true;
+        if(item.id!==projectInfo.createdBy){
+          operable['removable'] = true;
+        }
         if (userInfo.id === projectInfo.createdBy) {
           operable.assignable = true;
         }

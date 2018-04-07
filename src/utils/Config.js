@@ -9,8 +9,19 @@ const Config = {
   cardTypeColor:{
     "story":"#87d068",
     "task":"#2db7f5",
-    "bug":"red",
+    "bug":"#ff0000",
     "other":"#800080"
+  },
+  cardStatusColor:{
+    "freezed":null,
+    "pretodo":"purple",
+    "todo":"blue",
+    "doing":"volcano",
+    "done":"green"
+  },
+  sprintStatusColor:{
+    "open":"#0fe00f",
+    "closed":"#00000073"
   }
 };
 

@@ -25,8 +25,10 @@ import AuthRoute from "./components/public/AuthRoute";
 import HomePage from "./routes/HomePage";
 import RegisterPage from "./routes/RegisterPage";
 import ProjectPage from "./routes/ProjectPage";
+import KanbanPage from "./routes/KanbanPage";
+import EditKanbanPage from "./routes/EditKanbanPage";
 // import Head from "./components/public/Head";
-import CreateCardModal from "./components/project/CreateCardModal";
+import Kanban from "./components/project/Kanban";
 
 ReactDom.render((
   <div>
@@ -39,7 +41,9 @@ ReactDom.render((
         {/* 临时测试 */}
         {/*<Route path='/project/:projectId' component={ProjectPage}/>*/}
         <AuthRoute exact path='/project/:projectId' component={ProjectPage}/>
-        <Route path='/test' component={CreateCardModal}/>
+        <AuthRoute exact path='/kanban/:kanbanId' component={KanbanPage}/>
+        <AuthRoute exact path='/editKanban/:kanbanId' component={EditKanbanPage}/>
+        <Route path='/test' component={Kanban}/>
       </div>
     </BrowserRouter>
   </div>

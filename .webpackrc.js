@@ -5,6 +5,14 @@ export default {
     "/project": {
       target: "http://localhost:8000",
       pathRewrite: {"^/project" : "/"}
+    },
+    "/kanban":{
+      target: "http://localhost:8000",
+      pathRewrite: {"^/kanban" : "/"}
+    },
+    "/editkanban":{
+      target: "http://localhost:8000",
+      pathRewrite: {"^/editkanban" : "/"}
     }
   }
 }

@@ -10,6 +10,10 @@ import CreateSprintModal from '../components/project/CreateSprintModal';
 import EditAndViewSprintModal from '../components/project/EditAndViewSprintModal';
 import CreateCardModal from '../components/project/CreateCardModal';
 import EditAndViewCardModal from '../components/project/EditAndViewCardModal';
+import CreateKanbanModal from '../components/project/CreateKanbanModal';
+import EditKanbanModal from '../components/project/EditKanbanModal';
+
+import KanbanList from "../components/project/KanbanList";
 
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
@@ -77,7 +81,30 @@ class ProjectPage extends Component{
                     <CreateCardModal />
                     <EditAndViewCardModal />
                   </Tabs.TabPane>
-                  <Tabs.TabPane tab="看板" key="2">Content of Tab Pane 2</Tabs.TabPane>
+                  <Tabs.TabPane tab="看板" key="2">
+                    <div style={{height:34,position:'relative'}}>
+                      <span style={{
+                        fontSize:17
+                      }}>看板列表:</span>
+                      {userInfo.id===projectInfo.createdBy?(
+                        <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
+                          ProjectStore.setShowCreateKanbanModal(true);
+                        }}/>
+                      ):(
+                        <Icon type="plus-circle" style={{fontSize:16,marginLeft:16,cursor:'not-allowed',color:"#00000047"}}/>
+                      )}
+                      <Icon type="reload"  style={{fontSize:16,marginLeft:16,cursor:'pointer'}} onClick={()=>{
+                        ProjectStore.setProjectPageMaskLoadingStatus(true);
+                        ProjectStore.loadData(this.props.match.params.projectId);
+                      }}/>
+                    </div>
+                    <div>
+                      <KanbanList />
+                    </div>
+
+                    <CreateKanbanModal />
+                    <EditKanbanModal />
+                  </Tabs.TabPane>
                 </Tabs>
               </div>
               <UserList/>

@@ -14,6 +14,11 @@ class KanbanStore{
   @observable kanbanInfo = {};
   @observable columns = [];
   @observable kanbanPageMaskLoadingStatus = true;
+  @observable openedColumnSettingPanelId = -1;
+
+  @computed get getOpenedColumnSettingPanelId(){
+    return this.openedColumnSettingPanelId;
+  }
 
   @computed get getKanbanInfo(){
     return this.kanbanInfo;
@@ -33,6 +38,10 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setOpenedColumnSettingPanelId(columnId){
+    this.openedColumnSettingPanelId = columnId;
   }
 
   @action setKanbanInfo(kanban){

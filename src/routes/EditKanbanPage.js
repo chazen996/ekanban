@@ -4,6 +4,7 @@ import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import Header from '../components/public/Header';
 import KanbanStore from '../stores/KanbanStore';
+import EditKanbanTable from '../components/kanban/EditKanbanTable';
 // import kanbanPageStyles from '../assets/css/projectPage.css';
 
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -45,7 +46,7 @@ class EditKanbanPage extends Component{
           <Header naviData={naviData}/>
           <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5}}>
             <div>
-              编辑看板页面
+              <EditKanbanTable />
             </div>
           </div>
         </Spin>

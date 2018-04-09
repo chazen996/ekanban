@@ -9,8 +9,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" />
       <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes/EditKanbanPage.js" afterPath="$PROJECT_DIR$/src/routes/EditKanbanPage.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/KanbanStore.js" afterPath="$PROJECT_DIR$/src/stores/KanbanStore.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,23 +35,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditKanbanTable.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditKanbanTable.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="113" column="40" lean-forward="false" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
+            <state relative-caret-position="130">
+              <caret line="118" column="85" lean-forward="true" selection-start-line="118" selection-start-column="85" selection-end-line="118" selection-end-column="85" />
               <folding>
                 <element signature="e#100#128#0" expanded="true" />
+                <marker date="1523290744287" expanded="true" signature="3583:3641" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="3988:4834" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="4357:4787" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="4387:4645" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="4661:4774" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="4679:4719" ph="..." />
+                <marker date="1523290744287" expanded="true" signature="4737:4757" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditKanbanTableTd.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EditKanbanTableTd.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" column="2" lean-forward="false" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="23" />
+            <state relative-caret-position="580">
+              <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -153,9 +158,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>新建跌打</find>
-      <find>sprintStatus</find>
-      <find>border</find>
       <find>createdBy</find>
       <find>Switch</find>
       <find>height:490</find>
@@ -183,6 +185,9 @@
       <find>showColumnSettingPanel</find>
       <find>subColumn</find>
       <find>next</find>
+      <find>plus</find>
+      <find>refs</find>
+      <find>ref</find>
     </findStrings>
     <replaceStrings>
       <replace>targetUser</replace>
@@ -255,8 +260,8 @@
         <option value="$PROJECT_DIR$/src/assets/css/kanbanPage.css" />
         <option value="$PROJECT_DIR$/src/routes/EditKanbanPage.js" />
         <option value="$PROJECT_DIR$/src/stores/KanbanStore.js" />
-        <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" />
+        <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js" />
       </list>
     </option>
   </component>
@@ -444,7 +449,7 @@
       <workItem from="1522642029574" duration="57918000" />
       <workItem from="1522907692425" duration="43097000" />
       <workItem from="1523073364008" duration="38598000" />
-      <workItem from="1523246165614" duration="19715000" />
+      <workItem from="1523246165614" duration="23300000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -628,11 +633,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523203192495</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="[commit] 构造了key为列id的map，可直接通过id找到原始数组中的目标对象，大大简化了后续工作">
+      <created>1523284492528</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1523284492528</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="422725000" />
+    <option name="totallyTimeSpent" value="426310000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -665,7 +677,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[COMMIT] 解决了跨域问题，实现了登陆获取token后添加header调用后台API" />
     <MESSAGE value="[COMMIT] 完善了前端路由跳转权限验证的方式，使用AES加密对sessionStorage进行必要的加密保护，防止恶意登陆" />
     <MESSAGE value="[COMMIT] 完成登陆页面功能设计" />
     <MESSAGE value="[IMP] 登陆页面样式调整" />
@@ -690,7 +701,8 @@
     <MESSAGE value="[commit] 继续完善项目、迭代和任务" />
     <MESSAGE value="[commit] 完成了看板管理页面的设计；预留了编辑看板和使用看板页面" />
     <MESSAGE value="[commit] 灵感乍现，解决了table有关的世纪难题（td内部div高度无法自动撑满）" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 灵感乍现，解决了table有关的世纪难题（td内部div高度无法自动撑满）" />
+    <MESSAGE value="[commit] 构造了key为列id的map，可直接通过id找到原始数组中的目标对象，大大简化了后续工作" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 构造了key为列id的map，可直接通过id找到原始数组中的目标对象，大大简化了后续工作" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -900,7 +912,7 @@
         <state relative-caret-position="238">
           <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -917,7 +929,7 @@
         <state relative-caret-position="124">
           <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="52" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
             <element signature="e#4497#4607#0" expanded="false" />
           </folding>
         </state>
@@ -944,7 +956,7 @@
         <state relative-caret-position="182">
           <caret line="235" column="37" lean-forward="false" selection-start-line="235" selection-start-column="37" selection-end-line="235" selection-end-column="37" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
             <element signature="e#2234#2677#0" expanded="false" />
           </folding>
         </state>
@@ -955,7 +967,7 @@
         <state relative-caret-position="92">
           <caret line="52" column="12" lean-forward="true" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="false" />
             <element signature="e#1322#1397#0" expanded="false" />
           </folding>
         </state>
@@ -974,7 +986,7 @@
         <state relative-caret-position="124">
           <caret line="16" column="38" lean-forward="false" selection-start-line="16" selection-start-column="38" selection-end-line="16" selection-end-column="38" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#31#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1105,22 +1117,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js">
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="18" column="2" lean-forward="false" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="23" />
+        <state relative-caret-position="130">
+          <caret line="118" column="85" lean-forward="true" selection-start-line="118" selection-start-column="85" selection-end-line="118" selection-end-column="85" />
           <folding>
-            <element signature="e#0#32#0" expanded="true" />
+            <element signature="e#100#128#0" expanded="true" />
+            <marker date="1523290744287" expanded="true" signature="3583:3641" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="3988:4834" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="4357:4787" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="4387:4645" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="4661:4774" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="4679:4719" ph="..." />
+            <marker date="1523290744287" expanded="true" signature="4737:4757" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js">
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="113" column="40" lean-forward="false" selection-start-line="113" selection-start-column="40" selection-end-line="113" selection-end-column="40" />
+        <state relative-caret-position="580">
+          <caret line="29" column="24" lean-forward="true" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
           <folding>
-            <element signature="e#100#128#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

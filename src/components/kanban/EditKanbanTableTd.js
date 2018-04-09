@@ -16,16 +16,27 @@ class EditKanbanTableTd extends Component{
 
   }
 
-  componentDidMount() {
+  /* 根据渲染后外部td的实际高度设置当前div的高度 */
+  resizeEditKanbanTableTd=()=>{
     const rowSpan = this.props.rowSpan;
     const td = this.refs.editKanbanTableTd;
-    // td.parentNode.offsetHeight
     td.style.height = `${ rowSpan*52 - 2}px`;
+  };
+
+  componentDidMount(){
+    this.resizeEditKanbanTableTd();
+  }
+
+  componentDidUpdate() {
+    this.resizeEditKanbanTableTd();
   }
   handleOnChangeRadio=(event)=>{
     this.setState({
       radioValue: event.target.value,
     });
+  };
+  handleOnAddSubColumn=(columnId)=>{
+    this.props.handleOnAddSubColumn(columnId);
   };
   render(){
 
@@ -94,7 +105,7 @@ class EditKanbanTableTd extends Component{
           <div>
             <Icon type="plus" style={{
               cursor:'pointer'
-            }}/>
+            }} onClick={this.handleOnAddSubColumn.bind(this,this.props.column.columnId)}/>
           </div>
           <div style={{
             position:'absolute',

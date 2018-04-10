@@ -38,7 +38,7 @@ class CreateKanbanModal extends Component{
               kanban['kanbanDescription'] = values.kanbanDescription;
 
               kanban['projectId'] = projectInfo.projectId;
-              kanban['kanbanHeight'] = projectInfo.kanbanHeight;
+              kanban['kanbanHeight'] = 3;
 
               ProjectStore.createKanban(kanban).then(response=>{
                 if(response){

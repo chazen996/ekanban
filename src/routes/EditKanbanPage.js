@@ -44,7 +44,7 @@ class EditKanbanPage extends Component{
       <LocaleProvider locale={zh_CN}>
         <Spin spinning={KanbanStore.getKanbanPageMaskLoadingStatus} size='large' className="spin-mask">
           <Header naviData={naviData}/>
-          <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5}}>
+          <div className="body-container" style={{marginTop:5}}>
             <div>
               <EditKanbanTable />
             </div>

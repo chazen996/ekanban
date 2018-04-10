@@ -6,7 +6,7 @@ import {observer} from 'mobx-react';
 // import kanbanPageStyles from '../../assets/css/kanbanPage.css';
 
 @observer
-class EditKanbanTableTd extends Component{
+class EditKanbanTableHeadTd extends Component{
   constructor(props){
     super(props);
 
@@ -17,26 +17,36 @@ class EditKanbanTableTd extends Component{
   }
 
   /* 根据渲染后外部td的实际高度设置当前div的高度 */
-  resizeEditKanbanTableTd=()=>{
+  resizeEditKanbanTableHeadTd=()=>{
     const rowSpan = this.props.rowSpan;
-    const td = this.refs.editKanbanTableTd;
+    const td = this.refs.EditKanbanTableHeadTd;
     td.style.height = `${ rowSpan*52 - 2}px`;
+    td.parentNode.style.height = `${rowSpan*52}px`;
   };
 
   componentDidMount(){
-    this.resizeEditKanbanTableTd();
+    this.resizeEditKanbanTableHeadTd();
   }
 
   componentDidUpdate() {
-    this.resizeEditKanbanTableTd();
+    this.resizeEditKanbanTableHeadTd();
   }
   handleOnChangeRadio=(event)=>{
     this.setState({
       radioValue: event.target.value,
     });
   };
-  handleOnAddSubColumn=(columnId)=>{
-    this.props.handleOnAddSubColumn(columnId);
+  handleOnAddColumn=(columnId)=>{
+    this.props.handleOnAddColumn(columnId);
+  };
+  handleOnDeleteColumn=(columnId)=>{
+    this.props.handleOnDeleteColumn(columnId);
+  };
+  handleOnExtendColumn=(columnId)=>{
+    this.props.handleOnExtendColumn(columnId);
+  };
+  handleOnShrinkColumn=(columnId)=>{
+    this.props.handleOnShrinkColumn(columnId);
   };
   render(){
 
@@ -59,7 +69,8 @@ class EditKanbanTableTd extends Component{
       display: openedColumnSettingPanelId===this.props.column.columnId?('flex'):('none'),
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      zIndex: 2
     };
 
     return (
@@ -71,14 +82,14 @@ class EditKanbanTableTd extends Component{
         alignItems:'center',
         position:'relative',
         background:'#fafafa78'
-      }} ref="editKanbanTableTd">
+      }} ref="EditKanbanTableHeadTd">
         <span>{this.props.column.columnName}</span>
         <Icon type="close" style={{
           position:'absolute',
           top:0,
           right:0,
           cursor:'pointer'
-        }}/>
+        }} onClick={this.handleOnDeleteColumn.bind(this,this.props.column.columnId)}/>
         <div style={{
           position:'absolute',
           bottom:0,
@@ -105,19 +116,19 @@ class EditKanbanTableTd extends Component{
           <div>
             <Icon type="plus" style={{
               cursor:'pointer'
-            }} onClick={this.handleOnAddSubColumn.bind(this,this.props.column.columnId)}/>
+            }} onClick={this.handleOnAddColumn.bind(this,this.props.column.columnId)}/>
           </div>
           <div style={{
             position:'absolute',
             right:0
           }}>
-            {this.props.nextToTbody?(
+            {this.props.nextToTbody&&this.props.column.columnWidth>1?(
               <Icon type="left" style={{
                 cursor:'pointer'
-              }}/>
+              }} onClick={this.handleOnShrinkColumn.bind(this,this.props.column.columnId)}/>
             ):(null)}
             {this.props.nextToTbody?(
-              <Icon type="right" style={{cursor:'pointer'}}/>
+              <Icon type="right" style={{cursor:'pointer'}} onClick={this.handleOnExtendColumn.bind(this,this.props.column.columnId)}/>
             ):(<Icon type="right" style={{cursor:'not-allowed'}}/>)}
           </div>
         </div>
@@ -133,4 +144,4 @@ class EditKanbanTableTd extends Component{
   }
 }
 
-export default EditKanbanTableTd;
+export default EditKanbanTableHeadTd;

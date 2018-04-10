@@ -107,6 +107,23 @@ class PublicAuthKit{
   trim(str) {
     return str.replace(/(^\s*)|(\s*$)/g, '');
   }
+
+  // 获取某元素以浏览器左上角为原点的坐标
+  getTopAndLeft(obj, result) {
+    let objTemp = obj;
+    const resultTemp = result;
+    let t = objTemp.offsetTop; // 获取该元素对应父容器的上边距
+    let l = objTemp.offsetLeft; // 对应父容器的上边距
+    // 判断是否有父容器，如果存在则累加其边距
+    objTemp = objTemp.offsetParent;
+    while (objTemp != null) {
+      t += objTemp.offsetTop; // 叠加父容器的上边距
+      l += objTemp.offsetLeft; // 叠加父容器的左边距
+      objTemp = objTemp.offsetParent;
+    }
+    resultTemp.top = t;
+    resultTemp.left = l;
+  }
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

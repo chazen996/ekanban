@@ -9,6 +9,8 @@ import {observer} from 'mobx-react';
 import PublicAuthKit from '../../utils/PublicAuthKit';
 import Swimlane from './Swimlane';
 
+require("../../assets/css/kanbanPage.css");
+
 @observer
 class EditKanbanTable extends Component{
   constructor(props){
@@ -16,6 +18,7 @@ class EditKanbanTable extends Component{
 
     this.columnMap = [];
     this.theadTdNextToBody = [];
+    this.swimlaneGroupIdArry = [];
 
     this.state = {
       drawSwimlane:false
@@ -43,8 +46,11 @@ class EditKanbanTable extends Component{
         };
         PublicAuthKit.getTopAndLeft(kanbanContent,topAndLeft);
 
+        // let startX = evt.clientX - topAndLeft.left + bodyContainer.scrollLeft + document.documentElement.scrollTop;
+        // let startY = evt.clientY - topAndLeft.top + bodyContainer.scrollLeft + document.documentElement.scrollTop;
+
         let startX = evt.clientX - topAndLeft.left + bodyContainer.scrollLeft + document.documentElement.scrollTop;
-        let startY = evt.clientY - topAndLeft.top + bodyContainer.scrollLeft + document.documentElement.scrollTop;
+        let startY = evt.clientY - topAndLeft.top + bodyContainer.scrollTop + document.documentElement.scrollTop;
 
         let selDiv = document.createElement('div');
         selDiv.style.cssText = 'position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:200;filter:alpha(opacity:60);opacity:0.6;display:none;pointer-events:none';
@@ -80,8 +86,8 @@ class EditKanbanTable extends Component{
           const newW = selDiv.offsetWidth;
           const newH = selDiv.offsetHeight;
           for (let i = 0; i < selList.length; i += 1) {
-            const sl = selList[i].offsetLeft;
-            const st = selList[i].offsetTop + tbody.offsetTop;
+            const sl = selList[i].parentNode.offsetLeft;
+            const st = selList[i].parentNode.offsetTop;
             if(sl + selList[i].offsetWidth > newL &&
               newL + newW > sl &&
               newT < st + selList[i].offsetHeight && newT + newH > st){
@@ -97,7 +103,7 @@ class EditKanbanTable extends Component{
                 selectedArrayClassNameBackUp.push(selList[i].className);
               }
               if (selList[i].className.indexOf('selected') === -1) {
-                selList[i].className = `${selList[i].className} selected`;
+                selList[i].classList.add('selected');
               }
               if (!hasSameItem) { /* 拿到所有选中的item数组 */
                 selectedArray.push(selList[i]);
@@ -137,7 +143,7 @@ class EditKanbanTable extends Component{
           /*检查是否有重叠泳道(看备份的className是否都不包含select)*/
           let hasConflict = false;
           for(let item of selectedArrayClassNameBackUp){
-            if(item.className.indexOf('selected')!==-1){
+            if(item.indexOf('swimlaneDiv')!==-1){
               hasConflict = true;
               break;
             }
@@ -145,6 +151,7 @@ class EditKanbanTable extends Component{
 
           if(!hasConflict){
             /* 可创建泳道 */
+            this.handleOnCreateSwimlane(selectedArray);
           }else{
             /* 恢复所有选中的div的原状态 */
             message.warning('泳道无法重叠,请重试', 1.5);
@@ -153,12 +160,161 @@ class EditKanbanTable extends Component{
             }
           }
 
+          /* 将所有cellDiv的selected去除 */
+          for(let item of selectedArray){
+            item.classList.remove('selected');
+          }
+
           selectedArray = [];
           selectedArrayClassNameBackUp = [];
         };
       }
     }
   }
+  confirmShowSwimlaneInfo=(groupId)=>{
+    if(this.swimlaneGroupIdArry[groupId]!=null){
+      return false;
+    }else{
+      this.swimlaneGroupIdArry[groupId] = true;
+      return true;
+    }
+  };
+  handleOnCreateSwimlane=(cellDivs)=>{
+    const swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+    const groupId = PublicAuthKit.generateNoneDuplicateID(3);
+    for(let cell of cellDivs){
+      let columnId = cell.getAttribute('data-columnid');
+
+      let position = parseInt(cell.getAttribute('data-x'),10);
+      let columnPosition = parseInt(cell.getAttribute('data-y'),10);
+      let swimlaneId = PublicAuthKit.generateNoneDuplicateID(3);
+      let swimlane = {
+        swimlaneName : '未命名泳道',
+        position:position,
+        swimlaneId: swimlaneId,
+        groupId:groupId,
+        height:1,
+        acrossColumn:columnId,
+
+        columnPosition:columnPosition,
+        groupMemberNumber:cellDivs.length
+      };
+      swimlanes.push(swimlane);
+    }
+    KanbanStore.setSwimlanes(swimlanes);
+  };
+  handleOnDeleteSwimlane=(value,deletedById)=>{
+    let swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+
+    if(deletedById){
+      for(let i=0;i<swimlanes.length;i++){
+        let swimlane = swimlanes[i];
+        if(value===swimlane.swimlaneId){
+          swimlanes.splice(i,1);
+          break;
+        }
+      }
+    }else{
+      for(let i=0;i<swimlanes.length;i++){
+        let swimlane = swimlanes[i];
+        if(value===swimlane.groupId){
+          swimlanes.splice(i,1);
+          i -= 1;
+        }
+      }
+    }
+    KanbanStore.setSwimlanes(swimlanes);
+  };
+
+  handleOnJoinSwimlane=(targetSwimlaneId,groupId)=>{
+    let swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+
+    let maxX = null;let minX = null;
+    let maxY = null;let minY = null;
+    let flag = true;
+    let referenceOfTargetSwimlane = null;
+    for(let i=0;i<swimlanes.length;i++){
+      let swimlane = swimlanes[i];
+      if(groupId===swimlane.groupId){
+        if(flag){
+          maxX = swimlane.position;minX = swimlane.position;
+          maxY = swimlane.columnPosition;minY = swimlane.columnPosition;
+          flag = false;
+        }else{
+          if(maxX<swimlane.position){
+            maxX = swimlane.position;
+          }
+          if(minX>swimlane.position){
+            minX = swimlane.position;
+          }
+          if(maxY<swimlane.columnPosition){
+            maxY = swimlane.columnPosition;
+          }
+          if(minY>swimlane.columnPosition){
+            minY = swimlane.columnPosition;
+          }
+        }
+        if(targetSwimlaneId!==swimlane.swimlaneId){
+          swimlanes.splice(i,1);
+          i -= 1;
+        }else{
+          referenceOfTargetSwimlane = swimlane;
+        }
+      }
+    }
+    let count = maxY - minY +1;
+    let columnTemp = {
+      columnId:referenceOfTargetSwimlane.acrossColumn
+    };
+    let targetSwimlaneColumnPosition = this.getColumnPositionYOfTdNextToBody(columnTemp);
+    let acrossColumnArray = [];
+    for(let j=0;j<count;j++){
+      acrossColumnArray.push(this.theadTdNextToBody[targetSwimlaneColumnPosition+j].columnId);
+    }
+    referenceOfTargetSwimlane.height = maxX-minX+1;
+    referenceOfTargetSwimlane.acrossColumn = acrossColumnArray.join(',');
+    referenceOfTargetSwimlane.groupMemberNumber = 1;
+
+    KanbanStore.setSwimlanes(swimlanes);
+  };
+  handleOnSplitSwimlane=(targetSwimlaneId)=>{
+    let swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+    let reference = null;
+    for(let item of swimlanes){
+      if(item.swimlaneId===targetSwimlaneId){
+        reference = item;
+        break;
+      }
+    }
+    const acrossColumnArray = reference.acrossColumn.split(',');
+    const groupMemberNumber = acrossColumnArray.length*reference.height;
+    for(let i=0;i<reference.height;i++){
+      for(let j=0;j<acrossColumnArray.length;j++){
+        if(i===0&&j===0){
+          continue;
+        }
+        let swimlaneId = PublicAuthKit.generateNoneDuplicateID(3);
+        let swimlane = {
+          swimlaneName : reference.swimlaneName,
+          position:reference.position+i,
+          swimlaneId: swimlaneId,
+          groupId:reference.groupId,
+          height:1,
+          acrossColumn:acrossColumnArray[j],
+
+          columnPosition:reference.columnPosition+j,
+          groupMemberNumber:groupMemberNumber
+        };
+        swimlanes.push(swimlane);
+      }
+    }
+
+    reference.height = 1;
+    reference.acrossColumn = acrossColumnArray[0];
+    reference.groupMemberNumber = groupMemberNumber;
+
+    KanbanStore.setSwimlanes(swimlanes);
+  };
 
   generateColumnMap(array){
     this.columnMap = [];
@@ -288,7 +444,7 @@ class EditKanbanTable extends Component{
   checkPositionSuccession(positionArray,result){
 
     for(let i=1;i<positionArray.length-1;i++){
-      if((positionArray[i]-positionArray[i-1])===(positionArray[i+1]-positionArray[i])&&(positionArray[i]-positionArray[i-1])===1){
+      if((positionArray[i]-positionArray[i-1])!==(positionArray[i+1]-positionArray[i])||(positionArray[i]-positionArray[i-1])!==1){
         result['flag'] = false;
         if(positionArray[i]-positionArray[i-1]===1){
           result["successionPosition"]=i;
@@ -309,6 +465,7 @@ class EditKanbanTable extends Component{
       }
     }
   }
+
   processSwimlane(swimlanes){
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     this.generateColumnMap(columns);
@@ -332,7 +489,8 @@ class EditKanbanTable extends Component{
       }else{
         acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
       }
-      if(acrossColumnNumber===0){
+      if(acrossColumnNumber===0||(acrossColumnNumber===1&&swimlane.columnPosition!==acrossColumnPositionOfTdNextToBody[0])){
+        this.handleOnDeleteSwimlane(swimlane.swimlaneId,true);
         swimlanes.splice(i,1);
         i -= 1;
       }else{
@@ -370,6 +528,9 @@ class EditKanbanTable extends Component{
     }
     return -1;
   }
+  getAcrossColumnNumber=(array)=>{
+    return array.split(',').length;
+  };
   render(){
     const kanbanInfo = KanbanStore.getKanbanInfo;
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
@@ -381,6 +542,7 @@ class EditKanbanTable extends Component{
     let nodesNumberOfNextLayer = 0;
     /* 设置tdNextToBody */
     this.theadTdNextToBody = [];
+    this.swimlaneGroupIdArry = [];
     for(let item of columns){
       this.visitiWholeTreeToolSpecial(item);
     }
@@ -450,23 +612,9 @@ class EditKanbanTable extends Component{
     }
     tHead = trList;
     /* 处理万恶的泳道 */
-    const testSwimlaneData = [
-      {
-        columnId:3,
-        position:0,
-        groupId:1,
-        height:1,
-        acrossColumn:'3'
-      },{
-        columnId:4,
-        position:0,
-        groupId:1,
-        height:3,
-        acrossColumn:'4,2'
-      }
-    ];
+    const swimlaneData = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
     /* 计算泳道的宽度 */
-    this.processSwimlane(testSwimlaneData);
+    this.processSwimlane(swimlaneData);
     /***************/
     /*开始生成表体数据*/
     const tableHeight = kanbanInfo.kanbanHeight;
@@ -477,33 +625,79 @@ class EditKanbanTable extends Component{
       tdList = [];
       for(let j=0;j<tableWidth;j++){
         let swimlane = null;
-        for(let k=0;k<testSwimlaneData.length;k++){
-          let swimlaneTemp = testSwimlaneData[k];
+        for(let k=0;k<swimlaneData.length;k++){
+          let swimlaneTemp = swimlaneData[k];
           let temp = {
             columnId:swimlaneTemp.acrossColumn.split(',')[0]
           };
           let positionY = this.getColumnPositionYOfTdNextToBody(temp);
           if(positionY===-1){
-            testSwimlaneData.splice(k,1);
+            swimlaneData.splice(k,1);
             k = k-1;
             continue;
           }
           if(i===swimlaneTemp.position&&j===positionY){
             swimlane = (
-              <Swimlane swimlane={swimlaneTemp}/>
+              <Swimlane swimlane={swimlaneTemp}
+                        showSwimlaneInfo={this.confirmShowSwimlaneInfo(swimlaneTemp.groupId)}
+                        handleOnDeleteSwimlane={this.handleOnDeleteSwimlane}
+                        handleOnJoinSwimlane={this.handleOnJoinSwimlane}
+                        handleOnSplitSwimlane={this.handleOnSplitSwimlane}
+              />
             );
             break;
           }
         }
+        /* 解决跨列的泳道的border问题 */
+        let beCoveredBySwimlane = false;
+        for(let k=0;k<swimlaneData.length;k++){
+          let swimlaneTemp = swimlaneData[k];
+          if(swimlaneTemp.columnPosition<=j&&
+            swimlaneTemp.columnPosition+this.getAcrossColumnNumber(swimlaneTemp.acrossColumn)-1>=j&&
+            swimlaneTemp.position<=i&&swimlaneTemp.position+swimlaneTemp.height-1>=i){
+            beCoveredBySwimlane = true;
+            break;
+          }
+        }
+        let borderBottomStyle = null;
+        let borderTopStyle = null;
+        if(i===tableHeight-1){
+          borderBottomStyle = 'solid';
+          if(beCoveredBySwimlane){
+            borderTopStyle = 'solid';
+          }else{
+            borderTopStyle = 'dashed';
+          }
+        }else{
+          if(beCoveredBySwimlane){
+            borderTopStyle = 'solid';
+            borderBottomStyle = 'solid';
+          }else{
+            borderTopStyle = 'dashed';
+            borderTopStyle = 'dashed';
+          }
+        }
 
+        // if(i===tableHeight-1){
+        //   borderBottomStyle = 'solid';
+        // }else if(swimlane===null){
+        //   borderBottomStyle = 'dashed';
+        // }else{
+        //   borderBottomStyle = 'solid';
+        // }
         tdList.push(
           <td style={{
             margin:0,
             padding:0,
-            border:'1px solid #C1C8D2',
-            position:'relative'
+            borderWidth:1,
+            borderColor:'#C1C8D2',
+            borderStyle:'solid',
+            position:'relative',
+            borderBottomStyle:borderBottomStyle,
+            borderTopStyle: borderTopStyle
+            // borderBottom: swimlane===null?('1px dashed #C1C8D2'):('1px solid #C1C8D2'),
           }} key={j}>
-            <EditKanbanTableBodyTd column={this.theadTdNextToBody[j]}/>
+            <EditKanbanTableBodyTd beCoveredBySwimlane={beCoveredBySwimlane} column={this.theadTdNextToBody[j]} dataX={i} dataY={j}/>
             {swimlane}
           </td>
         );
@@ -525,19 +719,20 @@ class EditKanbanTable extends Component{
           position: 'fixed',
           height: 32,
           right: 0,
-          top: 81
+          top: 81,
+          zIndex:2
         }}>
           <Icon type="plus-square-o" style={iconStyle}
                 onClick={this.handleOnAddColumn.bind(this,null,true)}/>
           <Icon type="down" style={iconStyle}
                 onClick={this.handleOnAddKanbanHeight}/>
+          <Icon type="up" style={iconStyle}
+                onClick={this.handleOnReduceKanbanHeight}/>
           <Icon type="edit" style={iconStyle} onClick={()=>{
             this.setState({
               drawSwimlane:!this.state.drawSwimlane
             });
           }}/>
-          <Icon type="up" style={iconStyle}
-                onClick={this.handleOnReduceKanbanHeight}/>
           <Icon type="save" style={iconStyle}/>
         </div>
         <div id="kanban-content" style={{position:'relative'}}>

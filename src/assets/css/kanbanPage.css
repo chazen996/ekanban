@@ -1,7 +1,5 @@
 @import "global.css";
 
-.table-head-td{
-  width: 100px;
-  height: 50px;
-  background: lightskyblue;
+:global(.cellDiv.selected){
+  background: #e6f7ff;
 }

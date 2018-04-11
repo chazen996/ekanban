@@ -7,14 +7,9 @@ import {observer} from 'mobx-react';
 
 @observer
 class EditKanbanTableHeadTd extends Component{
-  constructor(props){
-    super(props);
-
-    this.state = {
-      radioValue: 1,
-    };
-
-  }
+  // constructor(props){
+  //   super(props);
+  // }
 
   /* 根据渲染后外部td的实际高度设置当前div的高度 */
   resizeEditKanbanTableHeadTd=()=>{
@@ -32,9 +27,23 @@ class EditKanbanTableHeadTd extends Component{
     this.resizeEditKanbanTableHeadTd();
   }
   handleOnChangeRadio=(event)=>{
-    this.setState({
-      radioValue: event.target.value,
-    });
+    if(event.target.value===2){
+      if(this.props.column.columnId===KanbanStore.getEndColumnId){
+        KanbanStore.setEndColumnId(-1);
+      }
+      KanbanStore.setStartColumnId(this.props.column.columnId);
+    }else if(event.target.value===3){
+      if(this.props.column.columnId===KanbanStore.getStartColumnId){
+        KanbanStore.setStartColumnId(-1);
+      }
+      KanbanStore.setEndColumnId(this.props.column.columnId);
+    }else{
+      if(this.props.column.columnId===KanbanStore.getStartColumnId){
+        KanbanStore.setStartColumnId(-1);
+      }else if(this.props.column.columnId===KanbanStore.getEndColumnId){
+        KanbanStore.setEndColumnId(-1);
+      }
+    }
   };
   handleOnAddColumn=(columnId)=>{
     this.props.handleOnAddColumn(columnId);
@@ -72,6 +81,16 @@ class EditKanbanTableHeadTd extends Component{
       alignItems: 'center',
       zIndex: 2
     };
+    let radioValue = null;
+    const startColumnId = KanbanStore.getStartColumnId;
+    const endColumnId = KanbanStore.getEndColumnId;
+    if(startColumnId===this.props.column.columnId){
+      radioValue = 2;
+    }else if(endColumnId===this.props.column.columnId){
+      radioValue = 3;
+    }else{
+      radioValue = 1;
+    }
 
     return (
       <div style={{
@@ -83,7 +102,20 @@ class EditKanbanTableHeadTd extends Component{
         position:'relative',
         background:'#fafafa78'
       }} ref="EditKanbanTableHeadTd">
-        <span>{this.props.column.columnName}</span>
+        <span>{`${this.props.column.columnName},${this.props.column.status}`}</span>
+        {
+          radioValue===2||radioValue===3?(
+            <div style={{
+              position:'absolute',
+              left: 0,
+              top: 0
+            }}>
+            <span style={{
+              fontSize:12
+            }}>{radioValue===2?('Start'):('End')}</span>
+            </div>
+          ):(null)
+        }
         <Icon type="close" style={{
           position:'absolute',
           top:0,
@@ -133,7 +165,7 @@ class EditKanbanTableHeadTd extends Component{
           </div>
         </div>
         <div style={columnSettingPanelStyle}>
-          <Radio.Group value={this.state.radioValue} onChange={this.handleOnChangeRadio}>
+          <Radio.Group value={radioValue} onChange={this.handleOnChangeRadio}>
             <Radio style={radioStyle} value={1}>普通列</Radio>
             <Radio style={radioStyle} value={2}>起始列</Radio>
             <Radio style={radioStyle} value={3}>终止列</Radio>

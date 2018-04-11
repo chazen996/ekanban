@@ -16,6 +16,16 @@ class KanbanStore{
   @observable kanbanPageMaskLoadingStatus = true;
   @observable openedColumnSettingPanelId = -1;
   @observable swimlanes = [];
+  @observable startColumnId = -1;
+  @observable endColumnId = -1;
+
+  @computed get getStartColumnId(){
+    return this.startColumnId;
+  }
+
+  @computed get getEndColumnId(){
+    return this.endColumnId;
+  }
 
   @computed get getSwimlanes(){
     return this.swimlanes;
@@ -43,6 +53,14 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setStartColumnId(columnId){
+    this.startColumnId = columnId;
+  }
+
+  @action setEndColumnId(columnId){
+    this.endColumnId = columnId;
   }
 
   @action setSwimlanes(swimlanes){

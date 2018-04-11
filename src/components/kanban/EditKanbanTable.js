@@ -8,6 +8,7 @@ import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from '../../utils/PublicAuthKit';
 import Swimlane from './Swimlane';
+// import Kanban from "../project/Kanban";
 
 require("../../assets/css/kanbanPage.css");
 
@@ -327,6 +328,13 @@ class EditKanbanTable extends Component{
     }
   }
   visitiWholeTreeTool(node){
+    if(node.status==='todo:s'){
+      KanbanStore.setStartColumnId(node.columnId);
+    }else if(node.status==='done:s'){
+      KanbanStore.setEndColumnId(node.columnId);
+    }else if(node.status==null){
+      node.status='doing';
+    }
     if(node.subColumn==null||node.subColumn.length===0){
       this.columnMap[node.columnId] = node;
       node.colSpan = 1;
@@ -393,7 +401,7 @@ class EditKanbanTable extends Component{
     const parentColumnIdArray = column.parentId.split(',');
     if(parentColumnIdArray.length<=1){
       console.log('无法找到此列的父级');
-      return;
+      return false;
     }
     const targetColumnId = parentColumnIdArray[parentColumnIdArray.length-1];
     return array[targetColumnId];
@@ -528,9 +536,115 @@ class EditKanbanTable extends Component{
     }
     return -1;
   }
-  getAcrossColumnNumber=(array)=>{
-    return array.split(',').length;
+  confirmSubColumnContainsTargetStatus=(array,status)=>{
+    for(let item of array){
+      if(item.status===status){
+        return true;
+      }
+    }
+    return false;
   };
+  initColumnStatusTool=(node,status)=>{
+    node.status = status;
+    for(let item of node.subColumn){
+      this.initColumnStatusTool(item,status);
+    }
+  };
+  initColumnStatus=(columns,startColumnId,endColumnId)=>{
+    // let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    // this.generateColumnMap(columns);
+
+    // let startColumnId = startColumnId;
+    // let endColumnId = endColumnId;
+    let column = null;
+    let parentColumn = null;
+    if(startColumnId!==-1){
+      column = this.columnMap[startColumnId];
+      this.initColumnStatusTool(column,'todo');
+      column.status = 'todo:s';
+      parentColumn = this.getParentColumn(this.columnMap,column);
+      while(parentColumn){
+        // parentColumn = this.getParentColumn(this.columnMap,column);
+        if(this.confirmSubColumnContainsTargetStatus(parentColumn.subColumn,'other')){
+          parentColumn.status = 'other';
+        }else if(parentColumn.subColumn.length>column.position+1){
+          parentColumn.status = 'other';
+        }else{
+          parentColumn.status = 'todo';
+        }
+        for(let i=0;i<column.position;i++){
+          this.initColumnStatusTool(parentColumn.subColumn[i],'todo');
+        }
+        column = parentColumn;
+        parentColumn = this.getParentColumn(this.columnMap,parentColumn);
+      }
+      for(let i=0;i<column.position;i++){
+        this.initColumnStatusTool(columns[i],'todo');
+      }
+    }
+
+    if(endColumnId!==-1){
+      column = this.columnMap[endColumnId];
+      this.initColumnStatusTool(column,'done');
+      column.status = 'done:s';
+      parentColumn = this.getParentColumn(this.columnMap,column);
+      while(parentColumn){
+        if(this.confirmSubColumnContainsTargetStatus(parentColumn.subColumn,'other')){
+          parentColumn.status = 'other';
+        }else if(column.position>0){
+          parentColumn.status = 'other';
+        }else{
+          parentColumn.status = 'done';
+        }
+        for(let i=column.position+1;i<parentColumn.subColumn.length;i++){
+          this.initColumnStatusTool(parentColumn.subColumn[i],'done');
+        }
+        column = parentColumn;
+        parentColumn = this.getParentColumn(this.columnMap,parentColumn);
+      }
+      for(let i=column.position+1;i<columns.length;i++){
+        this.initColumnStatusTool(columns[i],'done');
+      }
+      KanbanStore.setColumns(columns);
+    }
+  };
+  getTopestParentColumn=(columnMap,column)=>{
+    let columnParentId = column.parentId.split(',');
+    if(columnParentId.length===1){
+      return column;
+    }
+    return columnMap[columnParentId[1]];
+  };
+  handleOnSave=()=>{
+    const startColumnId = KanbanStore.getStartColumnId;
+    const endColumnId = KanbanStore.getEndColumnId;
+    const columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    this.generateColumnMap(columns);
+
+    if(startColumnId!==-1&&endColumnId===-1){
+      let startColumn = this.columnMap[startColumnId];
+      let topestParentColumn = this.getTopestParentColumn(this.columnMap,startColumn);
+      if(topestParentColumn.position!==columns.length-1){
+        KanbanStore.setEndColumnId(columns[columns.length-1].columnId);
+      }
+    }else if(startColumnId===-1&&endColumnId!==-1){
+      let endColumn = this.columnMap[endColumnId];
+      let topestParentColumn = this.getTopestParentColumn(this.columnMap,endColumn);
+      if(topestParentColumn.position!==0){
+        KanbanStore.setStartColumnId(columns[0].columnId);
+      }
+    }else if(startColumnId===-1&&endColumnId===-1){
+      if(columns.length>=2){
+        KanbanStore.setStartColumnId(columns[0].columnId);
+        KanbanStore.setEndColumnId(columns[columns.length-1].columnId);
+      }else if(columns.length===1){
+        KanbanStore.setEndColumnId(columns[0].columnId);
+      }
+    }
+
+    this.initColumnStatus(columns,startColumnId,endColumnId);
+  };
+
   render(){
     const kanbanInfo = KanbanStore.getKanbanInfo;
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
@@ -653,7 +767,7 @@ class EditKanbanTable extends Component{
         for(let k=0;k<swimlaneData.length;k++){
           let swimlaneTemp = swimlaneData[k];
           if(swimlaneTemp.columnPosition<=j&&
-            swimlaneTemp.columnPosition+this.getAcrossColumnNumber(swimlaneTemp.acrossColumn)-1>=j&&
+            swimlaneTemp.columnPosition+swimlaneTemp.acrossColumn.split(',').length-1>=j&&
             swimlaneTemp.position<=i&&swimlaneTemp.position+swimlaneTemp.height-1>=i){
             beCoveredBySwimlane = true;
             break;
@@ -733,7 +847,7 @@ class EditKanbanTable extends Component{
               drawSwimlane:!this.state.drawSwimlane
             });
           }}/>
-          <Icon type="save" style={iconStyle}/>
+          <Icon type="save" style={iconStyle} onClick={this.handleOnSave}/>
         </div>
         <div id="kanban-content" style={{position:'relative'}}>
           <table style={{

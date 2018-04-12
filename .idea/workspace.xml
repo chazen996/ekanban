@@ -8,8 +8,10 @@
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js" />
       <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/KanbanStore.js" afterPath="$PROJECT_DIR$/src/stores/KanbanStore.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/kanban/Swimlane.js" afterPath="$PROJECT_DIR$/src/components/kanban/Swimlane.js" />
+      <change beforePath="$PROJECT_DIR$/src/utils/PublicAuthKit.js" afterPath="$PROJECT_DIR$/src/utils/PublicAuthKit.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,12 +28,9 @@
       <file leaf-file-name="EditKanbanPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/EditKanbanPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
+            <state relative-caret-position="0">
               <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-                <element signature="e#390#441#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,12 +38,12 @@
       <file leaf-file-name="EditKanbanTable.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="557" column="37" lean-forward="true" selection-start-line="557" selection-start-column="37" selection-end-line="557" selection-end-column="37" />
+            <state relative-caret-position="264">
+              <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
               <folding>
-                <element signature="e#146#180#0" expanded="true" />
-                <marker date="1523463900596" expanded="true" signature="24176:24234" ph="..." />
-                <marker date="1523463900596" expanded="true" signature="27759:27900" ph="..." />
+                <element signature="e#0#32#0" expanded="true" />
+                <marker date="1523517856485" expanded="true" signature="25520:25578" ph="..." />
+                <marker date="1523517856485" expanded="true" signature="29244:29385" ph="..." />
               </folding>
             </state>
           </provider>
@@ -53,8 +52,8 @@
       <file leaf-file-name="PublicAuthKit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/PublicAuthKit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="120" column="43" lean-forward="true" selection-start-line="120" selection-start-column="43" selection-end-line="120" selection-end-column="43" />
+            <state relative-caret-position="351">
+              <caret line="138" column="3" lean-forward="false" selection-start-line="138" selection-start-column="3" selection-end-line="138" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -63,9 +62,11 @@
       <file leaf-file-name="Swimlane.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/Swimlane.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="102" column="26" lean-forward="true" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
-              <folding />
+            <state relative-caret-position="200">
+              <caret line="16" column="73" lean-forward="true" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,7 +74,7 @@
       <file leaf-file-name="ProjectPage.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/routes/ProjectPage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
+            <state relative-caret-position="1740">
               <caret line="105" column="37" lean-forward="false" selection-start-line="105" selection-start-column="37" selection-end-line="105" selection-end-column="37" />
               <folding />
             </state>
@@ -83,8 +84,8 @@
       <file leaf-file-name="EditKanbanTableBodyTd.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="63" lean-forward="false" selection-start-line="36" selection-start-column="63" selection-end-line="36" selection-end-column="63" />
+            <state relative-caret-position="520">
+              <caret line="29" column="106" lean-forward="false" selection-start-line="29" selection-start-column="106" selection-end-line="29" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -93,8 +94,8 @@
       <file leaf-file-name="KanbanStore.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/stores/KanbanStore.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+            <state relative-caret-position="220">
+              <caret line="69" column="10" lean-forward="false" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -105,8 +106,8 @@
       <file leaf-file-name="EditKanbanTableHeadTd.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="105" column="9" lean-forward="true" selection-start-line="105" selection-start-column="9" selection-end-line="105" selection-end-column="9" />
+            <state relative-caret-position="480">
+              <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -124,16 +125,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="homePage.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/assets/css/homePage.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="10" column="2" lean-forward="false" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -146,36 +137,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>testSwimlnae</find>
-      <find>const swim</find>
-      <find>handleOnC</find>
-      <find>Edit</find>
-      <find>confirm</find>
-      <find>createSw</find>
-      <find>Swimlane</find>
-      <find>console.log</find>
-      <find>onmouseup</find>
-      <find>deleteSw</find>
-      <find>handleOnJ</find>
-      <find>checkPositionSuccession</find>
-      <find>onmousemove</find>
-      <find>selected</find>
-      <find>swimlaneBeCovered</find>
-      <find>onmouse</find>
-      <find>create</find>
-      <find>groupMemberNumber</find>
-      <find>columnPosition</find>
-      <find>join</find>
-      <find>createS</find>
-      <find>getAcrossColumnNumber</find>
-      <find>handleOnaDD</find>
-      <find>parent</find>
-      <find>getParentColumn</find>
-      <find>getPar</find>
-      <find>handleOnDeleteSwimlane</find>
-      <find>done:S</find>
-      <find>handleOnSA</find>
+      <find>setStartColumnId</find>
+      <find>visist</find>
+      <find>initColumn</find>
+      <find>setOpenedColumnSettingPanelId</find>
+      <find>columnSettingPanelStyle</find>
+      <find>onBlur</find>
+      <find>start</find>
+      <find>handleOnSave</find>
+      <find>render</find>
+      <find>edit</find>
+      <find>openNotification</find>
+      <find>onmouseDOWN</find>
       <find>columnName</find>
+      <find>refs</find>
+      <find>ref</find>
+      <find>onmouse</find>
+      <find>split</find>
+      <find>onmousedown</find>
+      <find>Input</find>
+      <find>handleOnRen</find>
+      <find>Swimlane</find>
+      <find>handleOnRenameSwimlane</find>
+      <find>renameInput</find>
+      <find>columnNam</find>
+      <find>EditKanbanTableHeadTd</find>
+      <find>colSpan</find>
+      <find>handleOnRename</find>
+      <find>process</find>
+      <find>columnPosition</find>
+      <find>processSw</find>
     </findStrings>
     <replaceStrings>
       <replace>targetUser</replace>
@@ -246,10 +237,10 @@
         <option value="$PROJECT_DIR$/src/components/kanban/Simlane.js" />
         <option value="$PROJECT_DIR$/src/routes/EditKanbanPage.js" />
         <option value="$PROJECT_DIR$/src/assets/css/kanbanPage.css" />
-        <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js" />
-        <option value="$PROJECT_DIR$/src/components/kanban/Swimlane.js" />
         <option value="$PROJECT_DIR$/src/stores/KanbanStore.js" />
+        <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js" />
         <option value="$PROJECT_DIR$/src/utils/PublicAuthKit.js" />
+        <option value="$PROJECT_DIR$/src/components/kanban/Swimlane.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" />
       </list>
@@ -289,7 +280,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -369,6 +359,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -441,7 +432,8 @@
       <workItem from="1523073364008" duration="38598000" />
       <workItem from="1523246165614" duration="23384000" />
       <workItem from="1523325404000" duration="34942000" />
-      <workItem from="1523419463273" duration="33301000" />
+      <workItem from="1523419463273" duration="33554000" />
+      <workItem from="1523500909019" duration="14536000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -653,32 +645,40 @@
       <option name="project" value="LOCAL" />
       <updated>1523448315651</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="[commit] 实现了设置起始列终止列（部分）">
+      <created>1523464329214</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1523464329214</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="494637000" />
+    <option name="totallyTimeSpent" value="509426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5058565" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29968455" sideWeight="0.4941435" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24304539" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29968455" sideWeight="0.4941435" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -690,7 +690,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[IMP] 实现了面包屑导航组件" />
     <MESSAGE value="[commit] 初步完成了首页header栏的设计与实现；实现了注册页面的文件上传功能和大部分表单逻辑验证；修改了AuthSessionStorage为PublicAuthKit(将常用权限判断和设置token的操作移入)；增加了Config文件(储存常用配置映射)" />
     <MESSAGE value="[IMP] 优化目录结构，调整部分组件名称去除部分无效注释" />
     <MESSAGE value="[commit] 完善了用户头像上传的功能；初步设计了用户注册页面" />
@@ -715,7 +714,8 @@
     <MESSAGE value="[commit] 实现了增加子列的功能" />
     <MESSAGE value="[commit] 初步实现了泳道绘制和鼠标拖拽事件（未全部完成）" />
     <MESSAGE value="[commit] 实现了泳道绘制、合并、拆分、删除的功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 实现了泳道绘制、合并、拆分、删除的功能" />
+    <MESSAGE value="[commit] 实现了设置起始列终止列（部分）" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 实现了设置起始列终止列（部分）" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -724,20 +724,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/components/login/ForgetPasswordContent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="241" column="15" lean-forward="false" selection-start-line="241" selection-start-column="15" selection-end-line="241" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/assets/css/loginPage.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/assets/css/registerPage.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -794,9 +780,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-520">
           <caret line="68" column="14" lean-forward="false" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -820,7 +804,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="30" column="44" lean-forward="false" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,9 +857,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -910,7 +890,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="78" column="22" lean-forward="true" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1029,9 +1008,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="740">
           <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1069,7 +1045,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/ProjectPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
+        <state relative-caret-position="1740">
           <caret line="105" column="37" lean-forward="false" selection-start-line="105" selection-start-column="37" selection-end-line="105" selection-end-column="37" />
           <folding />
         </state>
@@ -1077,67 +1053,82 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/EditKanbanPage.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
+        <state relative-caret-position="0">
           <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-            <element signature="e#390#441#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/PublicAuthKit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="120" column="43" lean-forward="true" selection-start-line="120" selection-start-column="43" selection-end-line="120" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/Swimlane.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="102" column="26" lean-forward="true" selection-start-line="102" selection-start-column="26" selection-end-line="102" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="63" lean-forward="false" selection-start-line="36" selection-start-column="63" selection-end-line="36" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stores/KanbanStore.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="62" column="32" lean-forward="false" selection-start-line="62" selection-start-column="32" selection-end-line="62" selection-end-column="32" />
+        <state relative-caret-position="220">
+          <caret line="69" column="10" lean-forward="false" selection-start-line="69" selection-start-column="10" selection-end-line="69" selection-end-column="10" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/core-scripting.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="105" column="9" lean-forward="true" selection-start-line="105" selection-start-column="9" selection-end-line="105" selection-end-column="9" />
+        <state relative-caret-position="138">
+          <caret line="269" column="14" lean-forward="false" selection-start-line="269" selection-start-column="14" selection-end-line="269" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/_antd@3.3.0@antd/lib/input/Input.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="37" column="21" lean-forward="false" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/PublicAuthKit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="138" column="3" lean-forward="false" selection-start-line="138" selection-start-column="3" selection-end-line="138" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/Swimlane.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="16" column="73" lean-forward="true" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="73" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTableBodyTd.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="29" column="106" lean-forward="false" selection-start-line="29" selection-start-column="106" selection-end-line="29" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="557" column="37" lean-forward="true" selection-start-line="557" selection-start-column="37" selection-end-line="557" selection-end-column="37" />
+        <state relative-caret-position="264">
+          <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
           <folding>
-            <element signature="e#146#180#0" expanded="true" />
-            <marker date="1523463900596" expanded="true" signature="24176:24234" ph="..." />
-            <marker date="1523463900596" expanded="true" signature="27759:27900" ph="..." />
+            <element signature="e#0#32#0" expanded="true" />
+            <marker date="1523517856485" expanded="true" signature="25520:25578" ph="..." />
+            <marker date="1523517856485" expanded="true" signature="29244:29385" ph="..." />
           </folding>
         </state>
       </provider>

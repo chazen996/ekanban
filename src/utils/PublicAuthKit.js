@@ -124,6 +124,19 @@ class PublicAuthKit{
     resultTemp.top = t;
     resultTemp.left = l;
   }
+
+  /* 清除页面上所有选中的元素（解决按住文字无法拖动鼠标） */
+  clearSelections=() => {
+    if (window.getSelection) {
+      // 获取选中
+      const selection = window.getSelection();
+      // 清除选中
+      selection.removeAllRanges();
+    } else if (document.selection && document.selection.empty) {
+      // 兼容 IE8 以下，但 IE9+ 以上同样可用
+      document.selection.empty();
+    }
+  }
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

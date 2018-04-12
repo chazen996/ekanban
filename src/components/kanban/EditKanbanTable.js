@@ -1,16 +1,23 @@
 import {Component} from 'react';
-// import kanbanPageStyles from '../../assets/css/kanbanPage.css';
-// import icons from 'material-design-icons';
-import {Icon,message} from 'antd';
+import {Icon,message,notification} from 'antd';
 import EditKanbanTableHeadTd from './EditKanbanTableHeadTd';
 import EditKanbanTableBodyTd from './EditKanbanTableBodyTd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from '../../utils/PublicAuthKit';
 import Swimlane from './Swimlane';
-// import Kanban from "../project/Kanban";
 
 require("../../assets/css/kanbanPage.css");
+
+const openNotification = () => {
+  notification.open({
+    message: 'Tips:',
+    description: (
+      <div>按住鼠标<b style={{color: '#c7254e', backgroundColor: '#f9f2f4'}}>左键</b>拖拽<b style={{background: 'aliceblue',
+         color: '#4192d9'}}>单元格</b>绘制泳道
+      </div>),
+  });
+};
 
 @observer
 class EditKanbanTable extends Component{
@@ -41,6 +48,13 @@ class EditKanbanTable extends Component{
     if(this.state.drawSwimlane){
       tbody.onmousedown=()=>{
         let evt = window.event;
+        PublicAuthKit.clearSelections();
+        if(evt.target.parentNode==null){
+          return;
+        }else if(evt.target.parentNode.className.indexOf('cellDiv')===-1){
+          return;
+        }
+        // if(!evt.target.match('div')&&evt.target)
         const topAndLeft = {
           left: 0,
           top: 0,
@@ -168,6 +182,7 @@ class EditKanbanTable extends Component{
 
           selectedArray = [];
           selectedArrayClassNameBackUp = [];
+          PublicAuthKit.clearSelections();
         };
       }
     }
@@ -328,13 +343,6 @@ class EditKanbanTable extends Component{
     }
   }
   visitiWholeTreeTool(node){
-    if(node.status==='todo:s'){
-      KanbanStore.setStartColumnId(node.columnId);
-    }else if(node.status==='done:s'){
-      KanbanStore.setEndColumnId(node.columnId);
-    }else if(node.status==null){
-      node.status='doing';
-    }
     if(node.subColumn==null||node.subColumn.length===0){
       this.columnMap[node.columnId] = node;
       node.colSpan = 1;
@@ -450,7 +458,6 @@ class EditKanbanTable extends Component{
     KanbanStore.setKanbanInfo(kanbanInfo);
   };
   checkPositionSuccession(positionArray,result){
-
     for(let i=1;i<positionArray.length-1;i++){
       if((positionArray[i]-positionArray[i-1])!==(positionArray[i+1]-positionArray[i])||(positionArray[i]-positionArray[i-1])!==1){
         result['flag'] = false;
@@ -497,7 +504,7 @@ class EditKanbanTable extends Component{
       }else{
         acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
       }
-      if(acrossColumnNumber===0||(acrossColumnNumber===1&&swimlane.columnPosition!==acrossColumnPositionOfTdNextToBody[0])){
+      if(acrossColumnNumber===0||(acrossColumnNumber===1&&swimlane.columnPosition<acrossColumnPositionOfTdNextToBody[0])){
         this.handleOnDeleteSwimlane(swimlane.swimlaneId,true);
         swimlanes.splice(i,1);
         i -= 1;
@@ -508,6 +515,7 @@ class EditKanbanTable extends Component{
         }
         swimlane.width = totalWidth;
         swimlane.acrossColumn = acrossColumn.join(',');
+        swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])
       }
 
 
@@ -550,12 +558,12 @@ class EditKanbanTable extends Component{
       this.initColumnStatusTool(item,status);
     }
   };
-  initColumnStatus=(columns,startColumnId,endColumnId)=>{
+  initColumnStatus=(columns)=>{
     // let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     // this.generateColumnMap(columns);
 
-    // let startColumnId = startColumnId;
-    // let endColumnId = endColumnId;
+    let startColumnId = KanbanStore.getStartColumnId;
+    let endColumnId = KanbanStore.getEndColumnId;
     let column = null;
     let parentColumn = null;
     if(startColumnId!==-1){
@@ -605,7 +613,6 @@ class EditKanbanTable extends Component{
       for(let i=column.position+1;i<columns.length;i++){
         this.initColumnStatusTool(columns[i],'done');
       }
-      KanbanStore.setColumns(columns);
     }
   };
   getTopestParentColumn=(columnMap,column)=>{
@@ -616,10 +623,18 @@ class EditKanbanTable extends Component{
     return columnMap[columnParentId[1]];
   };
   handleOnSave=()=>{
-    const startColumnId = KanbanStore.getStartColumnId;
-    const endColumnId = KanbanStore.getEndColumnId;
+    let startColumnId = KanbanStore.getStartColumnId;
+    let endColumnId = KanbanStore.getEndColumnId;
     const columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     this.generateColumnMap(columns);
+    if(this.columnMap[startColumnId]==null){
+      startColumnId = -1;
+      KanbanStore.setStartColumnId(-1);
+    }
+    if(this.columnMap[endColumnId]==null){
+      endColumnId = -1;
+      KanbanStore.setEndColumnId(-1);
+    }
 
     if(startColumnId!==-1&&endColumnId===-1){
       let startColumn = this.columnMap[startColumnId];
@@ -641,11 +656,41 @@ class EditKanbanTable extends Component{
         KanbanStore.setEndColumnId(columns[0].columnId);
       }
     }
+    for(let item of columns){
+      this.initColumnStatusTool(item,'doing');
+    }
+    this.initColumnStatus(columns);
 
-    this.initColumnStatus(columns,startColumnId,endColumnId);
+    KanbanStore.setColumns(columns);
+  };
+  handleOnRenameColumn=(columnId,value)=>{
+    const columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    this.generateColumnMap(columns);
+    let targetColumn = this.columnMap[columnId];
+    targetColumn.columnName = value;
+    KanbanStore.setColumns(columns);
+  };
+  handleOnRenameSwimlane=(swimlaneId,value)=>{
+    const swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+    let reference = null;
+    for(let item of swimlanes){
+      if(item.swimlaneId===swimlaneId){
+        reference = item;
+      }
+    }
+    for(let item of swimlanes){
+      if(item.groupId===reference.groupId){
+        item.swimlaneName = value;
+      }
+    }
+    KanbanStore.setSwimlanes(swimlanes);
   };
 
   render(){
+    notification.config({
+      placement: 'topRight',
+    });
+
     const kanbanInfo = KanbanStore.getKanbanInfo;
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
 
@@ -712,6 +757,7 @@ class EditKanbanTable extends Component{
             handleOnDeleteColumn={this.handleOnDeleteColumn}
             handleOnExtendColumn={this.handleOnExtendColumn}
             handleOnShrinkColumn={this.handleOnShrinkColumn}
+            handleOnRenameColumn={this.handleOnRenameColumn}
           />
         </td>);
       if(nodesNumberOfcurrentLayer===0) {
@@ -757,6 +803,7 @@ class EditKanbanTable extends Component{
                         handleOnDeleteSwimlane={this.handleOnDeleteSwimlane}
                         handleOnJoinSwimlane={this.handleOnJoinSwimlane}
                         handleOnSplitSwimlane={this.handleOnSplitSwimlane}
+                        handleOnRenameSwimlane={this.handleOnRenameSwimlane}
               />
             );
             break;
@@ -788,7 +835,7 @@ class EditKanbanTable extends Component{
             borderBottomStyle = 'solid';
           }else{
             borderTopStyle = 'dashed';
-            borderTopStyle = 'dashed';
+            borderBottomStyle = 'dashed';
           }
         }
 
@@ -834,7 +881,7 @@ class EditKanbanTable extends Component{
           height: 32,
           right: 0,
           top: 81,
-          zIndex:2
+          zIndex:4
         }}>
           <Icon type="plus-square-o" style={iconStyle}
                 onClick={this.handleOnAddColumn.bind(this,null,true)}/>
@@ -842,7 +889,10 @@ class EditKanbanTable extends Component{
                 onClick={this.handleOnAddKanbanHeight}/>
           <Icon type="up" style={iconStyle}
                 onClick={this.handleOnReduceKanbanHeight}/>
-          <Icon type="edit" style={iconStyle} onClick={()=>{
+          <Icon type="edit" style={{...iconStyle,color:this.state.drawSwimlane?'blue':''}} onClick={()=>{
+            if(!this.state.drawSwimlane){
+              openNotification();
+            }
             this.setState({
               drawSwimlane:!this.state.drawSwimlane
             });

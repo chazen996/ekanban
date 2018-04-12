@@ -1,18 +1,26 @@
 import {Component} from 'react';
+import {Input} from 'antd';
 
 class Swimlane extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      showRenameInput:false
+    };
+  }
+
   resizeEditKanbanTableHeadTd=()=>{
     const swimlaneWidth = this.props.swimlane.width;
     const swimlaneHeight = this.props.swimlane.height;
     const swimlaneDiv = this.refs.swimlane;
     const acrossColumnNumber = this.props.swimlane.acrossColumn.split(',').length;
     swimlaneDiv.style.width = `${swimlaneWidth*160 + acrossColumnNumber-1}px`;
-    // if(swimlaneWidth===1){
-    //   swimlaneDiv.style.width = `${swimlaneWidth*160}px`;
-    // }else{
-    //   swimlaneDiv.style.width = `${swimlaneWidth*161-1}px`;
-    // }
     swimlaneDiv.style.height = `${ swimlaneHeight*101 - 1}px`;
+
+    /* 其在出现时获得焦点 */
+    if(this.refs.renameInput){
+      this.refs.renameInput.focus();
+    }
   };
 
   componentDidMount(){
@@ -31,6 +39,13 @@ class Swimlane extends Component{
   };
   handleOnSplitSwimlane=(targetSwimlaneId)=>{
     this.props.handleOnSplitSwimlane(targetSwimlaneId);
+  };
+  handleOnRenameSwimlane=(swimlaneId)=>{
+    this.setState({
+      showRenameInput:false
+    });
+    let targetInput = document.getElementById(`${this.props.swimlane.swimlaneId}-input`);
+    this.props.handleOnRenameSwimlane(swimlaneId,targetInput.value);
   };
   render(){
     const divStyle = {
@@ -79,7 +94,7 @@ class Swimlane extends Component{
               </div>
               {
                 optionable.joinable?(
-                  <div style={{...divStyle,color:'#096dd9',cursor:'pointer'}} onClick={this.handleOnJoinSwimlane.bind(this,this.props.swimlane.swimlaneId,this.props.swimlane.groupId)}>
+                  <div style={{...divStyle,color:'#096dd9',cursor:'pointer'}} onMouseDown={this.test} onClick={this.handleOnJoinSwimlane.bind(this,this.props.swimlane.swimlaneId,this.props.swimlane.groupId)}>
                     <span>合</span>
                   </div>
                 ):(
@@ -104,8 +119,24 @@ class Swimlane extends Component{
               position:'absolute',
               left:3,
               top:17,
-              userSelect:'none'
-            }}>{this.props.swimlane.swimlaneName}</span>
+              userSelect:'none',
+              maxWidth: '50%',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+            }} onDoubleClick={()=>{
+              this.setState({
+                showRenameInput:true
+              });
+            }} title={this.props.swimlane.swimlaneName}>{this.props.swimlane.swimlaneName}</span>
+            <Input id={`${this.props.swimlane.swimlaneId}-input`} style={{
+              position:'absolute',
+              width:'60%',
+              top:17,
+              left:3,
+              height:20,
+              display:this.state.showRenameInput?'':'none'
+            }} size='small' placeholder={this.props.swimlane.swimlaneName} onBlur={this.handleOnRenameSwimlane.bind(this,this.props.swimlane.swimlaneId)} ref='renameInput'/>
           </div>
         ):(null)}
 

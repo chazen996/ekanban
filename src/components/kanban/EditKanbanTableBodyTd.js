@@ -27,7 +27,7 @@ class EditKanbanTableBodyTd extends Component{
         );
       }else{
         innerDivList.push(
-          <div key={`${this.props.column.columnId}:${i}`} style={{...innerDivStyle,borderLeft:'1px dashed #0000ff57'}}>
+          <div key={`${this.props.column.columnId}:${i}`} style={{...innerDivStyle,borderLeft:'1px dashed #0000ff14'}}>
 
           </div>
         );

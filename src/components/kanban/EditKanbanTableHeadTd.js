@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Icon,Radio} from 'antd';
+import {Icon,Radio,Input} from 'antd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 
@@ -7,16 +7,27 @@ import {observer} from 'mobx-react';
 
 @observer
 class EditKanbanTableHeadTd extends Component{
-  // constructor(props){
-  //   super(props);
-  // }
+  constructor(props){
+    super(props);
+    this.state={
+      showRenameInput:false
+    };
+  }
 
   /* 根据渲染后外部td的实际高度设置当前div的高度 */
   resizeEditKanbanTableHeadTd=()=>{
     const rowSpan = this.props.rowSpan;
+    const colSpan = this.props.colSpan;
+    const colWidth = this.props.column.columnWidth;
     const td = this.refs.EditKanbanTableHeadTd;
     td.style.height = `${ rowSpan*52 - 2}px`;
+    console.log(colWidth*160 + colSpan-1);
+    td.parentNode.style.maxWidth = `${colWidth*160 + colSpan-1}px`;
     td.parentNode.style.height = `${rowSpan*52}px`;
+
+    /* 其在出现时获得焦点 */
+    this.refs.renameInput.focus();
+    this.refs.columnSettingPanel.focus();
   };
 
   componentDidMount(){
@@ -57,6 +68,13 @@ class EditKanbanTableHeadTd extends Component{
   handleOnShrinkColumn=(columnId)=>{
     this.props.handleOnShrinkColumn(columnId);
   };
+  handleOnRenameColumn=(columnId)=>{
+    this.setState({
+      showRenameInput:false
+    });
+    let targetInput = document.getElementById(`${this.props.column.columnId}-input`);
+    this.props.handleOnRenameColumn(columnId,targetInput.value);
+  };
   render(){
 
     const openedColumnSettingPanelId = KanbanStore.getOpenedColumnSettingPanelId;
@@ -79,7 +97,7 @@ class EditKanbanTableHeadTd extends Component{
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      zIndex: 2
+      zIndex: 3
     };
     let radioValue = null;
     const startColumnId = KanbanStore.getStartColumnId;
@@ -102,7 +120,23 @@ class EditKanbanTableHeadTd extends Component{
         position:'relative',
         background:'#fafafa78'
       }} ref="EditKanbanTableHeadTd">
-        <span>{`${this.props.column.columnName},${this.props.column.status}`}</span>
+        <span style={{
+          maxWidth: '50%',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          userSelect:'none'
+        }} onDoubleClick={()=>{
+          this.setState({
+            showRenameInput:true
+          });
+        }} title={this.props.column.columnName}>{this.props.column.columnName}</span>
+        <Input id={`${this.props.column.columnId}-input`} style={{
+          position:'absolute',
+          width:'60%',
+          height:20,
+          display:this.state.showRenameInput?'':'none'
+        }} size='small' placeholder={this.props.column.columnName} onBlur={this.handleOnRenameColumn.bind(this,this.props.column.columnId)} ref='renameInput'/>
         {
           radioValue===2||radioValue===3?(
             <div style={{
@@ -164,7 +198,9 @@ class EditKanbanTableHeadTd extends Component{
             ):(<Icon type="right" style={{cursor:'not-allowed'}}/>)}
           </div>
         </div>
-        <div style={columnSettingPanelStyle}>
+        <div style={columnSettingPanelStyle} tabIndex="-1" onBlur={()=>{
+          KanbanStore.setOpenedColumnSettingPanelId(-1);
+        }} ref='columnSettingPanel'>
           <Radio.Group value={radioValue} onChange={this.handleOnChangeRadio}>
             <Radio style={radioStyle} value={1}>普通列</Radio>
             <Radio style={radioStyle} value={2}>起始列</Radio>

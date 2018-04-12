@@ -92,13 +92,14 @@ class KanbanStore{
   }
 
   loadData(kanbanId){
-    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,columns)=>{
+    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData)=>{
       this.setKanbanPageMaskLoadingStatus(false);
-      if(userInfo&&projectInfo&&kanbanInfo&&columns){
+      if(userInfo&&projectInfo&&kanbanInfo&&kanbanData){
         this.setUserInfo(userInfo.data);
         this.setProjectInfo(projectInfo.data);
         this.setKanbanInfo(kanbanInfo.data);
-        this.setColumns(columns.data);
+        this.setColumns(kanbanData.data.columns);
+        this.setSwimlanes(kanbanData.data.swimlanes);
       }else{
         message.error('网络错误，请稍后再试！');
       }
@@ -110,7 +111,7 @@ class KanbanStore{
       this.getPersonalInfoFromWebServer(this.username),
       this.getProjectInfoByKanbanIdFromWebServer(kanbanId),
       this.getKanbanInfoFromWebServer(kanbanId),
-      this.getColumnsFromWebServer(kanbanId)
+      this.getKanbanDataFromWebServer(kanbanId)
     ]).catch(err => {
       console.log(err);
     });
@@ -128,14 +129,20 @@ class KanbanStore{
     })
   }
 
-  getColumnsFromWebServer(kanbanId){
-    return axios.get(`kanban/getColumns?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+  getKanbanDataFromWebServer(kanbanId){
+    return axios.get(`kanban/getKanbanData?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
       console.log(err);
     });
   }
 
   getKanbanInfoFromWebServer(kanbanId){
     return axios.get(`kanban/getKanban?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  saveKanbanData(kanbanData){
+    return axios.post(`kanban/saveKanbanData?username=${this.username}`,JSON.stringify(kanbanData)).catch(err=>{
       console.log(err);
     });
   }

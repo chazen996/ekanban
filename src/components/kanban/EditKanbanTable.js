@@ -28,6 +28,10 @@ class EditKanbanTable extends Component{
     this.theadTdNextToBody = [];
     this.swimlaneGroupIdArry = [];
 
+    this.toBeDeletedColumn = [];
+    this.toBeDeletedSwimlane = [];
+
+
     this.state = {
       drawSwimlane:false
     };
@@ -198,6 +202,7 @@ class EditKanbanTable extends Component{
   handleOnCreateSwimlane=(cellDivs)=>{
     const swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
     const groupId = PublicAuthKit.generateNoneDuplicateID(3);
+    const kanbanInfo = KanbanStore.getKanbanInfo;
     for(let cell of cellDivs){
       let columnId = cell.getAttribute('data-columnid');
 
@@ -211,6 +216,7 @@ class EditKanbanTable extends Component{
         groupId:groupId,
         height:1,
         acrossColumn:columnId,
+        kanbanId: kanbanInfo.kanbanId,
 
         columnPosition:columnPosition,
         groupMemberNumber:cellDivs.length
@@ -219,6 +225,13 @@ class EditKanbanTable extends Component{
     }
     KanbanStore.setSwimlanes(swimlanes);
   };
+  addDeletedItem=(item,type)=>{
+    if(type==='column'){
+      this.toBeDeletedColumn.push(item.columnId);
+    }else if(type==='swimlane'){
+      this.toBeDeletedSwimlane.push(item.swimlaneId);
+    }
+  };
   handleOnDeleteSwimlane=(value,deletedById)=>{
     let swimlanes = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
 
@@ -226,6 +239,7 @@ class EditKanbanTable extends Component{
       for(let i=0;i<swimlanes.length;i++){
         let swimlane = swimlanes[i];
         if(value===swimlane.swimlaneId){
+          this.addDeletedItem(swimlane,'swimlane');
           swimlanes.splice(i,1);
           break;
         }
@@ -234,6 +248,7 @@ class EditKanbanTable extends Component{
       for(let i=0;i<swimlanes.length;i++){
         let swimlane = swimlanes[i];
         if(value===swimlane.groupId){
+          this.addDeletedItem(swimlane,'swimlane');
           swimlanes.splice(i,1);
           i -= 1;
         }
@@ -271,6 +286,7 @@ class EditKanbanTable extends Component{
           }
         }
         if(targetSwimlaneId!==swimlane.swimlaneId){
+          this.handleOnDeleteSwimlane(swimlane.swimlaneId,true);
           swimlanes.splice(i,1);
           i -= 1;
         }else{
@@ -379,7 +395,7 @@ class EditKanbanTable extends Component{
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     this.generateColumnMap(columns);
     const column = {};
-    const columnIdTemp = `temp:${PublicAuthKit.generateNoneDuplicateID(3)}`;
+    const columnIdTemp = PublicAuthKit.generateNoneDuplicateID(3);
     if(!rootColumn){
       const targetColumn = this.columnMap[columnId];
       column['columnName'] = '未命名列名';
@@ -418,6 +434,7 @@ class EditKanbanTable extends Component{
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     this.generateColumnMap(columns);
     const targetColumn = this.columnMap[columnId];
+    this.addDeletedItem(targetColumn,'column');
     if(targetColumn.parentId==='0'){
       for(let i=targetColumn.position+1;i<columns.length;i++){
         columns[i].position -= 1;
@@ -483,6 +500,7 @@ class EditKanbanTable extends Component{
 
   processSwimlane(swimlanes){
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    let flag = false;
     this.generateColumnMap(columns);
     for(let i=0;i<swimlanes.length;i++){
       let swimlane = swimlanes[i];
@@ -514,6 +532,9 @@ class EditKanbanTable extends Component{
           totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
         }
         swimlane.width = totalWidth;
+        if(swimlane.acrossColumn.split(',').length!==acrossColumn.length){
+          flag = true;
+        }
         swimlane.acrossColumn = acrossColumn.join(',');
         swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])
       }
@@ -531,6 +552,9 @@ class EditKanbanTable extends Component{
       //   }
       //   swimlane.width = totalWidth;
       // }
+    }
+    if(flag){
+      KanbanStore.setSwimlanes(swimlanes);
     }
   }
   getColumnPositionYOfTdNextToBody(column){
@@ -660,6 +684,16 @@ class EditKanbanTable extends Component{
       this.initColumnStatusTool(item,'doing');
     }
     this.initColumnStatus(columns);
+    let swimlanes = KanbanStore.getSwimlanes;
+    let kanbanData = {
+      columns:this.columnMap,
+      swimlanes:PublicAuthKit.deepCopy(swimlanes),
+      toBeDeletedColumn:this.toBeDeletedColumn,
+      toBeDeletedSwimlane:this.toBeDeletedSwimlane,
+      kanbanId:KanbanStore.getKanbanInfo.kanbanId
+    };
+
+    console.log(kanbanData);
 
     KanbanStore.setColumns(columns);
   };

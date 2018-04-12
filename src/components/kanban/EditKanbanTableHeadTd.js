@@ -21,7 +21,6 @@ class EditKanbanTableHeadTd extends Component{
     const colWidth = this.props.column.columnWidth;
     const td = this.refs.EditKanbanTableHeadTd;
     td.style.height = `${ rowSpan*52 - 2}px`;
-    console.log(colWidth*160 + colSpan-1);
     td.parentNode.style.maxWidth = `${colWidth*160 + colSpan-1}px`;
     td.parentNode.style.height = `${rowSpan*52}px`;
 

@@ -373,6 +373,12 @@ class EditKanbanTable extends Component{
     return resultColSpan;
   }
   visitiWholeTreeToolSpecial(node){
+    if(node.status==='todo:s'){
+      KanbanStore.setStartColumnId(node.columnId);
+    }else if(node.status==='done:s'){
+      KanbanStore.setEndColumnId(node.columnId);
+    }
+
     if(node.subColumn==null||node.subColumn.length===0){
       this.theadTdNextToBody.push(node);
       return;
@@ -424,17 +430,22 @@ class EditKanbanTable extends Component{
   getParentColumn(array,column){
     const parentColumnIdArray = column.parentId.split(',');
     if(parentColumnIdArray.length<=1){
-      console.log('无法找到此列的父级');
       return false;
     }
     const targetColumnId = parentColumnIdArray[parentColumnIdArray.length-1];
     return array[targetColumnId];
   }
+  deleteWholeTree=(node)=>{
+    this.addDeletedItem(node,'column');
+    for(let item of node.subColumn){
+      this.deleteWholeTree(item);
+    }
+  };
   handleOnDeleteColumn=(columnId)=>{
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     this.generateColumnMap(columns);
     const targetColumn = this.columnMap[columnId];
-    this.addDeletedItem(targetColumn,'column');
+    this.deleteWholeTree(targetColumn);
     if(targetColumn.parentId==='0'){
       for(let i=targetColumn.position+1;i<columns.length;i++){
         columns[i].position -= 1;
@@ -471,7 +482,23 @@ class EditKanbanTable extends Component{
   };
   handleOnReduceKanbanHeight=()=>{
     const kanbanInfo = KanbanStore.getKanbanInfo;
-    kanbanInfo.kanbanHeight -= 1;
+    /* 寻找最下面的泳道 */
+    let swimlanes = KanbanStore.getSwimlanes;
+    let maxNumber = -1;
+    for(let item of swimlanes){
+      if(item.position+item.height-1>maxNumber){
+        maxNumber = item.position+item.height-1;
+      }
+    }
+    if(kanbanInfo.kanbanHeight===1){
+      message.error('无法继续减少列高');
+      return;
+    }
+    if(kanbanInfo.kanbanHeight-1<=maxNumber){
+      message.error('最下方存在泳道，无法删除');
+      return;
+    }
+    kanbanInfo.kanbanHeight = kanbanInfo.kanbanHeight-1;
     KanbanStore.setKanbanInfo(kanbanInfo);
   };
   checkPositionSuccession(positionArray,result){
@@ -542,19 +569,6 @@ class EditKanbanTable extends Component{
         swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
       }
 
-
-      // if(this.columnMap[swimlane.columnId]==null||this.columnMap[swimlane.columnId].subColumn.length!==0){
-      //   swimlanes.splice(i,1);
-      //   i -= 1;
-      // }else{
-      //   let targetColumn = this.columnMap[swimlane.columnId];
-      //   let targetColumnPositionY = this.getColumnPositionYOfTdNextToBody(targetColumn);
-      //   let totalWidth = 0;
-      //   for(let j=0;j<swimlane.acrossColumnNumber;j++){
-      //     totalWidth += this.theadTdNextToBody[targetColumnPositionY+j].columnWidth;
-      //   }
-      //   swimlane.width = totalWidth;
-      // }
     }
     if(flag){
       KanbanStore.setSwimlanes(swimlanes);
@@ -581,22 +595,34 @@ class EditKanbanTable extends Component{
   };
   initColumnStatusTool=(node,status)=>{
     node.status = status;
+    if(status==='todo'){
+      node.allowedEnd = false;
+    }else if(status==='done'){
+      node.allowedStart = false;
+    }
     for(let item of node.subColumn){
       this.initColumnStatusTool(item,status);
     }
   };
   initColumnStatus=(columns)=>{
-    // let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
-    // this.generateColumnMap(columns);
-
+    this.generateColumnMap(columns);
     let startColumnId = KanbanStore.getStartColumnId;
     let endColumnId = KanbanStore.getEndColumnId;
+    if(this.columnMap[startColumnId]==null){
+      startColumnId = -1;
+      KanbanStore.setStartColumnId(-1);
+    }
+    if(this.columnMap[endColumnId]==null){
+      endColumnId = -1;
+      KanbanStore.setEndColumnId(-1);
+    }
     let column = null;
     let parentColumn = null;
     if(startColumnId!==-1){
       column = this.columnMap[startColumnId];
       this.initColumnStatusTool(column,'todo');
       column.status = 'todo:s';
+      column.allowedEnd = true;
       parentColumn = this.getParentColumn(this.columnMap,column);
       while(parentColumn){
         // parentColumn = this.getParentColumn(this.columnMap,column);
@@ -622,6 +648,7 @@ class EditKanbanTable extends Component{
       column = this.columnMap[endColumnId];
       this.initColumnStatusTool(column,'done');
       column.status = 'done:s';
+      column.allowedStart = true;
       parentColumn = this.getParentColumn(this.columnMap,column);
       while(parentColumn){
         if(this.confirmSubColumnContainsTargetStatus(parentColumn.subColumn,'other')){
@@ -648,6 +675,50 @@ class EditKanbanTable extends Component{
       return column;
     }
     return columnMap[columnParentId[1]];
+  };
+  clearOtherStartOrColumn=(columns,columnId,status)=>{
+    for(let item of columns){
+      this.clearOtherStartOrColumnTool(item,columnId,status);
+    }
+  };
+  clearOtherStartOrColumnTool=(node,columnId,status)=>{
+    if(node.status===status&&node.columnId!==columnId){
+      node.status = 'doing';
+    }
+    for(let item of node.subColumn){
+      this.clearOtherStartOrColumnTool(item,columnId,status);
+    }
+  };
+
+  handleOnChangeRadio=(targetColumnId,value)=>{
+    let originStartColumnId = KanbanStore.getStartColumnId;
+    let originEndColumnId = KanbanStore.getEndColumnId;
+    let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    this.generateColumnMap(columns);
+    let targetColumn = this.columnMap[targetColumnId];
+    if(value===2){
+      if(originEndColumnId===targetColumnId){
+        KanbanStore.setEndColumnId(-1);
+      }
+      targetColumn.status = 'todo:s';
+      this.clearOtherStartOrColumn(columns,targetColumnId,'todo:s');
+      KanbanStore.setStartColumnId(targetColumnId);
+    }else if(value===3){
+      if(originStartColumnId===targetColumnId){
+        KanbanStore.setStartColumnId(-1);
+      }
+      targetColumn.status='done:s';
+      this.clearOtherStartOrColumn(columns,targetColumnId,'done:s');
+      KanbanStore.setEndColumnId(targetColumnId);
+    }else{
+      if(originStartColumnId===targetColumnId){
+        KanbanStore.setStartColumnId(-1);
+      }else if(originEndColumnId===targetColumnId){
+        KanbanStore.setEndColumnId(-1);
+      }
+      targetColumn.status = 'doing';
+    }
+    KanbanStore.setColumns(columns);
   };
   handleOnSave=()=>{
     let startColumnId = KanbanStore.getStartColumnId;
@@ -688,17 +759,40 @@ class EditKanbanTable extends Component{
     }
     this.initColumnStatus(columns);
     let swimlanes = KanbanStore.getSwimlanes;
+    let kanbanInfo = KanbanStore.getKanbanInfo;
+    let resultColumns = [];
+    for(let index in this.columnMap){
+      resultColumns.push(this.columnMap[index]);
+    }
     let kanbanData = {
-      columns:this.columnMap,
+      columns:resultColumns,
       swimlanes:PublicAuthKit.deepCopy(swimlanes),
       toBeDeletedColumn:this.toBeDeletedColumn,
       toBeDeletedSwimlane:this.toBeDeletedSwimlane,
-      kanbanId:KanbanStore.getKanbanInfo.kanbanId
+      kanbanId:kanbanInfo.kanbanId,
+      kanbanHeight:kanbanInfo.kanbanHeight
     };
 
-    console.log(kanbanData);
+    KanbanStore.setKanbanPageMaskLoadingStatus(true);
+    KanbanStore.saveKanbanData(kanbanData).then(response=>{
+      if(response){
+        if(response.data==='success'){
+          message.success('保存成功');
+          this.toBeDeletedColumn = [];
+          this.toBeDeletedSwimlane = [];
+          KanbanStore.loadData(kanbanInfo.kanbanId);
+        }else if(response.data==='failure'){
+          KanbanStore.setKanbanPageMaskLoadingStatus(false);
+          message.error('保存失败，请稍后再试！');
+          KanbanStore.setColumns(columns);
+        }
+      }else{
+        KanbanStore.setKanbanPageMaskLoadingStatus(false);
+        message.error('网络错误，请稍后再试！');
+        KanbanStore.setColumns(columns);
+      }
+    });
 
-    KanbanStore.setColumns(columns);
   };
   handleOnRenameColumn=(columnId,value)=>{
     const columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
@@ -763,7 +857,8 @@ class EditKanbanTable extends Component{
     columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     /* 确定各列的colSpan(会添加colSpan字段) */
     this.visitiWholeTree(columns);
-
+    /* 初始化列的status */
+    this.initColumnStatus(columns);
     /* 第二遍遍历生成表头数据 */
     const treeHeight = currentLayer;
     columnQueue = columns;
@@ -797,6 +892,7 @@ class EditKanbanTable extends Component{
             handleOnExtendColumn={this.handleOnExtendColumn}
             handleOnShrinkColumn={this.handleOnShrinkColumn}
             handleOnRenameColumn={this.handleOnRenameColumn}
+            handleOnChangeRadio={this.handleOnChangeRadio}
           />
         </td>);
       if(nodesNumberOfcurrentLayer===0) {

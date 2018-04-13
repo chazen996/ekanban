@@ -37,23 +37,26 @@ class EditKanbanTableHeadTd extends Component{
     this.resizeEditKanbanTableHeadTd();
   }
   handleOnChangeRadio=(event)=>{
-    if(event.target.value===2){
-      if(this.props.column.columnId===KanbanStore.getEndColumnId){
-        KanbanStore.setEndColumnId(-1);
-      }
-      KanbanStore.setStartColumnId(this.props.column.columnId);
-    }else if(event.target.value===3){
-      if(this.props.column.columnId===KanbanStore.getStartColumnId){
-        KanbanStore.setStartColumnId(-1);
-      }
-      KanbanStore.setEndColumnId(this.props.column.columnId);
-    }else{
-      if(this.props.column.columnId===KanbanStore.getStartColumnId){
-        KanbanStore.setStartColumnId(-1);
-      }else if(this.props.column.columnId===KanbanStore.getEndColumnId){
-        KanbanStore.setEndColumnId(-1);
-      }
-    }
+    this.props.handleOnChangeRadio(this.props.column.columnId,event.target.value);
+    // if(event.target.value===2){
+    //   if(this.props.column.columnId===KanbanStore.getEndColumnId){
+    //     KanbanStore.setEndColumnId(-1);
+    //   }
+    //   KanbanStore.setStartColumnId(this.props.column.columnId);
+    //   let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    //
+    // }else if(event.target.value===3){
+    //   if(this.props.column.columnId===KanbanStore.getStartColumnId){
+    //     KanbanStore.setStartColumnId(-1);
+    //   }
+    //   KanbanStore.setEndColumnId(this.props.column.columnId);
+    // }else{
+    //   if(this.props.column.columnId===KanbanStore.getStartColumnId){
+    //     KanbanStore.setStartColumnId(-1);
+    //   }else if(this.props.column.columnId===KanbanStore.getEndColumnId){
+    //     KanbanStore.setEndColumnId(-1);
+    //   }
+    // }
   };
   handleOnAddColumn=(columnId)=>{
     this.props.handleOnAddColumn(columnId);
@@ -81,17 +84,17 @@ class EditKanbanTableHeadTd extends Component{
       display: 'block',
       height: '30px',
       lineHeight: '30px',
-      color:'white'
+      // color:'white'
     };
     const columnSettingPanelStyle = {
       height:100,
       position: 'absolute',
       top: 'calc(100%)',
       width: 160,
-      background: '#000',
-      opacity: 0.8,
+      background: '#f5f5f5',
+      // opacity: 0.8,
       left:-1,
-      boxShadow:'rgba(0, 0, 0) 1px 2px 6px',
+      boxShadow:'rgb(0, 0, 0) 1px 2px 6px',
       display: openedColumnSettingPanelId===this.props.column.columnId?('flex'):('none'),
       flexDirection: 'column',
       justifyContent: 'center',
@@ -99,11 +102,19 @@ class EditKanbanTableHeadTd extends Component{
       zIndex: 3
     };
     let radioValue = null;
-    const startColumnId = KanbanStore.getStartColumnId;
-    const endColumnId = KanbanStore.getEndColumnId;
-    if(startColumnId===this.props.column.columnId){
+    // const startColumnId = KanbanStore.getStartColumnId;
+    // const endColumnId = KanbanStore.getEndColumnId;
+    // if(startColumnId===this.props.column.columnId){
+    //   radioValue = 2;
+    // }else if(endColumnId===this.props.column.columnId){
+    //   radioValue = 3;
+    // }else{
+    //   radioValue = 1;
+    // }
+    let status = this.props.column.status;
+    if(status==='todo:s'){
       radioValue = 2;
-    }else if(endColumnId===this.props.column.columnId){
+    }else if(status==='done:s'){
       radioValue = 3;
     }else{
       radioValue = 1;
@@ -168,6 +179,8 @@ class EditKanbanTableHeadTd extends Component{
           }}>
             <Icon type="setting" style={{
               cursor:'pointer',
+            }} onMouseDown={(event)=>{
+              event.preventDefault();
             }} onClick={()=>{
               if(openedColumnSettingPanelId===-1){
                 KanbanStore.setOpenedColumnSettingPanelId(this.props.column.columnId);
@@ -202,8 +215,8 @@ class EditKanbanTableHeadTd extends Component{
         }} ref='columnSettingPanel'>
           <Radio.Group value={radioValue} onChange={this.handleOnChangeRadio}>
             <Radio style={radioStyle} value={1}>普通列</Radio>
-            <Radio style={radioStyle} value={2}>起始列</Radio>
-            <Radio style={radioStyle} value={3}>终止列</Radio>
+            <Radio style={radioStyle} disabled={!(this.props.column.allowedStart||this.props.column.allowedStart==null)} value={2}>起始列</Radio>
+            <Radio style={radioStyle} disabled={!(this.props.column.allowedEnd||this.props.column.allowedEnd==null)} value={3}>终止列</Radio>
           </Radio.Group>
         </div>
       </div>

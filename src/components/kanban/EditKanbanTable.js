@@ -536,7 +536,10 @@ class EditKanbanTable extends Component{
           flag = true;
         }
         swimlane.acrossColumn = acrossColumn.join(',');
-        swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])
+        if(swimlane.columnPosition!==this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])){
+          flag = true;
+        }
+        swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
       }
 
 
@@ -719,6 +722,8 @@ class EditKanbanTable extends Component{
     }
     KanbanStore.setSwimlanes(swimlanes);
   };
+
+
 
   render(){
     notification.config({

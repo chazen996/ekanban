@@ -37,14 +37,11 @@ class EditKanbanTable extends Component{
     };
   }
 
-  componentDidMount() {
-
-  }
 
   componentDidUpdate(){
     const tbody = document.getElementsByTagName('tbody')[0];
     const kanbanContent = document.getElementById('kanban-content');
-    const bodyContainer = document.getElementsByClassName('body-container')[0];
+    // const bodyContainer = document.getElementsByClassName('body-container')[0];
     tbody.onmousedown = null;
     tbody.onmousemove = null;
     document.onmouseup = null;
@@ -68,8 +65,8 @@ class EditKanbanTable extends Component{
         // let startX = evt.clientX - topAndLeft.left + bodyContainer.scrollLeft + document.documentElement.scrollTop;
         // let startY = evt.clientY - topAndLeft.top + bodyContainer.scrollLeft + document.documentElement.scrollTop;
 
-        let startX = evt.clientX - topAndLeft.left + bodyContainer.scrollLeft + document.documentElement.scrollTop;
-        let startY = evt.clientY - topAndLeft.top + bodyContainer.scrollTop + document.documentElement.scrollTop;
+        let startX = evt.clientX - topAndLeft.left + kanbanContent.scrollLeft + document.documentElement.scrollTop;
+        let startY = evt.clientY - topAndLeft.top + kanbanContent.scrollTop + document.documentElement.scrollTop;
 
         let selDiv = document.createElement('div');
         selDiv.style.cssText = 'position:absolute;width:0px;height:0px;font-size:0px;margin:0px;padding:0px;border:1px dashed #0099FF;background-color:#C3D5ED;z-index:200;filter:alpha(opacity:60);opacity:0.6;display:none;pointer-events:none';
@@ -91,9 +88,9 @@ class EditKanbanTable extends Component{
           evt = window.event;
           selDiv.style.display = '';
           let newX = (evt.clientX - topAndLeft.left) +
-            bodyContainer.scrollLeft + document.documentElement.scrollLeft;
+            kanbanContent.scrollLeft + document.documentElement.scrollLeft;
           let newY = (evt.clientY - topAndLeft.top) +
-            bodyContainer.scrollTop + document.documentElement.scrollTop;
+            kanbanContent.scrollTop + document.documentElement.scrollTop;
 
           selDiv.style.left = `${Math.min(newX, startX)}px`;
           selDiv.style.top = `${Math.min(newY, startY)}px`;
@@ -973,14 +970,6 @@ class EditKanbanTable extends Component{
             borderBottomStyle = 'dashed';
           }
         }
-
-        // if(i===tableHeight-1){
-        //   borderBottomStyle = 'solid';
-        // }else if(swimlane===null){
-        //   borderBottomStyle = 'dashed';
-        // }else{
-        //   borderBottomStyle = 'solid';
-        // }
         tdList.push(
           <td style={{
             margin:0,
@@ -991,7 +980,6 @@ class EditKanbanTable extends Component{
             position:'relative',
             borderBottomStyle:borderBottomStyle,
             borderTopStyle: borderTopStyle
-            // borderBottom: swimlane===null?('1px dashed #C1C8D2'):('1px solid #C1C8D2'),
           }} key={j}>
             <EditKanbanTableBodyTd beCoveredBySwimlane={beCoveredBySwimlane} column={this.theadTdNextToBody[j]} dataX={i} dataY={j}/>
             {swimlane}
@@ -1009,14 +997,14 @@ class EditKanbanTable extends Component{
 
     return (
       <div>
-        <div style={{
+        <div id="kanban-edit-panel" style={{
           display: 'flex',
           justifyContent: 'flex-end',
-          position: 'fixed',
           height: 32,
-          right: 0,
-          top: 81,
-          zIndex:4
+          zIndex:4,
+          boxShadow: 'rgb(240, 241, 242) 0px 2px 8px',
+          borderBottom: '1px solid #0000001a',
+          alignItems: 'center'
         }}>
           <Icon type="plus-square-o" style={iconStyle}
                 onClick={this.handleOnAddColumn.bind(this,null,true)}/>
@@ -1034,10 +1022,9 @@ class EditKanbanTable extends Component{
           }}/>
           <Icon type="save" style={iconStyle} onClick={this.handleOnSave}/>
         </div>
-        <div id="kanban-content" style={{position:'relative'}}>
-          <table style={{
-            marginTop:42
-          }}>
+        <div id="kanban-content" style={{position:'relative',overflow:'auto',
+          whiteSpace: 'nowrap'}}>
+          <table>
             <thead>
               {tHead}
             </thead>

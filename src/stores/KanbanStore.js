@@ -91,10 +91,14 @@ class KanbanStore{
     this.columns = columns;
   }
 
-  loadData(kanbanId){
+  loadData(kanbanId,checkAuth){
     this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData)=>{
       this.setKanbanPageMaskLoadingStatus(false);
       if(userInfo&&projectInfo&&kanbanInfo&&kanbanData){
+        if(checkAuth&&userInfo.data.id!==projectInfo.data.createdBy){
+          window.location.href='/kanban/'+kanbanInfo.data.kanbanId;
+          return;
+        }
         this.setUserInfo(userInfo.data);
         this.setProjectInfo(projectInfo.data);
         this.setKanbanInfo(kanbanInfo.data);

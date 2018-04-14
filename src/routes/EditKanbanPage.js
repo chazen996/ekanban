@@ -21,13 +21,15 @@ class EditKanbanPage extends Component{
       this.resizeBodyContent();
     };
 
-    KanbanStore.loadData(this.props.match.params.kanbanId);
+    KanbanStore.loadData(this.props.match.params.kanbanId,true);
   }
 
   resizeBodyContent=()=>{
-    const bodyContainer = document.querySelector(".body-container");
+    const kanbanContent = document.querySelector("#kanban-content");
     const header = document.querySelector("#header");
-    bodyContainer.style.height = `${window.innerHeight - header.offsetHeight - 5}px`;
+    const kanbanEditPanel = document.querySelector("#kanban-edit-panel");
+
+    kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
   };
 
   render(){
@@ -44,7 +46,7 @@ class EditKanbanPage extends Component{
       <LocaleProvider locale={zh_CN}>
         <Spin spinning={KanbanStore.getKanbanPageMaskLoadingStatus} size='large' className="spin-mask">
           <Header naviData={naviData}/>
-          <div className="body-container" style={{marginTop:5}}>
+          <div style={{marginTop:5}}>
             <div>
               <EditKanbanTable />
             </div>

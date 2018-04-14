@@ -4,6 +4,8 @@ import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import Header from '../components/public/Header';
 import KanbanStore from '../stores/KanbanStore';
+
+import KanbanTable from '../components/kanban/KanbanTable';
 // import kanbanPageStyles from '../assets/css/projectPage.css';
 
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
@@ -19,20 +21,20 @@ class KanbanPage extends Component{
     window.onresize = () => {
       this.resizeBodyContent();
     };
-
+    KanbanStore.setKanbanPageMaskLoadingStatus(false);
     KanbanStore.loadData(this.props.match.params.kanbanId);
   }
 
   resizeBodyContent=()=>{
-    const bodyContainer = document.querySelector(".body-container");
+    const kanbanContent = document.querySelector("#kanban-content");
     const header = document.querySelector("#header");
-    bodyContainer.style.height = `${window.innerHeight - header.offsetHeight - 5}px`;
+    const kanbanEditPanel = document.querySelector("#kanban-edit-panel");
+
+    kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
   };
 
   render(){
-    // const kanbanId = this.props.match.params.kanbanId;
     const projectInfo = KanbanStore.getProjectInfo;
-    // const userInfo = KanbanStore.getUserInfo;
     const kanbanInfo = KanbanStore.getKanbanInfo;
     const naviData = {
       'nameArray': ['首页',projectInfo.projectName,kanbanInfo.kanbanName],
@@ -43,9 +45,9 @@ class KanbanPage extends Component{
       <LocaleProvider locale={zh_CN}>
         <Spin spinning={KanbanStore.getKanbanPageMaskLoadingStatus} size='large' className="spin-mask">
           <Header naviData={naviData}/>
-          <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5}}>
+          <div style={{marginTop:5}}>
             <div>
-              看板页面
+              <KanbanTable />
             </div>
           </div>
         </Spin>

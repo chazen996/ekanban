@@ -29,8 +29,12 @@ class KanbanPage extends Component{
     const kanbanContent = document.querySelector("#kanban-content");
     const header = document.querySelector("#header");
     const kanbanEditPanel = document.querySelector("#kanban-edit-panel");
+    const stagingArea = document.querySelector("#staging-area");
 
+    stagingArea.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 10}px`;
     kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
+    kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth}px`;
+
   };
 
   render(){

@@ -35,8 +35,8 @@
 
 :global(.ant-collapse-content-box){
   padding:0 !important;
-  padding-bottom: 12px !important;
-  padding-right: 14px !important;
+  /*padding-bottom: 12px !important;*/
+  /*padding-right: 14px !important;*/
 }
 :global(.ant-collapse-content.ant-collapse-content-active){
   padding:0 !important;

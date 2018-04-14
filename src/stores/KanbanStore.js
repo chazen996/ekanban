@@ -18,6 +18,21 @@ class KanbanStore{
   @observable swimlanes = [];
   @observable startColumnId = -1;
   @observable endColumnId = -1;
+  @observable openedSprints = [];
+  @observable stagingAreaMaskLoadingStatus = true;
+  @observable showStagingArea = false;
+
+  @computed get getShowStagingArea(){
+    return this.showStagingArea;
+  }
+
+  @computed get getStagingAreaMaskLoadingStatus(){
+    return this.stagingAreaMaskLoadingStatus;
+  }
+
+  @computed get getOpenedSprints(){
+    return this.openedSprints;
+  }
 
   @computed get getStartColumnId(){
     return this.startColumnId;
@@ -53,6 +68,18 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setShowStagingArea(status){
+    this.showStagingArea = status;
+  }
+
+  @action setStagingAreaMaskLoadingStatus(status){
+    this.stagingAreaMaskLoadingStatus = status;
+  }
+
+  @action set0penedSprints(sprints){
+    this.openedSprints = sprints;
   }
 
   @action setStartColumnId(columnId){
@@ -110,6 +137,17 @@ class KanbanStore{
     }))
   }
 
+  loadSprints(kanbanId){
+    this.getOpenedSprintsFromWebServer(kanbanId).then(response=>{
+      this.setStagingAreaMaskLoadingStatus(false);
+      if(response){
+        this.set0penedSprints(response.data);
+      }else{
+        message.error('网络错误，请稍后再试！');
+      }
+    });
+  }
+
   getAllDataFromWebServer(kanbanId) {
     return axios.all([
       this.getPersonalInfoFromWebServer(this.username),
@@ -147,6 +185,12 @@ class KanbanStore{
 
   saveKanbanData(kanbanData){
     return axios.post(`kanban/saveKanbanData?username=${this.username}`,JSON.stringify(kanbanData)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  getOpenedSprintsFromWebServer(kanbanId){
+    return axios.get(`kanban/getOpenedSprints?username=${this.username}&kanbanId=${kanbanId}`).catch(err=>{
       console.log(err);
     });
   }

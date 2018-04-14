@@ -28,7 +28,7 @@ import ProjectPage from "./routes/ProjectPage";
 import KanbanPage from "./routes/KanbanPage";
 import EditKanbanPage from "./routes/EditKanbanPage";
 // import Head from "./components/public/Head";
-import EditKanbanTable from "./components/kanban/EditKanbanTable";
+import Card from "./components/kanban/StagingArea";
 
 ReactDom.render((
   <div>
@@ -43,7 +43,7 @@ ReactDom.render((
         <AuthRoute exact path='/project/:projectId' component={ProjectPage}/>
         <AuthRoute exact path='/kanban/:kanbanId' component={KanbanPage}/>
         <AuthRoute exact path='/editKanban/:kanbanId' component={EditKanbanPage}/>
-        <Route path='/test' component={EditKanbanTable}/>
+        <Route path='/test' component={Card}/>
       </div>
     </BrowserRouter>
   </div>

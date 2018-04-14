@@ -1,14 +1,30 @@
 import {Component} from 'react';
+import {Icon} from 'antd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from "../../utils/PublicAuthKit";
 import KanbanTableHeadTd from "./KanbanTableHeadTd";
+import StagingArea from "./StagingArea";
 
 @observer
 class KanbanTable extends Component{
   constructor(props){
     super(props);
     this.columnMap = [];
+  }
+  componentDidUpdate(){
+    this.resizeBodyContent();
+  }
+  resizeBodyContent=()=>{
+    const kanbanContent = document.querySelector("#kanban-content");
+    const stagingArea = document.querySelector("#staging-area");
+
+    kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth -10}px`;
+    setTimeout(this.resizeBodyContentTool(),200);
+  };
+  resizeBodyContentTool(){
+    const kanbanContent = document.querySelector("#kanban-content");
+    kanbanContent.style.width = `${kanbanContent.offsetWidth +10}px`;
   }
   createTr(tdList,key){
     return (
@@ -37,6 +53,7 @@ class KanbanTable extends Component{
     return resultColSpan;
   }
   render(){
+    const showStagingArea = KanbanStore.getShowStagingArea;
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
 
     let columnQueue = columns;
@@ -103,7 +120,11 @@ class KanbanTable extends Component{
     }
     tHead = trList;
 
-
+    const iconStyle = {
+      fontSize:22,
+      cursor:'pointer',
+      margin:'0 10px',
+    };
     return (
       <div>
         <div id="kanban-edit-panel" style={{
@@ -115,10 +136,28 @@ class KanbanTable extends Component{
           borderBottom: '1px solid #0000001a',
           alignItems: 'center'
         }}>
-
+          <Icon type="eye-o" style={{...iconStyle,color:showStagingArea?'blue':''}} onClick={()=>{
+            KanbanStore.setShowStagingArea(!showStagingArea);
+            // const kanbanContent = document.querySelector("#kanban-content");
+            // const stagingArea = document.querySelector("#staging-area");
+            //
+            // kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth}px`;
+          }}/>
         </div>
-        <div id="kanban-content" style={{position:'relative',overflow:'auto',
-          whiteSpace: 'nowrap'}}>
+        <div style={{
+          display:showStagingArea?'inline-block':'none',
+          overflow: 'hidden'
+        }}>
+          <StagingArea />
+        </div>
+        <div id="kanban-content" style={{
+          position:'relative',
+          overflow:'auto',
+          whiteSpace: 'nowrap',
+          display:'inline-block',
+          verticalAlign:'top'
+        }}>
+
           <table>
             <thead>
               {tHead}

@@ -45,3 +45,7 @@
 :global(.spin-mask){
   max-height: none !important;
 }
+
+/*:global(.ant-collapse){*/
+  /*background: #33333312 !important;*/
+/*}*/

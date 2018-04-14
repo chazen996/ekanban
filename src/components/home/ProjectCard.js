@@ -50,7 +50,7 @@ class ProjectCard extends Component{
             this.props.history.push(`/project/${projectId}`);
           }}>
             <div style={{height:42,textOverflow:'ellipsis', display: '-webkit-box',
-              WbkitBoxOrient: 'vertical',
+              WebkitBoxOrient: 'vertical',
               WebkitLineClamp: '2',
               overflow: 'hidden'}}>{this.props.projectDescription}</div>
             <div style={{

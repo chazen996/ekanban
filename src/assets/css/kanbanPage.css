@@ -4,3 +4,6 @@
   background: #e6f7ff;
 }
 
+:global(#kanban-stagging-area .ant-collapse-header){
+  color: #40a9ff;
+}

@@ -2,16 +2,38 @@ import {Component} from 'react';
 import {Icon} from 'antd';
 import Config from "../../utils/Config";
 
+import { DragSource } from 'react-dnd';
+
+const cardSource = {
+  beginDrag(props) {
+    return {};
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
+
 class Card extends Component{
   render(){
+    const { connectDragSource, isDragging } = this.props;
+
+
+
     const assignedPerson = this.props.card.assignedPerson;
     console.log(assignedPerson);
-    return (
+    return connectDragSource(
       <div style={{
         height:90,
         width:150,
         border:'1px solid #3333',
         background: Config.cardTypeColor[this.props.card.cardType],
+        opacity:isDragging?0.5:1,
+        zIndex:3,
+        position:'relative'
       }}>
         <div style={{
           height:'18.8%',
@@ -19,7 +41,7 @@ class Card extends Component{
           display:'flex',
           justifyContent: 'flex-end',
           alignItems: 'center',
-          borderBottom: '1px solid #d9d9d9'
+          borderBottom: '1px solid #d9d9d9',
         }}>
           <Icon type="close" style={{
             color:'white',
@@ -32,8 +54,9 @@ class Card extends Component{
           <div style={{
             display:'inline-block',
             height: '100%',
-            width: assignedPerson===0?'100%':'66.7%',
+            width: assignedPerson==null||assignedPerson===''?'100%':'66.7%',
             padding: 5,
+            paddingRight:assignedPerson==null||assignedPerson===''?'5':'0'
           }}>
             <div style={{
               textOverflow:'ellipsis', display: '-webkit-box',
@@ -47,30 +70,34 @@ class Card extends Component{
               {this.props.card.cardContent}
             </div>
           </div>
-          <div style={{
-            display:assignedPerson===0?'none':'inline-block',
-            height: '100%',
-            width: '33.3%',
-            verticalAlign:'top'
-          }}>
+          {assignedPerson==null||assignedPerson===''?(
+            null
+          ):(
             <div style={{
-              width:'100%',
-              height:'100%',
-              display:'flex',
-              justifyContent:'center',
-              alignItems:'center'
+              display:'inline-block',
+              height: '100%',
+              width: '33.3%',
+              verticalAlign:'top'
             }}>
-              <img src={`${Config.baseURL}/images/${this.props.card.assignedPerson}.jpg`} alt="assignedPerson" style={{
-                width: 35,
-                height: 35,
-                borderRadius: 50
-              }}/>
+              <div style={{
+                width:'100%',
+                height:'100%',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
+              }}>
+                <img src={`${Config.baseURL}/images/${this.props.card.assignedPerson}.jpg`} alt="assignedPerson" style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 50
+                }}/>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
   }
 }
 
-export default Card;
+export default DragSource(Config.itemTypes.card, cardSource, collect)(Card);

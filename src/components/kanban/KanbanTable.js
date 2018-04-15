@@ -1,20 +1,31 @@
 import {Component} from 'react';
-import {Icon} from 'antd';
+import {Icon,message} from 'antd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from "../../utils/PublicAuthKit";
 import KanbanTableHeadTd from "./KanbanTableHeadTd";
 import StagingArea from "./StagingArea";
+import SwimlaneForKanban from "./SwimlaneForKanban";
+import KanbanTableBodyTd from "./KanbanTableBodyTd";
+
+
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 @observer
 class KanbanTable extends Component{
   constructor(props){
     super(props);
     this.columnMap = [];
+    this.theadTdNextToBody = [];
+    this.swimlaneGroupIdArry = [];
+
+    // this.cardHandledMap = [];
   }
   componentDidUpdate(){
     this.resizeBodyContent();
   }
+
   resizeBodyContent=()=>{
     const kanbanContent = document.querySelector("#kanban-content");
     const stagingArea = document.querySelector("#staging-area");
@@ -52,14 +63,73 @@ class KanbanTable extends Component{
     node.colSpan = resultColSpan;
     return resultColSpan;
   }
+  processSwimlane(swimlanes){
+    for(let i=0;i<swimlanes.length;i++){
+      let swimlane = swimlanes[i];
+      let acrossColumn = swimlane.acrossColumn.split(',');
+      let acrossColumnPositionOfTdNextToBody = [];
+      for(let item of acrossColumn){
+        let temp = {
+          columnId:item
+        };
+        acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(temp));
+      }
+
+      let acrossColumnNumber = acrossColumnPositionOfTdNextToBody.length;
+
+      let totalWidth = 0;
+      for(let j=0;j<acrossColumnNumber;j++){
+        totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
+      }
+      swimlane.width = totalWidth;
+      swimlane.acrossColumn = acrossColumn.join(',');
+      swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
+    }
+  }
+  getColumnPositionYOfTdNextToBody(column){
+    if(column==null){
+      return -1;
+    }
+    for(let i=0;i<this.theadTdNextToBody.length;i++){
+      if(this.theadTdNextToBody[i].columnId.toString()===column.columnId.toString()){
+        return i;
+      }
+    }
+    return -1;
+  }
+  visitiWholeTreeToolSpecial(node){
+    if(node.subColumn==null||node.subColumn.length===0){
+      this.theadTdNextToBody.push(node);
+      return;
+    }
+    for(let item of node.subColumn){
+      this.visitiWholeTreeToolSpecial(item);
+    }
+  }
+  confirmShowSwimlaneInfo=(groupId)=>{
+    if(this.swimlaneGroupIdArry[groupId]!=null){
+      return false;
+    }else{
+      this.swimlaneGroupIdArry[groupId] = true;
+      return true;
+    }
+  };
+
   render(){
     const showStagingArea = KanbanStore.getShowStagingArea;
+
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
 
     let columnQueue = columns;
     let currentLayer = 1;
     let nodesNumberOfcurrentLayer = columnQueue.length;
     let nodesNumberOfNextLayer = 0;
+
+    this.theadTdNextToBody = [];
+    this.swimlaneGroupIdArry = [];
+    for(let item of columns){
+      this.visitiWholeTreeToolSpecial(item);
+    }
 
     /* 第一遍遍历获取表头树总层数 */
     while (columnQueue.length!==0){
@@ -120,6 +190,117 @@ class KanbanTable extends Component{
     }
     tHead = trList;
 
+    const kanbanInfo = KanbanStore.getKanbanInfo;
+    /* 处理泳道 */
+    const swimlaneData = PublicAuthKit.deepCopy(KanbanStore.getSwimlanes);
+
+    const cardUnderKanban = PublicAuthKit.deepCopy(KanbanStore.getCardUnderKanban);
+    /* 清除不合法的任务卡片 */
+    let cardIdList = {
+      cardIdList:[],
+      kanbanId:KanbanStore.getKanbanInfo.kanbanId
+    };
+    for(let card of cardUnderKanban){
+      if(card.columnId==null||this.getColumnPositionYOfTdNextToBody(card)===-1){
+        cardIdList['cardIdList'].push(card.cardId);
+      }else if(card.positionX>=kanbanInfo.kanbanHeight){
+        cardIdList['cardIdList'].push(card.cardId);
+      }
+    }
+
+    if(cardIdList.cardIdList.length!==0){
+      KanbanStore.deleteUnusualCard(cardIdList).then(response=>{
+        if(response){
+          if(response.data==='success'){
+            message.warning('发现异常任务，已自动清除');
+          }
+        }
+      });
+    }
+
+
+
+    // for(let item of cardUnderKanban){
+    //   this.cardHandledMap[item.cardId] = item;
+    // }
+
+    /* 计算泳道的宽度 */
+    this.processSwimlane(swimlaneData);
+    /***************/
+    /*开始生成表体数据*/
+    const tableHeight = kanbanInfo.kanbanHeight;
+    const tableWidth = this.theadTdNextToBody.length;
+    let tBody = [];
+    trList = [];
+    for(let i=0;i<tableHeight;i++){
+      tdList = [];
+      for(let j=0;j<tableWidth;j++){
+        let swimlane = null;
+        for(let k=0;k<swimlaneData.length;k++){
+          let swimlaneTemp = swimlaneData[k];
+          let temp = {
+            columnId:swimlaneTemp.acrossColumn.split(',')[0]
+          };
+          let positionY = this.getColumnPositionYOfTdNextToBody(temp);
+          if(i===swimlaneTemp.position&&j===positionY){
+            swimlane = (
+              <SwimlaneForKanban swimlane={swimlaneTemp} showSwimlaneInfo={this.confirmShowSwimlaneInfo(swimlaneTemp.groupId)}/>
+            );
+            break;
+          }
+        }
+        /* 解决跨列的泳道的border问题 */
+        let beCoveredBySwimlane = false;
+        for(let k=0;k<swimlaneData.length;k++){
+          let swimlaneTemp = swimlaneData[k];
+          if(swimlaneTemp.columnPosition<=j&&
+            swimlaneTemp.columnPosition+swimlaneTemp.acrossColumn.split(',').length-1>=j&&
+            swimlaneTemp.position<=i&&swimlaneTemp.position+swimlaneTemp.height-1>=i){
+            beCoveredBySwimlane = true;
+            break;
+          }
+        }
+        let borderBottom = null;
+        let borderTop = null;
+        if(i===tableHeight-1){
+          borderBottom = '1px solid #C1C8D2';
+          if(beCoveredBySwimlane){
+            borderTop = '1px solid #C1C8D2';
+          }else{
+            borderTop = 'none';
+          }
+        }else{
+          if(beCoveredBySwimlane){
+            borderTop = '1px solid #C1C8D2';
+            borderBottom = '1px solid #C1C8D2';
+          }else{
+            borderTop = 'none';
+            borderBottom = 'none';
+          }
+        }
+        tdList.push(
+          <td style={{
+            margin:0,
+            padding:0,
+            borderWidth:1,
+            borderColor:'#C1C8D2',
+            borderStyle:'solid',
+            position:'relative',
+            borderTop:borderTop,
+            borderBottom:borderBottom
+            // borderBottomStyle:borderBottomStyle,
+            // borderTopStyle: borderTopStyle
+          }} key={j}>
+            <KanbanTableBodyTd column={this.theadTdNextToBody[j]} dataX={i} dataY={j}/>
+            {swimlane}
+          </td>
+        );
+      }
+      trList.push(this.createTr(tdList,i));
+    }
+    tBody = trList;
+    // this.deleteUnusualCard();
+
     const iconStyle = {
       fontSize:22,
       cursor:'pointer',
@@ -137,11 +318,14 @@ class KanbanTable extends Component{
           alignItems: 'center'
         }}>
           <Icon type="eye-o" style={{...iconStyle,color:showStagingArea?'blue':''}} onClick={()=>{
-            KanbanStore.setShowStagingArea(!showStagingArea);
-            // const kanbanContent = document.querySelector("#kanban-content");
-            // const stagingArea = document.querySelector("#staging-area");
-            //
-            // kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth}px`;
+            const kanbanInfo = KanbanStore.getKanbanInfo;
+            if(!showStagingArea){
+              KanbanStore.setStagingAreaMaskLoadingStatus(true);
+              KanbanStore.setShowStagingArea(true);
+              KanbanStore.loadSprints(kanbanInfo.kanbanId);
+            }else{
+              KanbanStore.setShowStagingArea(false);
+            }
           }}/>
         </div>
         <div style={{
@@ -162,9 +346,8 @@ class KanbanTable extends Component{
             <thead>
               {tHead}
             </thead>
-
             <tbody>
-
+              {tBody}
             </tbody>
           </table>
         </div>
@@ -174,4 +357,4 @@ class KanbanTable extends Component{
 
 }
 
-export default KanbanTable;
+export default DragDropContext(HTML5Backend)(KanbanTable);

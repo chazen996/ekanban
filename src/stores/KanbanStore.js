@@ -21,6 +21,11 @@ class KanbanStore{
   @observable openedSprints = [];
   @observable stagingAreaMaskLoadingStatus = true;
   @observable showStagingArea = false;
+  @observable cardUnderKanban = [];
+
+  @computed get getCardUnderKanban(){
+    return this.cardUnderKanban;
+  }
 
   @computed get getShowStagingArea(){
     return this.showStagingArea;
@@ -68,6 +73,10 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setCardUnderKanban(cards){
+    this.cardUnderKanban = cards;
   }
 
   @action setShowStagingArea(status){
@@ -119,9 +128,9 @@ class KanbanStore{
   }
 
   loadData(kanbanId,checkAuth){
-    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData)=>{
+    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData,cardUnderKanban)=>{
       this.setKanbanPageMaskLoadingStatus(false);
-      if(userInfo&&projectInfo&&kanbanInfo&&kanbanData){
+      if(userInfo&&projectInfo&&kanbanInfo&&kanbanData&&cardUnderKanban){
         if(checkAuth&&userInfo.data.id!==projectInfo.data.createdBy){
           window.location.href='/kanban/'+kanbanInfo.data.kanbanId;
           return;
@@ -131,6 +140,7 @@ class KanbanStore{
         this.setKanbanInfo(kanbanInfo.data);
         this.setColumns(kanbanData.data.columns);
         this.setSwimlanes(kanbanData.data.swimlanes);
+        this.setCardUnderKanban(cardUnderKanban.data);
       }else{
         message.error('网络错误，请稍后再试！');
       }
@@ -153,7 +163,8 @@ class KanbanStore{
       this.getPersonalInfoFromWebServer(this.username),
       this.getProjectInfoByKanbanIdFromWebServer(kanbanId),
       this.getKanbanInfoFromWebServer(kanbanId),
-      this.getKanbanDataFromWebServer(kanbanId)
+      this.getKanbanDataFromWebServer(kanbanId),
+      this.getCardUnderKanbanFromWebServer(kanbanId)
     ]).catch(err => {
       console.log(err);
     });
@@ -195,6 +206,17 @@ class KanbanStore{
     });
   }
 
+  getCardUnderKanbanFromWebServer(kanbanId){
+    return axios.get(`kanban/getCardUnderKanban?username=${this.username}&kanbanId=${kanbanId}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  deleteUnusualCard(cardIdList){
+    return axios.post(`kanban/deleteUnusualCard?username=${this.username}`,JSON.stringify(cardIdList)).catch(err=>{
+      console.log(err);
+    });
+  }
 }
 
 const kanbanStore = new KanbanStore();

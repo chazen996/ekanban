@@ -237,7 +237,8 @@ class SprintTable extends Component{
             maxWidth: 150,
             overflow: 'hidden',
             textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            display: 'inline-block'
           }} title={record.cardContent} onClick={this.handleOnViewCard.bind(this,record)}>{record.cardContent}</a>
         )
       },{

@@ -9,9 +9,6 @@ require("../../assets/css/kanbanPage.css");
 
 @observer
 class StagingArea extends Component{
-  componentDidMount(){
-    KanbanStore.loadSprints(6);
-  }
 
   render(){
 

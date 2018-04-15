@@ -22,6 +22,9 @@ const Config = {
   sprintStatusColor:{
     "open":"#0fe00f",
     "closed":"#00000073"
+  },
+  itemTypes:{
+    card: 'card'
   }
 };
 

@@ -22,6 +22,7 @@ class EditKanbanTableBodyTd extends Component{
                          x={this.props.dataX}
                          y={i}
                          columnId={this.props.column.columnId}
+                         cardData={this.props.cardData}
           />
         );
       }else{
@@ -31,6 +32,7 @@ class EditKanbanTableBodyTd extends Component{
                          x={this.props.dataX}
                          y={i}
                          columnId={this.props.column.columnId}
+                         cardData={this.props.cardData}
           />
         );
       }

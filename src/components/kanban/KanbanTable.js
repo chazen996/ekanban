@@ -20,7 +20,8 @@ class KanbanTable extends Component{
     this.theadTdNextToBody = [];
     this.swimlaneGroupIdArry = [];
 
-    // this.cardHandledMap = [];
+    this.cardMap = [];
+    this.cardPosition = [];
   }
   componentDidUpdate(){
     this.resizeBodyContent();
@@ -114,6 +115,10 @@ class KanbanTable extends Component{
       return true;
     }
   };
+  generateCardPositionTriple(columnId,positionX,positionY){
+    let temp = [columnId,positionX,positionY];
+    this.cardPosition[temp.join(',')] = 1;
+  }
 
   render(){
     const showStagingArea = KanbanStore.getShowStagingArea;
@@ -200,11 +205,16 @@ class KanbanTable extends Component{
       cardIdList:[],
       kanbanId:KanbanStore.getKanbanInfo.kanbanId
     };
-    for(let card of cardUnderKanban){
+    for(let i=0;i<cardUnderKanban.length;i++){
+      let card = cardUnderKanban[i];
       if(card.columnId==null||this.getColumnPositionYOfTdNextToBody(card)===-1){
         cardIdList['cardIdList'].push(card.cardId);
+        cardUnderKanban.splice(i,1);
+        i -= 1;
       }else if(card.positionX>=kanbanInfo.kanbanHeight){
         cardIdList['cardIdList'].push(card.cardId);
+        cardUnderKanban.splice(i,1);
+        i -= 1;
       }
     }
 
@@ -216,6 +226,12 @@ class KanbanTable extends Component{
           }
         }
       });
+    }
+
+    /* 生成cardMap */
+    this.cardMap = [];
+    for(let card of cardUnderKanban){
+      this.cardMap[card.cardId] = card;
     }
 
 
@@ -278,6 +294,21 @@ class KanbanTable extends Component{
             borderBottom = 'none';
           }
         }
+        let cardData = null;
+        this.cardPosition = [];
+        /* 判断当前单元格是否有卡片需要渲染（剪枝增加性能） */
+        for(let l=0;l<cardUnderKanban.length;l++){
+          let card = cardUnderKanban[l];
+          if(card.columnId===this.theadTdNextToBody[j].columnId&&card.positionX===i){
+            cardData = card;
+            cardUnderKanban.splice(l,1);
+            l -= 1;
+
+            this.generateCardPositionTriple(cardData.columnId,cardData.positionX,cardData.positionY);
+            break;
+          }
+        }
+
         tdList.push(
           <td style={{
             margin:0,
@@ -291,7 +322,7 @@ class KanbanTable extends Component{
             // borderBottomStyle:borderBottomStyle,
             // borderTopStyle: borderTopStyle
           }} key={j}>
-            <KanbanTableBodyTd column={this.theadTdNextToBody[j]} dataX={i} dataY={j}/>
+            <KanbanTableBodyTd column={this.theadTdNextToBody[j]} dataX={i} dataY={j} cardData={cardData}/>
             {swimlane}
           </td>
         );

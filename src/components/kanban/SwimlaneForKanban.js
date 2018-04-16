@@ -59,7 +59,7 @@ class SwimlaneForKanban extends Component{
           position: 'absolute',
           top: 0,
           left: 0,
-          zIndex: 2,
+          zIndex: 20,
           // opacity: 0.4,
         }} ref='swimlane'>
         </div>
@@ -73,7 +73,7 @@ class SwimlaneForKanban extends Component{
             overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
-            zIndex: 4,
+            zIndex: 40,
             color: 'rgb(0, 0, 0)',
             fontStyle: 'italic',
             fontWeight: 'bold',

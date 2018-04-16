@@ -1,11 +1,12 @@
 import {Component} from 'react';
 import {Icon} from 'antd';
 import Config from "../../utils/Config";
-
+import KanbanStore from "../../stores/KanbanStore";
 import { DragSource } from 'react-dnd';
 
 const cardSource = {
   beginDrag(props) {
+    KanbanStore.setDragingCard(props.card);
     return {};
   }
 };
@@ -24,7 +25,6 @@ class Card extends Component{
 
 
     const assignedPerson = this.props.card.assignedPerson;
-    console.log(assignedPerson);
     return connectDragSource(
       <div style={{
         height:90,
@@ -32,7 +32,7 @@ class Card extends Component{
         border:'1px solid #3333',
         background: Config.cardTypeColor[this.props.card.cardType],
         opacity:isDragging?0.5:1,
-        zIndex:3,
+        zIndex:30,
         position:'relative'
       }}>
         <div style={{

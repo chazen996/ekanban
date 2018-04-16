@@ -136,7 +136,14 @@ class PublicAuthKit{
       // 兼容 IE8 以下，但 IE9+ 以上同样可用
       document.selection.empty();
     }
-  }
+  };
+  // saveCardPosition=(cardPosition)=>{
+  //   sessionStorage.setItem('cardPosition',JSON.stringify(cardPosition));
+  // };
+  // getCardPosition=()=>{
+  //   let temp = JSON.parse(sessionStorage.getItem('cardPosition'));
+  //   return temp;
+  // };
 }
 const publicAuthKit = new PublicAuthKit();
 export default publicAuthKit;

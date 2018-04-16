@@ -7,6 +7,7 @@ class EditKanbanTableBodyTd extends Component{
 
   render(){
     const innerDivNumber = this.props.column.columnWidth;
+    const cardData = this.props.cardData;
     const innerDivStyle = {
       width:160,
       height:100,
@@ -22,7 +23,9 @@ class EditKanbanTableBodyTd extends Component{
                          x={this.props.dataX}
                          y={i}
                          columnId={this.props.column.columnId}
-                         cardData={this.props.cardData}
+                         cardData={cardData[i]}
+                         canMoveCard={this.props.canMoveCard}
+                         handleOnDropCard={this.props.handleOnDropCard}
           />
         );
       }else{
@@ -32,7 +35,9 @@ class EditKanbanTableBodyTd extends Component{
                          x={this.props.dataX}
                          y={i}
                          columnId={this.props.column.columnId}
-                         cardData={this.props.cardData}
+                         cardData={cardData[i]}
+                         canMoveCard={this.props.canMoveCard}
+                         handleOnDropCard={this.props.handleOnDropCard}
           />
         );
       }

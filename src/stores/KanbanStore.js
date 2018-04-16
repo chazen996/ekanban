@@ -23,6 +23,12 @@ class KanbanStore{
   @observable showStagingArea = false;
   @observable cardUnderKanban = [];
 
+  @observable dragingCard = {};
+
+  @computed get getDragingCard(){
+    return this.dragingCardId;
+  }
+
   @computed get getCardUnderKanban(){
     return this.cardUnderKanban;
   }
@@ -73,6 +79,10 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setDragingCard(card){
+    this.dragingCardId = card;
   }
 
   @action setCardUnderKanban(cards){

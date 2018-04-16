@@ -115,10 +115,43 @@ class KanbanTable extends Component{
       return true;
     }
   };
-  generateCardPositionTriple(columnId,positionX,positionY){
+  generateCardPositionTriple=(columnId,positionX,positionY)=>{
     let temp = [columnId,positionX,positionY];
     this.cardPosition[temp.join(',')] = 1;
-  }
+  };
+  canMoveCard=(columnId,positionX,positionY)=>{
+    let temp = [columnId,positionX,positionY];
+    if(this.cardPosition[temp.join(',')]!=null){
+      return false;
+    }
+    return true;
+  };
+  generateCardMap=(cards)=>{
+    this.cardMap = [];
+    for(let card of cards){
+      this.cardMap[card.cardId] = card;
+    }
+  };
+  handleOnDropCard=(columnId,positionX,positionY)=>{
+    let cards = PublicAuthKit.deepCopy(KanbanStore.getCardUnderKanban);
+    const kanbanInfo = KanbanStore.getKanbanInfo;
+    this.generateCardMap(cards);
+    let cardTemp = PublicAuthKit.deepCopy(KanbanStore.getDragingCard);
+    let targetCard = this.cardMap[cardTemp.cardId];
+    if(targetCard==null){
+      /*此卡片不在看板上，来源为暂存区*/
+      targetCard = {
+        ...cardTemp,
+        kanbanId:kanbanInfo.kanbanId,
+      };
+      cards.push(targetCard);
+    }
+    targetCard.columnId = columnId;
+    targetCard.positionX = positionX;
+    targetCard.positionY = positionY;
+
+    KanbanStore.setCardUnderKanban(cards);
+  };
 
   render(){
     const showStagingArea = KanbanStore.getShowStagingArea;
@@ -223,18 +256,12 @@ class KanbanTable extends Component{
         if(response){
           if(response.data==='success'){
             message.warning('发现异常任务，已自动清除');
+            KanbanStore.setKanbanPageMaskLoadingStatus(true);
+            KanbanStore.loadData(kanbanInfo.kanbanId);
           }
         }
       });
     }
-
-    /* 生成cardMap */
-    this.cardMap = [];
-    for(let card of cardUnderKanban){
-      this.cardMap[card.cardId] = card;
-    }
-
-
 
     // for(let item of cardUnderKanban){
     //   this.cardHandledMap[item.cardId] = item;
@@ -244,6 +271,7 @@ class KanbanTable extends Component{
     this.processSwimlane(swimlaneData);
     /***************/
     /*开始生成表体数据*/
+    this.cardPosition = [];
     const tableHeight = kanbanInfo.kanbanHeight;
     const tableWidth = this.theadTdNextToBody.length;
     let tBody = [];
@@ -294,18 +322,18 @@ class KanbanTable extends Component{
             borderBottom = 'none';
           }
         }
-        let cardData = null;
-        this.cardPosition = [];
+        let cardList = [];
+
+        // PublicAuthKit.removeItem('cardPosition');
         /* 判断当前单元格是否有卡片需要渲染（剪枝增加性能） */
         for(let l=0;l<cardUnderKanban.length;l++){
           let card = cardUnderKanban[l];
           if(card.columnId===this.theadTdNextToBody[j].columnId&&card.positionX===i){
-            cardData = card;
+            // cardList.push(card);
+            cardList[card.positionY]=card;
             cardUnderKanban.splice(l,1);
             l -= 1;
-
-            this.generateCardPositionTriple(cardData.columnId,cardData.positionX,cardData.positionY);
-            break;
+            this.generateCardPositionTriple(card.columnId,card.positionX,card.positionY);
           }
         }
 
@@ -322,7 +350,13 @@ class KanbanTable extends Component{
             // borderBottomStyle:borderBottomStyle,
             // borderTopStyle: borderTopStyle
           }} key={j}>
-            <KanbanTableBodyTd column={this.theadTdNextToBody[j]} dataX={i} dataY={j} cardData={cardData}/>
+            <KanbanTableBodyTd column={this.theadTdNextToBody[j]}
+                               dataX={i}
+                               dataY={j}
+                               cardData={cardList}
+                               canMoveCard={this.canMoveCard}
+                               handleOnDropCard={this.handleOnDropCard}
+            />
             {swimlane}
           </td>
         );

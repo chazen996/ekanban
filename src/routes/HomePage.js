@@ -160,7 +160,8 @@ class HomePage extends Component{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingTop: 14
+                paddingTop: 14,
+                paddingBottom: 14
               }}>
                 <span style={{ color: 'rgba(0,0,0,0.45)'}}>暂无内容</span>
               </div>
@@ -189,7 +190,8 @@ class HomePage extends Component{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                paddingTop: 14
+                paddingTop: 14,
+                paddingBottom: 14
               }}>
                 <span style={{ color: 'rgba(0,0,0,0.45)'}}>暂无内容</span>
               </div>

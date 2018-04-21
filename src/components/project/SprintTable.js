@@ -182,7 +182,7 @@ class SprintTable extends Component{
       key: 'statusAction',
       width:'20%',
       render:(text,record)=>{
-        return (<Switch disabled={projectInfo.createdBy!==userInfo.id} checkedChildren="开启" unCheckedChildren="关闭" size="small" checked={record.sprintStatus!=='closed'} onChange={this.handleOnOpenOrCloseSprint.bind(this,record.sprintId,record.sprintStatus)}/>)
+        return (<Switch disabled={projectInfo.createdBy!==userInfo.id} style={{cursor:projectInfo.createdBy!==userInfo.id?'not-allowed':''}} checkedChildren="开启" unCheckedChildren="关闭" size="small" checked={record.sprintStatus!=='closed'} onChange={this.handleOnOpenOrCloseSprint.bind(this,record.sprintId,record.sprintStatus)}/>)
       }
     },{
       title: '其他操作',
@@ -282,17 +282,9 @@ class SprintTable extends Component{
         width:'10%',
         render: (text, record) => (
           <span>
-            {projectInfo.createdBy===userInfo['id']?(
-              <Icon type="delete" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnDeleteCard.bind(this,record.cardId)}/>
-            ):(
-              <Icon type="delete" style={{cursor:'not-allowed'}}/>
-            )}
+            <Icon type="delete" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnDeleteCard.bind(this,record.cardId)}/>
             <Divider type="vertical" />
-            {projectInfo.createdBy===userInfo['id']?(
-              <Icon type="edit" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnEditCard.bind(this,record)}/>
-            ):(
-              <Icon type="edit" style={{cursor:'not-allowed'}}/>
-            )}
+            <Icon type="edit" style={{cursor:'pointer',color:'#1890ff'}} onClick={this.handleOnEditCard.bind(this,record)}/>
           </span>
         ),
       }];

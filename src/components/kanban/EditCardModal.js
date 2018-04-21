@@ -40,6 +40,8 @@ class EditCardModal extends Component{
         style={{top: 30}}
         onCancel={()=>{
           KanbanStore.setShowEditCardModal(false);
+          KanbanStore.setCardTypeChecked('story');
+          KanbanStore.setAssignedPersonName(0);
         }}
         onOk={()=>{
           this.props.form.validateFieldsAndScroll((err, values) => {

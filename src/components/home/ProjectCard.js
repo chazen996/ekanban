@@ -20,31 +20,26 @@ class ProjectCard extends Component{
       <div className={homePageStyles["project-card"]}>
         <Card title={this.props.projectName} bordered={true}
               extra={
-                <Dropdown overlay={(
-                  <Menu>
-                    <Menu.Item>
-                      {!this.props.operable?(
+                this.props.operable?(
+                  <Dropdown overlay={(
+                    <Menu>
+                      <Menu.Item>
                         <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
                           this.props.handleOnCannotClick();
                         }}>编辑</a>
-                      ):(
-                        <a href="javascript:void(0)" onClick={this.handleOnEditProject.bind(this,projectId)}>编辑</a>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {!this.props.operable?(
+                      </Menu.Item>
+                      <Menu.Item>
                         <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
                           this.props.handleOnCannotClick();
                         }}>删除</a>
-                      ):(
-                        <a href="javascript:void(0)" onClick={this.handleOnDeleteProject.bind(this,projectId)}>删除</a>
-                      )}
-
-                    </Menu.Item>
-                  </Menu>
-                )} getPopupContainer={()=>document.getElementById(`${this.props.projectId}-popupContainer`)}>
-                  <Icon type="ellipsis" style={{ fontSize: 18,cursor:'pointer'}}/>
-                </Dropdown>
+                      </Menu.Item>
+                    </Menu>
+                  )} getPopupContainer={()=>document.getElementById(`${this.props.projectId}-popupContainer`)}>
+                    <Icon type="ellipsis" style={{ fontSize: 18,cursor:'pointer'}}/>
+                  </Dropdown>
+                ):(
+                  <Icon type="ellipsis" style={{ fontSize: 18,cursor:'not-allowed',color:'rgba(0,0,0,0.45)'}}/>
+                )
               }>
           <div style={{height:75,cursor:'pointer'}} onClick={()=>{
             this.props.history.push(`/project/${projectId}`);

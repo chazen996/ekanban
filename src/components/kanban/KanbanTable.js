@@ -408,6 +408,9 @@ class KanbanTable extends Component{
       cursor:'pointer',
       margin:'0 10px',
     };
+
+    const projectInfo = KanbanStore.getProjectInfo;
+    const userInfo = KanbanStore.getUserInfo;
     return (
       <div>
         <CreateCardModal/>
@@ -435,9 +438,21 @@ class KanbanTable extends Component{
               KanbanStore.setShowStagingArea(false);
             }
           }}/>
-          <Icon type="edit" style={{...iconStyle}} onClick={()=>{
-            this.props.history.push(`/editkanban/${kanbanInfo.kanbanId}`);
+          <Icon type="reload" style={{...iconStyle,fontSize:17}} onClick={()=>{
+            KanbanStore.setKanbanPageMaskLoadingStatus(true);
+            KanbanStore.setStagingAreaMaskLoadingStatus(true);
+            KanbanStore.loadData(kanbanInfo.kanbanId);
+            KanbanStore.loadSprints(kanbanInfo.kanbanId);
           }}/>
+          {
+            projectInfo.createdBy!==userInfo.id?(
+              <Icon type="login" style={{...iconStyle,fontSize:16,color:'rgba(0,0,0,0.45)',cursor:'not-allowed'}}/>
+            ):(
+              <Icon type="login" style={{...iconStyle,fontSize:16}} onClick={()=>{
+                this.props.history.push(`/editkanban/${kanbanInfo.kanbanId}`);
+              }}/>
+            )
+          }
         </div>
         <div style={{
           display:showStagingArea?'inline-block':'none',

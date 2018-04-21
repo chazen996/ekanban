@@ -9,7 +9,8 @@ const kanban = require('../../assets/images/kanban.png');
 @observer
 class Kanban extends React.Component {
 
-  handleOnDeleteKanban=(kanban)=>{
+  handleOnDeleteKanban=(kanban,event)=>{
+    event.stopPropagation();
     const kanbanTemp = {};
     const projectInfo = ProjectStore.getProjectInfo;
     kanbanTemp.kanbanId = kanban.kanbanId;
@@ -34,7 +35,8 @@ class Kanban extends React.Component {
     });
   };
 
-  handleOnEditKanban=(kanban)=>{
+  handleOnEditKanban=(kanban,event)=>{
+    event.stopPropagation();
     ProjectStore.setTargetKanban(kanban);
     ProjectStore.setShowEditKanbanModal(true);
   };
@@ -65,6 +67,12 @@ class Kanban extends React.Component {
           <img src={kanban} alt="kanban" style={{
             width:'100%'
           }}/>
+          <div id='dropdown-container' style={{
+            position: 'relative',
+            zIndex: 2
+          }}>
+
+          </div>
           <Dropdown disabled={projectInfo.createdBy!==userInfo.id} overlay={
             (
               <Menu>
@@ -76,13 +84,15 @@ class Kanban extends React.Component {
                 </Menu.Item>
               </Menu>
             )
-          }>
+          }
+            getPopupContainer={()=>document.getElementById('dropdown-container')}
+          >
             <Icon type="ellipsis" style={{
               position: 'absolute',
               top: 0,
               right: 9,
               fontSize: 24,
-              cursor:'pointer'
+              cursor:projectInfo.createdBy!==userInfo.id?('not-allowed'):('pointer')
             }}/>
           </Dropdown>
         </div>

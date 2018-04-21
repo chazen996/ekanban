@@ -1,5 +1,5 @@
 import {Component} from 'react';
-// import {withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class Navigator extends Component{
   render(){
@@ -24,7 +24,9 @@ class Navigator extends Component{
         );
       }
       result.push(
-        <a key={i} href={`${breadcrumbNameMap[i]}${idArray[i]}`}>{nameArray[i]}</a>);
+        <a key={i} href='javascript:void(0)' onClick={()=>{
+          this.props.history.push(`${breadcrumbNameMap[i]}${idArray[i]===''||idArray[i]===' '?'':idArray[i]}`);
+        }}>{nameArray[i]}</a>);
     }
     return(
       <div style={{ marginLeft: '1%'}}>
@@ -34,6 +36,6 @@ class Navigator extends Component{
   }
 
 }
-export default Navigator;
+export default withRouter(Navigator);
 
 

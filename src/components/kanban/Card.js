@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Icon} from 'antd';
+import {Icon,message} from 'antd';
 import Config from "../../utils/Config";
 import KanbanStore from "../../stores/KanbanStore";
 import { DragSource } from 'react-dnd';
@@ -19,10 +19,25 @@ function collect(connect, monitor) {
 }
 
 class Card extends Component{
+  deleteCard=(card)=>{
+    KanbanStore.deleteCard(card).then(response=>{
+      if(response){
+        if(response.data==='success'){
+          message.success('删除成功');
+          const kanbanInfo = KanbanStore.getKanbanInfo;
+          KanbanStore.loadData(kanbanInfo.kanbanId);
+          KanbanStore.loadSprints(kanbanInfo.kanbanId);
+        }else if(response.data==='failure'){
+          message.error('删除失败，请稍后再试');
+        }
+      }else{
+        message.error('网络错误，请稍后再试');
+      }
+    })
+  };
+
   render(){
     const { connectDragSource, isDragging } = this.props;
-
-
 
     const assignedPerson = this.props.card.assignedPerson;
     return connectDragSource(
@@ -42,21 +57,51 @@ class Card extends Component{
           justifyContent: 'flex-end',
           alignItems: 'center',
           borderBottom: '1px solid #d9d9d9',
+          cursor:'move',
+          position:'relative'
         }}>
+          <div style={{
+            position: 'absolute',
+            left: 0,
+            background: '#f5f5f5',
+            color: 'black',
+            height: '86%',
+            // paddingLeft: 5,
+            // paddingRight: 5,
+            borderRadius: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }} title={this.props.card.cardType==='other'?this.props.card.cardDescription:this.props.card.cardType}>
+            <span style={{
+              fontSize: 12,
+              transform: 'scale(0.8)',
+              maxWidth: 59,
+              overflow: 'hidden',
+            }}>{this.props.card.cardType==='other'?this.props.card.cardDescription:this.props.card.cardType}</span>
+          </div>
           <Icon type="close" style={{
             color:'white',
             cursor:'pointer'
-          }}/>
+          }} onClick={this.deleteCard.bind(this,this.props.card)}/>
         </div>
         <div style={{
-          height:'81.2%'
+          height:'81.2%',
+          cursor:'pointer'
+        }} onClick={()=>{
+          const assignedPerson = this.props.card.assignedPerson;
+          KanbanStore.setTargetCard(this.props.card);
+          KanbanStore.setShowEditCardModal(true);
+          const assignedPersonUsername = assignedPerson==null?0:assignedPerson.username;
+          KanbanStore.setCardTypeChecked(this.props.card.cardType);
+          KanbanStore.setAssignedPersonName(assignedPersonUsername);
         }}>
           <div style={{
             display:'inline-block',
             height: '100%',
-            width: assignedPerson==null||assignedPerson===''?'100%':'66.7%',
+            width: assignedPerson==null?'100%':'66.7%',
             padding: 5,
-            paddingRight:assignedPerson==null||assignedPerson===''?'5':'0'
+            paddingRight:assignedPerson==null?'5':'0'
           }}>
             <div style={{
               textOverflow:'ellipsis', display: '-webkit-box',
@@ -70,7 +115,7 @@ class Card extends Component{
               {this.props.card.cardContent}
             </div>
           </div>
-          {assignedPerson==null||assignedPerson===''?(
+          {assignedPerson==null?(
             null
           ):(
             <div style={{
@@ -86,7 +131,7 @@ class Card extends Component{
                 justifyContent:'center',
                 alignItems:'center'
               }}>
-                <img src={`${Config.baseURL}/images/${this.props.card.assignedPerson}.jpg`} alt="assignedPerson" style={{
+                <img src={`${Config.baseURL}/images/${assignedPerson.username}.jpg`} alt="assignedPerson" style={{
                   width: 35,
                   height: 35,
                   borderRadius: 50

@@ -16,8 +16,10 @@ const Config = {
     "freezed":null,
     "pretodo":"purple",
     "todo":"blue",
+    "todo:s":"blue",
     "doing":"volcano",
-    "done":"green"
+    "done":"green",
+    "done:s":"green"
   },
   sprintStatusColor:{
     "open":"#0fe00f",

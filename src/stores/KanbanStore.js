@@ -22,8 +22,48 @@ class KanbanStore{
   @observable stagingAreaMaskLoadingStatus = true;
   @observable showStagingArea = false;
   @observable cardUnderKanban = [];
+  @observable showCreateCardModal = false;
+  @observable createCardMaskLoadingStatus = false;
+  @observable cardTypeChecked = 'story';
+  @observable allUserUnderProject = [];
+  @observable targetCard = {};
+  @observable showEditCardModal = false;
+  @observable editCardMaskLoadingStatus = false;
+  @observable assignedPersonName = 0;
 
   @observable dragingCard = {};
+
+  @computed get getAssignedPersonName(){
+    return this.assignedPersonName;
+  }
+
+  @computed get getShowEditCardModal(){
+    return this.showEditCardModal;
+  }
+
+  @computed get getEditCardMaskLoadingStatus(){
+    return this.editCardMaskLoadingStatus;
+  }
+
+  @computed get getTargetCard(){
+    return this.targetCard;
+  }
+
+  @computed get getAllUserUnderProject(){
+    return this.allUserUnderProject;
+  }
+
+  @computed get getCardTypeChecked(){
+    return this.cardTypeChecked;
+  }
+
+  @computed get getCreateCardMaskLoadingStatus(){
+    return this.createCardMaskLoadingStatus;
+  }
+
+  @computed get getShowCreateCardModal(){
+    return this.showCreateCardModal;
+  }
 
   @computed get getDragingCard(){
     return this.dragingCardId;
@@ -79,6 +119,39 @@ class KanbanStore{
 
   @computed get getColumns(){
     return this.columns;
+  }
+
+  @action setAssignedPersonName(name){
+    this.assignedPersonName = name;
+  }
+
+  @action setEditCardMaskLoadingStatus(status){
+    this.editCardMaskLoadingStatus = status;
+  }
+
+  @action setShowEditCardModal(status){
+    this.showEditCardModal = status;
+  }
+
+  @action setTargetCard(card){
+    this.targetCard = card;
+  }
+
+  @action setAllUserUnderProject(allUserUnderProject){
+    this.allUserUnderProject = allUserUnderProject;
+  }
+
+  @action setCardTypeChecked(type){
+    this.cardTypeChecked = type;
+  }
+
+
+  @action setCreateCardMaskLoadingStatus(status){
+    this.createCardMaskLoadingStatus = status;
+  }
+
+  @action setShowCreateCardModal(status){
+    this.showCreateCardModal = status;
   }
 
   @action setDragingCard(card){
@@ -138,9 +211,11 @@ class KanbanStore{
   }
 
   loadData(kanbanId,checkAuth){
-    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData,cardUnderKanban)=>{
+    this.getAllDataFromWebServer(kanbanId).then(axios.spread((userInfo,projectInfo,kanbanInfo,kanbanData,cardUnderKanban,allUser)=>{
       this.setKanbanPageMaskLoadingStatus(false);
-      if(userInfo&&projectInfo&&kanbanInfo&&kanbanData&&cardUnderKanban){
+      this.setShowEditCardModal(false);
+
+      if(userInfo&&projectInfo&&kanbanInfo&&kanbanData&&cardUnderKanban&&allUser){
         if(checkAuth&&userInfo.data.id!==projectInfo.data.createdBy){
           window.location.href='/kanban/'+kanbanInfo.data.kanbanId;
           return;
@@ -151,6 +226,8 @@ class KanbanStore{
         this.setColumns(kanbanData.data.columns);
         this.setSwimlanes(kanbanData.data.swimlanes);
         this.setCardUnderKanban(cardUnderKanban.data);
+
+        this.setAllUserUnderProject(allUser.data);
       }else{
         message.error('网络错误，请稍后再试！');
       }
@@ -174,7 +251,8 @@ class KanbanStore{
       this.getProjectInfoByKanbanIdFromWebServer(kanbanId),
       this.getKanbanInfoFromWebServer(kanbanId),
       this.getKanbanDataFromWebServer(kanbanId),
-      this.getCardUnderKanbanFromWebServer(kanbanId)
+      this.getCardUnderKanbanFromWebServer(kanbanId),
+      this.getAllUserUnderProjectByKanbanIdFromWebServer(kanbanId)
     ]).catch(err => {
       console.log(err);
     });
@@ -224,6 +302,36 @@ class KanbanStore{
 
   deleteUnusualCard(cardIdList){
     return axios.post(`kanban/deleteUnusualCard?username=${this.username}`,JSON.stringify(cardIdList)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  deleteCard(card){
+    return axios.post(`card/deleteCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
+      console.log()
+    });
+  }
+
+  moveCard(card){
+    return axios.post(`kanban/moveCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  createCard(card){
+    return axios.post(`card/createCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(card)).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  getAllUserUnderProjectByKanbanIdFromWebServer(kanbanId){
+    return axios.get(`kanban/getAllUserUnderProjectByKanbanId?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  updateCard(card){
+    return axios.post(`card/updateCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
       console.log(err);
     });
   }

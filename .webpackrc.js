@@ -13,6 +13,6 @@ export default {
     "/editkanban":{
       target: "http://localhost:8000",
       pathRewrite: {"^/editkanban" : "/"}
-    }
+    },
   }
 }

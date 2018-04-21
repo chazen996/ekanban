@@ -6,6 +6,7 @@ import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from '../../utils/PublicAuthKit';
 import Swimlane from './Swimlane';
+import {withRouter} from 'react-router-dom';
 
 require("../../assets/css/kanbanPage.css");
 
@@ -1021,6 +1022,10 @@ class EditKanbanTable extends Component{
             });
           }}/>
           <Icon type="save" style={iconStyle} onClick={this.handleOnSave}/>
+
+          <Icon type="arrow-left" style={{...iconStyle,position: 'absolute',left: 0}} onClick={()=>{
+            this.props.history.push(`/kanban/${kanbanInfo.kanbanId}`);
+          }}/>
         </div>
         <div id="kanban-content" style={{position:'relative',overflow:'auto',
           whiteSpace: 'nowrap'}}>
@@ -1038,4 +1043,4 @@ class EditKanbanTable extends Component{
   }
 }
 
-export default EditKanbanTable;
+export default withRouter(EditKanbanTable);

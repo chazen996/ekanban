@@ -7,6 +7,9 @@ import KanbanTableHeadTd from "./KanbanTableHeadTd";
 import StagingArea from "./StagingArea";
 import SwimlaneForKanban from "./SwimlaneForKanban";
 import KanbanTableBodyTd from "./KanbanTableBodyTd";
+import {withRouter} from 'react-router-dom';
+import CreateCardModal from './CreateCardModal';
+import EditCardModal from './EditCardModal';
 
 
 import { DragDropContext } from 'react-dnd';
@@ -145,12 +148,46 @@ class KanbanTable extends Component{
         kanbanId:kanbanInfo.kanbanId,
       };
       cards.push(targetCard);
+      /* 目标卡片也需从相应的迭代中移除 */
+      let sprints = KanbanStore.getOpenedSprints;
+      for(let sprint of sprints){
+        if(sprint.sprintId===targetCard.sprintId){
+          for(let i=0;i<sprint.cardList.length;i++){
+            let card = sprint.cardList[i];
+            if(card.cardId===targetCard.cardId){
+              sprint.cardList.splice(i,1);
+              break;
+            }
+          }
+        }
+      }
     }
+    // let originColumnId = targetCard.columnId;
+    // let originPositionX = targetCard.positionX;
+    // let originPositionY = targetCard.positionY;
+    // let originCardStatus = targetCard.cardStatus;
+
     targetCard.columnId = columnId;
     targetCard.positionX = positionX;
     targetCard.positionY = positionY;
+    targetCard.cardStatus = this.columnMap[columnId].status;
 
     KanbanStore.setCardUnderKanban(cards);
+    KanbanStore.moveCard(targetCard).then(response=>{
+      if(response){
+        if(response.data==='success'){
+
+        }else if(response.data==="failure"){
+          message.error('移动卡片失败，请稍后再试');
+          KanbanStore.setStagingAreaMaskLoadingStatus(true);
+          KanbanStore.setKanbanPageMaskLoadingStatus(true);
+          KanbanStore.loadData(kanbanInfo.kanbanId);
+          KanbanStore.loadSprints(kanbanInfo.kanbanId);
+        }
+      }else{
+        message.error('网络错误，请稍后再试');
+      }
+    });
   };
 
   render(){
@@ -234,34 +271,34 @@ class KanbanTable extends Component{
 
     const cardUnderKanban = PublicAuthKit.deepCopy(KanbanStore.getCardUnderKanban);
     /* 清除不合法的任务卡片 */
-    let cardIdList = {
-      cardIdList:[],
-      kanbanId:KanbanStore.getKanbanInfo.kanbanId
-    };
-    for(let i=0;i<cardUnderKanban.length;i++){
-      let card = cardUnderKanban[i];
-      if(card.columnId==null||this.getColumnPositionYOfTdNextToBody(card)===-1){
-        cardIdList['cardIdList'].push(card.cardId);
-        cardUnderKanban.splice(i,1);
-        i -= 1;
-      }else if(card.positionX>=kanbanInfo.kanbanHeight){
-        cardIdList['cardIdList'].push(card.cardId);
-        cardUnderKanban.splice(i,1);
-        i -= 1;
-      }
-    }
-
-    if(cardIdList.cardIdList.length!==0){
-      KanbanStore.deleteUnusualCard(cardIdList).then(response=>{
-        if(response){
-          if(response.data==='success'){
-            message.warning('发现异常任务，已自动清除');
-            KanbanStore.setKanbanPageMaskLoadingStatus(true);
-            KanbanStore.loadData(kanbanInfo.kanbanId);
-          }
-        }
-      });
-    }
+    // let cardIdList = {
+    //   cardIdList:[],
+    //   kanbanId:KanbanStore.getKanbanInfo.kanbanId
+    // };
+    // for(let i=0;i<cardUnderKanban.length;i++){
+    //   let card = cardUnderKanban[i];
+    //   if(card.columnId==null||this.getColumnPositionYOfTdNextToBody(card)===-1){
+    //     cardIdList['cardIdList'].push(card.cardId);
+    //     cardUnderKanban.splice(i,1);
+    //     i -= 1;
+    //   }else if(card.positionX>=kanbanInfo.kanbanHeight){
+    //     cardIdList['cardIdList'].push(card.cardId);
+    //     cardUnderKanban.splice(i,1);
+    //     i -= 1;
+    //   }
+    // }
+    //
+    // if(cardIdList.cardIdList.length!==0){
+    //   KanbanStore.deleteUnusualCard(cardIdList).then(response=>{
+    //     if(response){
+    //       if(response.data==='success'){
+    //         message.warning('发现异常任务，已自动清除');
+    //         KanbanStore.setKanbanPageMaskLoadingStatus(true);
+    //         KanbanStore.loadData(kanbanInfo.kanbanId);
+    //       }
+    //     }
+    //   });
+    // }
 
     // for(let item of cardUnderKanban){
     //   this.cardHandledMap[item.cardId] = item;
@@ -373,6 +410,9 @@ class KanbanTable extends Component{
     };
     return (
       <div>
+        <CreateCardModal/>
+        <EditCardModal/>
+
         <div id="kanban-edit-panel" style={{
           display: 'flex',
           justifyContent: 'flex-end',
@@ -382,6 +422,9 @@ class KanbanTable extends Component{
           borderBottom: '1px solid #0000001a',
           alignItems: 'center'
         }}>
+          <Icon type="file-add" style={{...iconStyle,fontSize:19}} onClick={()=>{
+            KanbanStore.setShowCreateCardModal(true);
+          }}/>
           <Icon type="eye-o" style={{...iconStyle,color:showStagingArea?'blue':''}} onClick={()=>{
             const kanbanInfo = KanbanStore.getKanbanInfo;
             if(!showStagingArea){
@@ -391,6 +434,9 @@ class KanbanTable extends Component{
             }else{
               KanbanStore.setShowStagingArea(false);
             }
+          }}/>
+          <Icon type="edit" style={{...iconStyle}} onClick={()=>{
+            this.props.history.push(`/editkanban/${kanbanInfo.kanbanId}`);
           }}/>
         </div>
         <div style={{
@@ -422,4 +468,4 @@ class KanbanTable extends Component{
 
 }
 
-export default DragDropContext(HTML5Backend)(KanbanTable);
+export default withRouter(DragDropContext(HTML5Backend)(KanbanTable));

@@ -2,6 +2,7 @@ import React from 'react';
 import { Icon,Dropdown,Menu,message } from 'antd';
 import ProjectStore from "../../stores/ProjectStore";
 import {observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 
 const kanban = require('../../assets/images/kanban.png');
 
@@ -49,6 +50,9 @@ class Kanban extends React.Component {
         border:'1px solid #3333',
         boxShadow: '0 1px 6px rgba(0,0,0,.2)',
         margin:'14px 20px',
+        cursor:'pointer'
+      }} onClick={()=>{
+        this.props.history.push(`/kanban/${this.props.kanban.kanbanId}`);
       }}>
         <div style={{
           display: 'flex',
@@ -94,4 +98,4 @@ class Kanban extends React.Component {
   }
 }
 
-export default Kanban;
+export default withRouter(Kanban);

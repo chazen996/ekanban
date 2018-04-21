@@ -245,27 +245,35 @@ class SprintTable extends Component{
         title: '认领人',
         key: 'assignedPerson',
         width:'10%',
-        render: (text, record) => (
-          <span style={{
-            color: 'rgba(0,0,0,0.45)',
-          }}>暂无</span>
-        ),
+        render: (text, record) => {
+          if(record.assignedPerson==null){
+            return <span style={{
+              color: 'rgba(0,0,0,0.45)',
+            }}>暂无</span>
+          }else{
+            return <span style={{color:'#faad14'}}>{record.assignedPerson.username}</span>
+          }
+        }
       },{
         title: '看板',
         key: 'kanban',
         width:'10%',
-        render: (text, record) => (
-          <span style={{
-            color: 'rgba(0,0,0,0.45)',
-          }}>暂无</span>
-        ),
+        render: (text, record) => {
+          if(record.kanban==null){
+            return <span style={{
+              color: 'rgba(0,0,0,0.45)',
+            }}>暂无</span>
+          }else{
+            return <span style={{color:'#14cefa'}}>{record.kanban.kanbanName}</span>
+          }
+        }
       },{
         title: '状态',
         key: 'cardStatus',
         width:'10%',
         render: (text, record) => (
           <Tag color={Config.cardStatusColor[record.cardStatus]}>
-            {record.cardStatus}
+            {record.cardStatus.split(':')[0]}
           </Tag>
         ),
       },{

@@ -6,7 +6,6 @@ import PublicAuthKit from "../utils/PublicAuthKit";
 class KanbanStore{
   constructor(){
     PublicAuthKit.addAuthHeader();
-    this.username = PublicAuthKit.getItem('username');
   }
 
   @observable userInfo = {};
@@ -223,8 +222,10 @@ class KanbanStore{
         this.setUserInfo(userInfo.data);
         this.setProjectInfo(projectInfo.data);
         this.setKanbanInfo(kanbanInfo.data);
-        this.setColumns(kanbanData.data.columns);
-        this.setSwimlanes(kanbanData.data.swimlanes);
+        if(kanbanData.data!=null&&kanbanData.data!==''){
+          this.setColumns(kanbanData.data.columns);
+          this.setSwimlanes(kanbanData.data.swimlanes);
+        }
         this.setCardUnderKanban(cardUnderKanban.data);
 
         this.setAllUserUnderProject(allUser.data);
@@ -247,7 +248,7 @@ class KanbanStore{
 
   getAllDataFromWebServer(kanbanId) {
     return axios.all([
-      this.getPersonalInfoFromWebServer(this.username),
+      this.getPersonalInfoFromWebServer(PublicAuthKit.getItem('username')),
       this.getProjectInfoByKanbanIdFromWebServer(kanbanId),
       this.getKanbanInfoFromWebServer(kanbanId),
       this.getKanbanDataFromWebServer(kanbanId),
@@ -259,7 +260,7 @@ class KanbanStore{
   }
 
   getProjectInfoByKanbanIdFromWebServer(kanbanId){
-    return axios.get(`kanban/getProjectByKanbanId?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+    return axios.get(`kanban/getProjectByKanbanId?kanbanId=${kanbanId}&username=${PublicAuthKit.getItem('username')}`).catch(err=>{
       console.log(err);
     });
   }
@@ -271,49 +272,49 @@ class KanbanStore{
   }
 
   getKanbanDataFromWebServer(kanbanId){
-    return axios.get(`kanban/getKanbanData?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+    return axios.get(`kanban/getKanbanData?kanbanId=${kanbanId}&username=${PublicAuthKit.getItem('username')}`).catch(err=>{
       console.log(err);
     });
   }
 
   getKanbanInfoFromWebServer(kanbanId){
-    return axios.get(`kanban/getKanban?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+    return axios.get(`kanban/getKanban?kanbanId=${kanbanId}&username=${PublicAuthKit.getItem('username')}`).catch(err=>{
       console.log(err);
     });
   }
 
   saveKanbanData(kanbanData){
-    return axios.post(`kanban/saveKanbanData?username=${this.username}`,JSON.stringify(kanbanData)).catch(err=>{
+    return axios.post(`kanban/saveKanbanData?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(kanbanData)).catch(err=>{
       console.log(err);
     });
   }
 
   getOpenedSprintsFromWebServer(kanbanId){
-    return axios.get(`kanban/getOpenedSprints?username=${this.username}&kanbanId=${kanbanId}`).catch(err=>{
+    return axios.get(`kanban/getOpenedSprints?username=${PublicAuthKit.getItem('username')}&kanbanId=${kanbanId}`).catch(err=>{
       console.log(err);
     });
   }
 
   getCardUnderKanbanFromWebServer(kanbanId){
-    return axios.get(`kanban/getCardUnderKanban?username=${this.username}&kanbanId=${kanbanId}`).catch(err=>{
+    return axios.get(`kanban/getCardUnderKanban?username=${PublicAuthKit.getItem('username')}&kanbanId=${kanbanId}`).catch(err=>{
       console.log(err);
     });
   }
 
   deleteUnusualCard(cardIdList){
-    return axios.post(`kanban/deleteUnusualCard?username=${this.username}`,JSON.stringify(cardIdList)).catch(err=>{
+    return axios.post(`kanban/deleteUnusualCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(cardIdList)).catch(err=>{
       console.log(err);
     });
   }
 
   deleteCard(card){
-    return axios.post(`card/deleteCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
+    return axios.post(`card/deleteCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(card)).catch(err=>{
       console.log()
     });
   }
 
   moveCard(card){
-    return axios.post(`kanban/moveCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
+    return axios.post(`kanban/moveCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(card)).catch(err=>{
       console.log(err);
     });
   }
@@ -325,13 +326,13 @@ class KanbanStore{
   }
 
   getAllUserUnderProjectByKanbanIdFromWebServer(kanbanId){
-    return axios.get(`kanban/getAllUserUnderProjectByKanbanId?kanbanId=${kanbanId}&username=${this.username}`).catch(err=>{
+    return axios.get(`kanban/getAllUserUnderProjectByKanbanId?kanbanId=${kanbanId}&username=${PublicAuthKit.getItem('username')}`).catch(err=>{
       console.log(err);
     });
   }
 
   updateCard(card){
-    return axios.post(`card/updateCard?username=${this.username}`,JSON.stringify(card)).catch(err=>{
+    return axios.post(`card/updateCard?username=${PublicAuthKit.getItem('username')}`,JSON.stringify(card)).catch(err=>{
       console.log(err);
     });
   }

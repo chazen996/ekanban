@@ -195,6 +195,9 @@ class KanbanTable extends Component{
 
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
 
+    // if(columns.length===0){
+    //   return <div></div>
+    // }
     let columnQueue = columns;
     let currentLayer = 1;
     let nodesNumberOfcurrentLayer = columnQueue.length;

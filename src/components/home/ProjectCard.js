@@ -24,13 +24,13 @@ class ProjectCard extends Component{
                   <Dropdown overlay={(
                     <Menu>
                       <Menu.Item>
-                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
-                          this.props.handleOnCannotClick();
+                        <a href="javascript:void(0)" onClick={()=>{
+                          this.props.handleOnEditProject(this.props.projectId);
                         }}>编辑</a>
                       </Menu.Item>
                       <Menu.Item>
-                        <a href="javascript:void(0)" style={{background: '#80808014',color: 'rgba(0,0,0,0.25)',cursor:'not-allowed'}} onClick={()=>{
-                          this.props.handleOnCannotClick();
+                        <a href="javascript:void(0)" onClick={()=>{
+                          this.props.handleOnDeleteProject(this.props.projectId);
                         }}>删除</a>
                       </Menu.Item>
                     </Menu>

@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Icon,message} from 'antd';
+import {Icon,message,Slider} from 'antd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from "../../utils/PublicAuthKit";
@@ -25,6 +25,9 @@ class KanbanTable extends Component{
 
     this.cardMap = [];
     this.cardPosition = [];
+    this.state={
+      fullScreen:false
+    };
   }
   componentDidUpdate(){
     this.resizeBodyContent();
@@ -33,8 +36,11 @@ class KanbanTable extends Component{
   resizeBodyContent=()=>{
     const kanbanContent = document.querySelector("#kanban-content");
     const stagingArea = document.querySelector("#staging-area");
+    const header = document.querySelector("#header");
+    const kanbanEditPanel = document.querySelector("#kanban-edit-panel");
 
     kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth -10}px`;
+    kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
     setTimeout(this.resizeBodyContentTool(),200);
   };
   resizeBodyContentTool(){
@@ -428,6 +434,38 @@ class KanbanTable extends Component{
           borderBottom: '1px solid #0000001a',
           alignItems: 'center'
         }}>
+          <div style={{
+            width:150
+          }}>
+            <Slider defaultValue={100} min={50} max={100} tipFormatter={(value)=>{
+              return `${value}%`;
+            }} onChange={(value)=>{
+              const ratio = (value / 100).toFixed(2);
+              const kanbanTable = document.getElementById('kanban-table');
+              kanbanTable.style.transform = `scale(${ratio})`;
+            }}/>
+          </div>
+          {
+            this.state.fullScreen?(
+              <Icon type="shrink" style={{...iconStyle,fontSize:18,marginLeft:20}} onClick={()=>{
+                const header = document.getElementById('header');
+                header.style.display = 'flex';
+                this.resizeBodyContent();
+                this.setState({
+                  fullScreen:false
+                })
+              }}/>
+            ):(
+              <Icon type="arrows-alt" style={{...iconStyle,fontSize:18,marginLeft:20}} onClick={()=>{
+                const header = document.getElementById('header');
+                header.style.display = 'none';
+                this.resizeBodyContent();
+                this.setState({
+                  fullScreen:true
+                })
+              }}/>
+            )
+          }
           <Icon type="file-add" style={{...iconStyle,fontSize:19}} onClick={()=>{
             KanbanStore.setShowCreateCardModal(true);
           }}/>
@@ -471,7 +509,9 @@ class KanbanTable extends Component{
           verticalAlign:'top'
         }}>
 
-          <table>
+          <table id='kanban-table' style={{
+            transformOrigin: '0 0'
+          }}>
             <thead>
               {tHead}
             </thead>

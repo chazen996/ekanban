@@ -28,12 +28,12 @@ class KanbanStore{
   @observable targetCard = {};
   @observable showEditCardModal = false;
   @observable editCardMaskLoadingStatus = false;
-  @observable assignedPersonName = 0;
+  @observable assignedPersonId = 0;
 
   @observable dragingCard = {};
 
-  @computed get getAssignedPersonName(){
-    return this.assignedPersonName;
+  @computed get getAssignedPersonId(){
+    return this.assignedPersonId;
   }
 
   @computed get getShowEditCardModal(){
@@ -120,8 +120,8 @@ class KanbanStore{
     return this.columns;
   }
 
-  @action setAssignedPersonName(name){
-    this.assignedPersonName = name;
+  @action setAssignedPersonId(id){
+    this.assignedPersonId = id;
   }
 
   @action setEditCardMaskLoadingStatus(status){

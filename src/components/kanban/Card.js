@@ -92,9 +92,9 @@ class Card extends Component{
           const assignedPerson = this.props.card.assignedPerson;
           KanbanStore.setTargetCard(this.props.card);
           KanbanStore.setShowEditCardModal(true);
-          const assignedPersonUsername = assignedPerson==null?0:assignedPerson.username;
+          const assignedPersonId = assignedPerson==null?0:assignedPerson.id;
           KanbanStore.setCardTypeChecked(this.props.card.cardType);
-          KanbanStore.setAssignedPersonName(assignedPersonUsername);
+          KanbanStore.setAssignedPersonId(assignedPersonId);
         }}>
           <div style={{
             display:'inline-block',

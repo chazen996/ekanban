@@ -14,7 +14,7 @@ class EditCardModal extends Component{
   // }
 
   handleOnChangeAssignedPerson=(value)=>{
-    KanbanStore.setAssignedPersonName(value);
+    KanbanStore.setAssignedPersonId(value);
   };
   render(){
     const { getFieldDecorator } = this.props.form;
@@ -23,13 +23,13 @@ class EditCardModal extends Component{
 
     const allUser = KanbanStore.getAllUserUnderProject;
     const userArray = [];
-    userArray.push(<Select.Option key={0} value={0}>无</Select.Option>);
+    userArray.push(<Select.Option key={0} value={'0'}>无</Select.Option>);
     for(let user of allUser){
-      userArray.push(<Select.Option key={user.id} value={user.username}>{user.username}</Select.Option>);
+      userArray.push(<Select.Option key={user.id} value={user.id.toString()}>{user.username}</Select.Option>);
     }
 
     const targetCard = KanbanStore.getTargetCard;
-    const assignedPersonName = KanbanStore.getAssignedPersonName;
+    const assignedPersonId = KanbanStore.getAssignedPersonId;
     return (
       <Modal
         title="编辑任务"
@@ -41,7 +41,7 @@ class EditCardModal extends Component{
         onCancel={()=>{
           KanbanStore.setShowEditCardModal(false);
           KanbanStore.setCardTypeChecked('story');
-          KanbanStore.setAssignedPersonName(0);
+          KanbanStore.setAssignedPersonId(0);
         }}
         onOk={()=>{
           this.props.form.validateFieldsAndScroll((err, values) => {
@@ -54,14 +54,8 @@ class EditCardModal extends Component{
                 cardType:KanbanStore.getCardTypeChecked,
                 projectId:projectInfo.projectId
               };
-              const assignedPersonName = KanbanStore.getAssignedPersonName;
-              card.assignedPersonId = assignedPersonName;
-              for(let user of allUser){
-                if(user.username===assignedPersonName){
-                  card.assignedPersonId = user.id;
-                  break;
-                }
-              }
+              card.assignedPersonId = assignedPersonId;
+
               KanbanStore.updateCard(card).then(response=>{
                 if(response){
                   if(response.data==='success'){
@@ -127,7 +121,7 @@ class EditCardModal extends Component{
               <Select
                 showSearch
                 optionFilterProp="children"
-                value={assignedPersonName}
+                value={assignedPersonId.toString()}
                 filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 onChange={this.handleOnChangeAssignedPerson}
               >

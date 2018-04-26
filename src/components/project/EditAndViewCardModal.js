@@ -9,7 +9,7 @@ const FormItem = Form.Item;
 @observer
 class EditAndViewCardModal extends Component{
   handleOnChangeAssignedPerson=(value)=>{
-    ProjectStore.setAssignedPersonName(value);
+    ProjectStore.setAssignedPersonId(value);
   };
 
   render(){
@@ -41,13 +41,13 @@ class EditAndViewCardModal extends Component{
       );
     };
 
-    const assignedPersonName = ProjectStore.getAssignedPersonName;
+    const assignedPersonId = ProjectStore.getAssignedPersonId;
 
     const allUser = ProjectStore.getAllUserUnderProject;
     const userArray = [];
-    userArray.push(<Select.Option key={0} value={0}>无</Select.Option>);
+    userArray.push(<Select.Option key={0} value={'0'}>无</Select.Option>);
     for(let user of allUser){
-      userArray.push(<Select.Option key={user.id} value={user.username}>{user.username}</Select.Option>);
+      userArray.push(<Select.Option key={user.id} value={user.id.toString()}>{user.username}</Select.Option>);
     }
 
     if(useForEditOrView==='edit'){
@@ -77,13 +77,7 @@ class EditAndViewCardModal extends Component{
                 card.projectId = projectInfo.projectId;
 
                 // const assignedPersonName = KanbanStore.getAssignedPersonName;
-                card.assignedPersonId = assignedPersonName;
-                for(let user of allUser){
-                  if(user.username===assignedPersonName){
-                    card.assignedPersonId = user.id;
-                    break;
-                  }
-                }
+                card.assignedPersonId = assignedPersonId;
 
                 ProjectStore.updateCard(card).then(response=>{
                   if(response){
@@ -138,7 +132,7 @@ class EditAndViewCardModal extends Component{
                 <Select
                   showSearch
                   optionFilterProp="children"
-                  value={assignedPersonName}
+                  value={assignedPersonId.toString()}
                   filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                   onChange={this.handleOnChangeAssignedPerson}
                 >
@@ -190,6 +184,20 @@ class EditAndViewCardModal extends Component{
                   )}
                 </FormItem>
               ):(null)}
+              <FormItem
+                label="负责人"
+                hasFeedback>
+                <Select
+                  disabled
+                  showSearch
+                  optionFilterProp="children"
+                  value={assignedPersonId.toString()}
+                  filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                  onChange={this.handleOnChangeAssignedPerson}
+                >
+                  {userArray}
+                </Select>
+              </FormItem>
               <FormItem
                 label="任务详情">
                 {getFieldDecorator('cardContent', {

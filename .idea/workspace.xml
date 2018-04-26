@@ -7,12 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/Card.js" afterPath="$PROJECT_DIR$/src/components/kanban/Card.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/EditCardModal.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditCardModal.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js" afterPath="$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/SprintTable.js" afterPath="$PROJECT_DIR$/src/components/project/SprintTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/KanbanStore.js" afterPath="$PROJECT_DIR$/src/stores/KanbanStore.js" />
-      <change beforePath="$PROJECT_DIR$/src/stores/ProjectStore.js" afterPath="$PROJECT_DIR$/src/stores/ProjectStore.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/kanban/StagingArea.js" afterPath="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,8 +24,20 @@
       <file leaf-file-name="KanbanTable.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="496" column="14" lean-forward="true" selection-start-line="496" selection-start-column="14" selection-end-line="496" selection-end-column="14" />
+            <state relative-caret-position="136">
+              <caret line="109" column="2" lean-forward="false" selection-start-line="109" selection-start-column="2" selection-end-line="117" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StagingArea.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/kanban/StagingArea.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -80,18 +87,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StagingArea.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/kanban/StagingArea.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#32#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Card.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/Card.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -112,7 +107,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditAndViewCardModal.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EditAndViewCardModal.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
@@ -148,8 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>暂无</find>
-      <find>let nodesNumberOfcurrentLayer = columnQueue.length;</find>
       <find>setColumns</find>
       <find>kanbanId</find>
       <find>状态操作</find>
@@ -178,6 +171,8 @@
       <find>AssignedPerso</find>
       <find>AssignedPersonId</find>
       <find>start</find>
+      <find>kanbanInfo</find>
+      <find>generateCard</find>
     </findStrings>
     <replaceStrings>
       <replace>targetUser</replace>
@@ -248,13 +243,13 @@
         <option value="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/KanbanTableHeadTd.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js" />
-        <option value="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/Card.js" />
         <option value="$PROJECT_DIR$/src/stores/ProjectStore.js" />
         <option value="$PROJECT_DIR$/src/components/project/SprintTable.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditCardModal.js" />
         <option value="$PROJECT_DIR$/src/stores/KanbanStore.js" />
         <option value="$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js" />
+        <option value="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
       </list>
     </option>
   </component>
@@ -477,7 +472,7 @@
       <workItem from="1524486416979" duration="1052000" />
       <workItem from="1524536246706" duration="998000" />
       <workItem from="1524579778804" duration="8601000" />
-      <workItem from="1524717270767" duration="7397000" />
+      <workItem from="1524717270767" duration="9116000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -794,11 +789,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524728563364</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="[commit] 修复了为卡片选择认领人时可能出现用户名为0和默认选项‘无’冲突的问题">
+      <created>1524730935357</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1524730935357</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="683992000" />
+    <option name="totallyTimeSpent" value="685711000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -832,7 +834,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[commit] 项目页面下导航可实时显示项目名称；调整了用户列表的边框样式" />
     <MESSAGE value="[commit] 完善项目页面" />
     <MESSAGE value="[commit] 改动多到不想写日志（完善项目、迭代和任务）" />
     <MESSAGE value="[commit] 继续完善项目、迭代和任务" />
@@ -857,7 +858,8 @@
     <MESSAGE value="[commit] 新增了全屏和缩放功能" />
     <MESSAGE value="[commit] 优化了起始列终止列显示效果" />
     <MESSAGE value="[commit] 新增了迭代下编辑卡片可选择认领人的功能；修复了无法取消认领人的bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 新增了迭代下编辑卡片可选择认领人的功能；修复了无法取消认领人的bug" />
+    <MESSAGE value="[commit] 修复了为卡片选择认领人时可能出现用户名为0和默认选项‘无’冲突的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 修复了为卡片选择认领人时可能出现用户名为0和默认选项‘无’冲突的问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1163,31 +1165,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="496" column="14" lean-forward="true" selection-start-line="496" selection-start-column="14" selection-end-line="496" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTableHeadTd.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="71" column="16" lean-forward="false" selection-start-line="71" selection-start-column="16" selection-end-line="75" selection-end-column="32" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/StagingArea.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1249,6 +1231,26 @@
           <caret line="191" column="26" lean-forward="false" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="109" column="2" lean-forward="false" selection-start-line="109" selection-start-column="2" selection-end-line="117" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/StagingArea.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="46" column="50" lean-forward="true" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

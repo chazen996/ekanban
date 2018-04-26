@@ -10,7 +10,19 @@ require("../../assets/css/kanbanPage.css");
 
 @observer
 class StagingArea extends Component{
-
+  // constructor(props){
+  //   super(props);
+  //   this.tdNextToBody
+  // }
+  visitiWholeTree=(node)=>{
+    if(node.subColumn==null||node.subColumn.length===0){
+      this.tdNextToBody[node.columnId] = node;
+      return;
+    }
+    for(let item of node.subColumn){
+      this.visitiWholeTree(item);
+    }
+  };
   render(){
 
     const panelStyle = {
@@ -19,12 +31,24 @@ class StagingArea extends Component{
       border: 0,
       overflow: 'hidden',
     };
+    /* 所有位置不合法以及在看版上添加的卡片需要渲染到暂存区当前看板区域内 */
 
-    /* 获取暂存区内看板卡片 */
-    let cards = KanbanStore.getCardUnderKanban;
+    let cards = PublicAuthKit.deepCopy(KanbanStore.getCardUnderKanban);
     let kanbanCardArray = [];
+    let kanbanInfo = KanbanStore.getKanbanInfo;
+    let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
+    this.tdNextToBody = [];
+    /* 构造tdNextToBody的map */
+    for(let item of columns){
+      this.visitiWholeTree(item);
+    }
+
     for(let card of cards){
-      if(card.columnId==null||card.columnId===''){
+      if(card.columnId==null||card.columnId===''||
+          this.tdNextToBody[card.columnId]==null||
+          this.tdNextToBody[card.columnId].columnWidth<=card.positionY||
+          kanbanInfo.kanbanHeight<=card.positionX
+      ){
         kanbanCardArray.push(
           <div key={card.cardId} style={{
             margin:'6px 9px'

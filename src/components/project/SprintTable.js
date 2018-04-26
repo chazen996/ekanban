@@ -116,6 +116,10 @@ class SprintTable extends Component{
     ProjectStore.setEditOrView('edit');
     ProjectStore.setCardTypeChecked(targetCard.cardType);
     ProjectStore.setTargetCard(targetCard);
+
+    const assignedPerson = targetCard.assignedPerson;
+    ProjectStore.setAssignedPersonName(assignedPerson==null?0:assignedPerson.username);
+
     ProjectStore.setShowEditOrViewCardModal(true);
   };
   render(){

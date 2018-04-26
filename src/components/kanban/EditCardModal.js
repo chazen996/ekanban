@@ -55,6 +55,7 @@ class EditCardModal extends Component{
                 projectId:projectInfo.projectId
               };
               const assignedPersonName = KanbanStore.getAssignedPersonName;
+              card.assignedPersonId = assignedPersonName;
               for(let user of allUser){
                 if(user.username===assignedPersonName){
                   card.assignedPersonId = user.id;
@@ -66,6 +67,7 @@ class EditCardModal extends Component{
                   if(response.data==='success'){
                     /* 创建成功后需要刷新数据源 */
                     KanbanStore.loadData(kanbanInfo.kanbanId);
+                    KanbanStore.loadSprints(kanbanInfo.kanbanId);
                     KanbanStore.setEditCardMaskLoadingStatus(false);
                     message.success('修改成功');
                   }else if(response.data==='failure'){
@@ -131,12 +133,6 @@ class EditCardModal extends Component{
               >
                 {userArray}
               </Select>
-              {/*{getFieldDecorator('assignedPersonId', {*/}
-              {/*rules: [{ required: true, message: '请选择负责人！' }],*/}
-              {/*initialValue:0,*/}
-              {/*})(*/}
-              {/**/}
-              {/*)}*/}
             </FormItem>
             <FormItem
               label="任务详情"

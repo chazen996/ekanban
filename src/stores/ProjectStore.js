@@ -33,6 +33,12 @@ class ProjectStore{
   @observable showEditKanbanModal = false;
   @observable editKanbanMaskLodingStatus = false;
 
+  @observable assignedPersonName = 0;
+
+  @computed get getAssignedPersonName(){
+    return this.assignedPersonName;
+  }
+
   @computed get getEditKanbanMaskLodingStatus(){
     return this.editKanbanMaskLodingStatus;
   }
@@ -120,6 +126,10 @@ class ProjectStore{
 
   @computed get getEditOrView(){
     return this.editOrView;
+  }
+
+  @action setAssignedPersonName(name){
+    this.assignedPersonName = name;
   }
 
   @action setShowEditKanbanModal(status){

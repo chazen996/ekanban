@@ -3,6 +3,7 @@ import {Icon,Collapse,Spin} from 'antd';
 import {observer} from 'mobx-react';
 import KanbanStore from '../../stores/KanbanStore';
 import Card from "./Card";
+import PublicAuthKit from "../../utils/PublicAuthKit";
 
 const Panel = Collapse.Panel;
 require("../../assets/css/kanbanPage.css");
@@ -35,7 +36,7 @@ class StagingArea extends Component{
     }
 
 
-    let sprints = KanbanStore.getOpenedSprints;
+    let sprints = PublicAuthKit.deepCopy(KanbanStore.getOpenedSprints);
     let panelList = [];
     panelList.push(
       <Panel header='当前看板' key='0' id='kanban-stagging-area' style={{...panelStyle,color:'blue'}}>

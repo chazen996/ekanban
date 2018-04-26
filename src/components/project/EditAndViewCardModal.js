@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Modal,Form,Spin,Input,message} from 'antd';
+import {Modal,Form,Spin,Input,message,Select} from 'antd';
 import ProjectStore from "../../stores/ProjectStore";
 import CardType from "./CardType";
 import {observer} from 'mobx-react';
@@ -8,6 +8,10 @@ import Config from "../../utils/Config";
 const FormItem = Form.Item;
 @observer
 class EditAndViewCardModal extends Component{
+  handleOnChangeAssignedPerson=(value)=>{
+    ProjectStore.setAssignedPersonName(value);
+  };
+
   render(){
     const { getFieldDecorator } = this.props.form;
 
@@ -35,6 +39,15 @@ class EditAndViewCardModal extends Component{
           <span>{type}</span>
         </div>
       );
+    };
+
+    const assignedPersonName = ProjectStore.getAssignedPersonName;
+
+    const allUser = ProjectStore.getAllUserUnderProject;
+    const userArray = [];
+    userArray.push(<Select.Option key={0} value={0}>无</Select.Option>);
+    for(let user of allUser){
+      userArray.push(<Select.Option key={user.id} value={user.username}>{user.username}</Select.Option>);
     }
 
     if(useForEditOrView==='edit'){
@@ -43,6 +56,7 @@ class EditAndViewCardModal extends Component{
           title="编辑任务"
           visible={ProjectStore.getShowEditOrViewCardModal}
           destroyOnClose={true}
+          style={{top: 30}}
           okText='确定'
           cancelText='取消'
           onCancel={()=>{
@@ -61,6 +75,15 @@ class EditAndViewCardModal extends Component{
                 }
                 card.cardContent = values.cardContent;
                 card.projectId = projectInfo.projectId;
+
+                // const assignedPersonName = KanbanStore.getAssignedPersonName;
+                card.assignedPersonId = assignedPersonName;
+                for(let user of allUser){
+                  if(user.username===assignedPersonName){
+                    card.assignedPersonId = user.id;
+                    break;
+                  }
+                }
 
                 ProjectStore.updateCard(card).then(response=>{
                   if(response){
@@ -108,6 +131,20 @@ class EditAndViewCardModal extends Component{
                   )}
                 </FormItem>
               ):(null)}
+
+              <FormItem
+                label="负责人"
+                hasFeedback>
+                <Select
+                  showSearch
+                  optionFilterProp="children"
+                  value={assignedPersonName}
+                  filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                  onChange={this.handleOnChangeAssignedPerson}
+                >
+                  {userArray}
+                </Select>
+              </FormItem>
               <FormItem
                 label="任务详情"
                 hasFeedback>
@@ -128,6 +165,7 @@ class EditAndViewCardModal extends Component{
           title="查看任务"
           visible={ProjectStore.getShowEditOrViewCardModal}
           destroyOnClose={true}
+          style={{top: 30}}
           okText='确定'
           cancelText='取消'
           onCancel={()=>{

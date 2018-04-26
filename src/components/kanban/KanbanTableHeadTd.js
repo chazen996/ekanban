@@ -50,19 +50,34 @@ class KanbanTableHeadTd extends Component{
           whiteSpace: 'nowrap',
           userSelect:'none'
         }} title={this.props.column.columnName}>{this.props.column.columnName}</span>
-        {
-          this.props.column.status==='todo:s'||this.props.column.status==='done:s'?(
-            <div style={{
-              position:'absolute',
-              left: 0,
-              top: 0
-            }}>
-            <span style={{
-              fontSize:12
-            }}>{this.props.column.status==='todo:s'?('Start'):('End')}</span>
-            </div>
-          ):(null)
-        }
+        <div style={{
+          position:'absolute',
+          left: 0,
+          top: 0
+        }}>
+          {
+            this.props.column.status==='todo:s'?(
+              <span style={{
+                fontSize:12,
+                background: 'orange',
+                color: 'white',
+                borderRadius: 5,
+                padding: '0 3px'
+              }}>Start</span>
+            ):(null)
+          }
+          {
+            this.props.column.status==='done:s'?(
+              <span style={{
+                fontSize:12,
+                background: '#52c41a',
+                color: 'white',
+                borderRadius: 5,
+                padding: '0 3px'
+              }}>End</span>
+            ):(null)
+          }
+        </div>
       </div>
     );
   }

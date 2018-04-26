@@ -147,19 +147,35 @@ class EditKanbanTableHeadTd extends Component{
           height:20,
           display:this.state.showRenameInput?'':'none'
         }} size='small' placeholder={this.props.column.columnName} onBlur={this.handleOnRenameColumn.bind(this,this.props.column.columnId)} ref='renameInput'/>
-        {
-          radioValue===2||radioValue===3?(
-            <div style={{
-              position:'absolute',
-              left: 0,
-              top: 0
-            }}>
-            <span style={{
-              fontSize:12
-            }}>{radioValue===2?('Start'):('End')}</span>
-            </div>
-          ):(null)
-        }
+        <div style={{
+          position:'absolute',
+          left: 0,
+          top: 0
+        }}>
+          {
+            radioValue===2?(
+              <span style={{
+                fontSize:12,
+                background: 'orange',
+                color: 'white',
+                borderRadius: 5,
+                padding: '0 3px'
+              }}>Start</span>
+            ):(null)
+          }
+          {
+            radioValue===3?(
+              <span style={{
+                fontSize:12,
+                background: '#52c41a',
+                color: 'white',
+                borderRadius: 5,
+                padding: '0 3px'
+              }}>End</span>
+            ):(null)
+          }
+        </div>
+
         <Icon type="close" style={{
           position:'absolute',
           top:0,

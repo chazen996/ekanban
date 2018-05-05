@@ -39,14 +39,15 @@ class KanbanTable extends Component{
     const header = document.querySelector("#header");
     const kanbanEditPanel = document.querySelector("#kanban-edit-panel");
 
-    kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth -10}px`;
+    kanbanContent.style.width = `${window.innerWidth - stagingArea.offsetWidth - 10}px`;
     kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
-    setTimeout(this.resizeBodyContentTool(),200);
+    setTimeout(this.resizeBodyContentTool.bind(this,kanbanContent.offsetWidth + 10),30);
   };
-  resizeBodyContentTool(){
+  resizeBodyContentTool=(width)=>{
+    // alert('我被执行了');
     const kanbanContent = document.querySelector("#kanban-content");
-    kanbanContent.style.width = `${kanbanContent.offsetWidth +10}px`;
-  }
+    kanbanContent.style.width = `${width}px`;
+  };
   createTr(tdList,key){
     return (
       <tr key={key}>
@@ -474,7 +475,7 @@ class KanbanTable extends Component{
               <Icon type="shrink" style={{...iconStyle,fontSize:18,marginLeft:20}} onClick={()=>{
                 const header = document.getElementById('header');
                 header.style.display = 'flex';
-                this.resizeBodyContent();
+                // this.resizeBodyContent();
                 this.setState({
                   fullScreen:false
                 });
@@ -484,7 +485,7 @@ class KanbanTable extends Component{
               <Icon type="arrows-alt" style={{...iconStyle,fontSize:18,marginLeft:20}} onClick={()=>{
                 const header = document.getElementById('header');
                 header.style.display = 'none';
-                this.resizeBodyContent();
+                // this.resizeBodyContent();
                 this.setState({
                   fullScreen:true
                 });

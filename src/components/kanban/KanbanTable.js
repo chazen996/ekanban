@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Icon,message,Slider} from 'antd';
+import {Icon,message,Slider,Popover} from 'antd';
 import KanbanStore from '../../stores/KanbanStore';
 import {observer} from 'mobx-react';
 import PublicAuthKit from "../../utils/PublicAuthKit";
@@ -195,6 +195,30 @@ class KanbanTable extends Component{
       }
     });
   };
+
+  // 进入全屏模式
+  launchFullscreen=(element)=>{
+    if(element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if(element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if(element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    } else if(element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  }
+
+  //退出全屏模式
+  exitFullscreen=()=>{
+    if(document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if(document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if(document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
 
   render(){
     const showStagingArea = KanbanStore.getShowStagingArea;
@@ -453,7 +477,8 @@ class KanbanTable extends Component{
                 this.resizeBodyContent();
                 this.setState({
                   fullScreen:false
-                })
+                });
+                this.exitFullscreen();
               }}/>
             ):(
               <Icon type="arrows-alt" style={{...iconStyle,fontSize:18,marginLeft:20}} onClick={()=>{
@@ -462,7 +487,8 @@ class KanbanTable extends Component{
                 this.resizeBodyContent();
                 this.setState({
                   fullScreen:true
-                })
+                });
+                this.launchFullscreen(document.documentElement);
               }}/>
             )
           }
@@ -519,6 +545,28 @@ class KanbanTable extends Component{
               {tBody}
             </tbody>
           </table>
+
+          {
+            tHead==null||tHead.length===0?(
+              <div style={{
+                height:'100%',
+                width:'100%',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
+              }}>
+                  <span style={{
+                    color:'rgba(0,0,0,0.45)',
+                    fontSize:'15px'
+                  }}>暂无内容，请先使用绘制功能
+                    <Popover content={(<div>
+                      toolbar内右数第一个按钮
+                    </div>)}>
+                      <Icon type="question-circle-o" style={{marginLeft:5,cursor:'pointer'}}/>
+                    </Popover></span>
+              </div>
+            ):(null)
+          }
         </div>
       </div>
     );

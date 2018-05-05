@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Icon,message,notification} from 'antd';
+import {Icon,message,notification,Popover} from 'antd';
 import EditKanbanTableHeadTd from './EditKanbanTableHeadTd';
 import EditKanbanTableBodyTd from './EditKanbanTableBodyTd';
 import KanbanStore from '../../stores/KanbanStore';
@@ -1037,6 +1037,28 @@ class EditKanbanTable extends Component{
               {tBody}
             </tbody>
           </table>
+
+          {
+            tHead==null||tHead.length===0?(
+              <div style={{
+                height:'100%',
+                width:'100%',
+                display:'flex',
+                justifyContent:'center',
+                alignItems:'center'
+              }}>
+                  <span style={{
+                    color:'rgba(0,0,0,0.45)',
+                    fontSize:'15px'
+                  }}>暂无内容，请尝试添加一列
+                    <Popover content={(<div>
+                      toolbar内第一个按钮
+                    </div>)}>
+                      <Icon type="question-circle-o" style={{marginLeft:5,cursor:'pointer'}}/>
+                    </Popover></span>
+              </div>
+            ):(null)
+          }
         </div>
       </div>
     );

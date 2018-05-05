@@ -7,11 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" afterPath="$PROJECT_DIR$/src/components/kanban/EditKanbanTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" afterPath="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/StagingArea.js" afterPath="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/UserList.js" afterPath="$PROJECT_DIR$/src/components/project/UserList.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes/ProjectPage.js" afterPath="$PROJECT_DIR$/src/routes/ProjectPage.js" />
+      <change beforePath="$PROJECT_DIR$/.webpackrc.js" afterPath="$PROJECT_DIR$/.webpackrc.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".webpackrc.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".webpackrc.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.webpackrc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="19" />
+            <state relative-caret-position="320">
+              <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -91,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserList.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserList.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="123" column="23" lean-forward="false" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
+            <state relative-caret-position="136">
+              <caret line="131" column="22" lean-forward="true" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -232,7 +228,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/components/project/EditAndViewSprintModal.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/CardType.js" />
-        <option value="$PROJECT_DIR$/.webpackrc.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/CreateCardModal.js" />
         <option value="$PROJECT_DIR$/src/routes/HomePage.js" />
         <option value="$PROJECT_DIR$/src/components/project/Kanban.js" />
@@ -252,6 +247,7 @@
         <option value="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
         <option value="$PROJECT_DIR$/src/routes/ProjectPage.js" />
         <option value="$PROJECT_DIR$/src/components/project/UserList.js" />
+        <option value="$PROJECT_DIR$/.webpackrc.js" />
       </list>
     </option>
   </component>
@@ -424,7 +420,7 @@
       <workItem from="1524579778804" duration="8601000" />
       <workItem from="1524717270767" duration="11418000" />
       <workItem from="1524808960781" duration="797000" />
-      <workItem from="1525521759994" duration="9747000" />
+      <workItem from="1525521759994" duration="9890000" />
     </task>
     <task id="LOCAL-00001" summary="[COMMIT] 第一次git提交">
       <created>1521206170016</created>
@@ -762,11 +758,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525528052744</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="[commit] 优化了用户列表和暂存区溢出的显示效果">
+      <created>1525537559632</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1525537559632</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="698557000" />
+    <option name="totallyTimeSpent" value="698700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -780,7 +783,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27287066" sideWeight="0.4941435" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27287066" sideWeight="0.4941435" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -800,7 +803,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[commit] 继续完善项目、迭代和任务" />
     <MESSAGE value="[commit] 完成了看板管理页面的设计；预留了编辑看板和使用看板页面" />
     <MESSAGE value="[commit] 灵感乍现，解决了table有关的世纪难题（td内部div高度无法自动撑满）" />
     <MESSAGE value="[commit] 构造了key为列id的map，可直接通过id找到原始数组中的目标对象，大大简化了后续工作" />
@@ -825,7 +827,8 @@
     <MESSAGE value="[commit] 修复了为卡片选择认领人时可能出现用户名为0和默认选项‘无’冲突的问题" />
     <MESSAGE value="[commit] 进行了最后的优化，考虑了编辑看板之后再使用看板时卡片丢失问题，异常卡片将移入看板暂存区内显示，后续拖动将给予正确的坐标加以显示" />
     <MESSAGE value="[commit] 优化了全屏和退出全屏的效果以及无列时的提示信息；将数据库和后端放在了阿里云" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 优化了全屏和退出全屏的效果以及无列时的提示信息；将数据库和后端放在了阿里云" />
+    <MESSAGE value="[commit] 优化了用户列表和暂存区溢出的显示效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 优化了用户列表和暂存区溢出的显示效果" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1163,16 +1166,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.webpackrc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="19" lean-forward="false" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="19" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1209,9 +1202,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="123" column="23" lean-forward="false" selection-start-line="123" selection-start-column="23" selection-end-line="123" selection-end-column="23" />
+        <state relative-caret-position="136">
+          <caret line="131" column="22" lean-forward="true" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.webpackrc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

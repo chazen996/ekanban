@@ -523,7 +523,8 @@ class KanbanTable extends Component{
         </div>
         <div style={{
           display:showStagingArea?'inline-block':'none',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          background: '#e4e4e4'
         }}>
           <StagingArea />
         </div>
@@ -560,7 +561,7 @@ class KanbanTable extends Component{
                     fontSize:'15px'
                   }}>暂无内容，请先使用绘制功能
                     <Popover content={(<div>
-                      toolbar内右数第一个按钮
+                      toolbar上右数第一个按钮
                     </div>)}>
                       <Icon type="question-circle-o" style={{marginLeft:5,cursor:'pointer'}}/>
                     </Popover></span>

@@ -186,12 +186,13 @@ class StagingArea extends Component{
             }}/>
           </div>
           <div style={{
-            minHeight: 568,
-            background: '#33333312'
+            // minHeight: 568,
+            background: '#33333312',
+            height: 'calc(100% - 52px)'
           }}>
             <Collapse style={{
-              backgroundColor:'#33333312',
-              height: 480,
+              backgroundColor:'#e4e4e4',
+              height: '100%',
               overflow: 'auto'
             }}>
               {panelList}

@@ -162,7 +162,7 @@ class UserList extends Component{
     /* 搜索用户面板相关end */
 
     return (
-      <div style={{width: 270,height: 480,background: '#3333',border: '2px solid #e8e8e8',boxSizing: 'content-box',display: 'inline-block',verticalAlign: 'top',marginTop: 43}}>
+      <div style={{width: 270,height: 'calc(100% - 29px)',background: '#3333',border: '2px solid #e8e8e8',boxSizing: 'content-box',display: 'inline-block',verticalAlign: 'top',marginTop: 43}}>
         <div style={{
           height:44,
           borderBottom:'1px solid white',
@@ -258,7 +258,7 @@ class UserList extends Component{
         {
           result.length!==0?(
             <div style={{
-              height:408,
+              height:'calc(100% - 72px)',
               borderBottom:'1px solid white',
               position:'relative'
             }}>
@@ -284,7 +284,7 @@ class UserList extends Component{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 408
+              height: 'calc(100% - 72px)'
             }}>
               <span style={{
                 color: 'rgba(0, 0, 0, 0.2)',

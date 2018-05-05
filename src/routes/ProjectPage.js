@@ -51,7 +51,7 @@ class ProjectPage extends Component{
       <LocaleProvider locale={zh_CN}>
         <Spin spinning={ProjectStore.getProjectPageMaskLoadingStatus} size='large' className="spin-mask">
           <Header naviData={naviData}/>
-          <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5}}>
+          <div className="body-container" style={{padding:20,paddingTop:15,marginTop:5,height:'    height: calc(100vh - 68px)',overflow:'hidden'}}>
             <div style={{width:1326,height:535}}>
               <div style={{ width:1056,height: '100%',display: 'inline-block'}}>
                 <Tabs>
@@ -72,7 +72,10 @@ class ProjectPage extends Component{
                         ProjectStore.loadData(this.props.match.params.projectId);
                       }}/>
                     </div>
-                    <div>
+                    <div style={{
+                      height:'calc(100% - 107px)',
+                      overflow:'auto'
+                    }}>
                       <SprintTable />
                     </div>
 

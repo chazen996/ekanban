@@ -1052,7 +1052,7 @@ class EditKanbanTable extends Component{
                     fontSize:'15px'
                   }}>暂无内容，请尝试添加一列
                     <Popover content={(<div>
-                      toolbar内第一个按钮
+                      toolbar上第一个按钮
                     </div>)}>
                       <Icon type="question-circle-o" style={{marginLeft:5,cursor:'pointer'}}/>
                     </Popover></span>

@@ -318,7 +318,23 @@ class SprintTable extends Component{
     };
 
     return (
-      <Table dataSource={sprints} columns={columns} expandedRowRender={expandedRowRender}/>
+      sprints==null||sprints.length===0?(
+        <div style={{
+          height: 50,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderBottom: '1px solid #e8e8e8',
+          borderTop: '1px solid #e8e8e8'
+          // background: '#f5f5f5'
+        }}>
+            <span style={{
+              color:'rgba(0,0,0,0.45)'
+            }}>暂无内容</span>
+        </div>
+      ):(
+        <Table dataSource={sprints} columns={columns} expandedRowRender={expandedRowRender}/>
+      )
     );
   }
 }

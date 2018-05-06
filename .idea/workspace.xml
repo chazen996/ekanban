@@ -7,9 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/project/KanbanList.js" afterPath="$PROJECT_DIR$/src/components/project/KanbanList.js" />
       <change beforePath="$PROJECT_DIR$/src/components/project/UserList.js" afterPath="$PROJECT_DIR$/src/components/project/UserList.js" />
-      <change beforePath="$PROJECT_DIR$/src/routes/ProjectPage.js" afterPath="$PROJECT_DIR$/src/routes/ProjectPage.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -112,8 +110,8 @@
       <file leaf-file-name="UserList.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="250" column="23" lean-forward="false" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+            <state relative-caret-position="216">
+              <caret line="291" column="21" lean-forward="false" selection-start-line="291" selection-start-column="21" selection-end-line="291" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -421,14 +419,7 @@
       <workItem from="1524717270767" duration="11418000" />
       <workItem from="1524808960781" duration="797000" />
       <workItem from="1525521759994" duration="13417000" />
-      <workItem from="1525586423507" duration="688000" />
-    </task>
-    <task id="LOCAL-00003" summary="[COMMIT] 解决了跨域问题，实现了登陆获取token后添加header调用后台API">
-      <created>1521529282430</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1521529282430</updated>
+      <workItem from="1525586423507" duration="1354000" />
     </task>
     <task id="LOCAL-00004" summary="[COMMIT] 完善了前端路由跳转权限验证的方式，使用AES加密对sessionStorage进行必要的加密保护，防止恶意登陆">
       <created>1521616799796</created>
@@ -766,11 +757,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525541095023</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="[commit] 优化了暂无内容的显示效果">
+      <created>1525587142811</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1525587142811</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="702915000" />
+    <option name="totallyTimeSpent" value="703581000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -804,7 +802,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[commit] 构造了key为列id的map，可直接通过id找到原始数组中的目标对象，大大简化了后续工作" />
     <MESSAGE value="[commit] 实现了增加子列的功能" />
     <MESSAGE value="[commit] 初步实现了泳道绘制和鼠标拖拽事件（未全部完成）" />
     <MESSAGE value="[commit] 实现了泳道绘制、合并、拆分、删除的功能" />
@@ -829,7 +826,8 @@
     <MESSAGE value="[commit] 优化了用户列表和暂存区溢出的显示效果" />
     <MESSAGE value="[commit] 为deploy做准备" />
     <MESSAGE value="[commit] 修复了暂存区可能被挤下来的bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 修复了暂存区可能被挤下来的bug" />
+    <MESSAGE value="[commit] 优化了暂无内容的显示效果" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 优化了暂无内容的显示效果" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1209,8 +1207,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/project/UserList.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="250" column="23" lean-forward="false" selection-start-line="250" selection-start-column="23" selection-end-line="250" selection-end-column="23" />
+        <state relative-caret-position="216">
+          <caret line="291" column="21" lean-forward="false" selection-start-line="291" selection-start-column="21" selection-end-line="291" selection-end-column="21" />
           <folding />
         </state>
       </provider>

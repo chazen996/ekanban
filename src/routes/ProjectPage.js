@@ -73,7 +73,7 @@ class ProjectPage extends Component{
                       }}/>
                     </div>
                     <div style={{
-                      height:'calc(100% - 107px)',
+                      height:'calc(100vh - 178px)',
                       overflow:'auto'
                     }}>
                       <SprintTable />

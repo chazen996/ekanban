@@ -248,7 +248,7 @@ class UserList extends Component{
               }}>
                 <span style={{
                   color:'rgba(0,0,0,0.45)'
-                }}>暂无内容</span>
+                }}>暂无成员</span>
               </div>
             ):(
               userForSearchPanelArray

@@ -36,7 +36,9 @@ class KanbanList extends Component{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: '#f5f5f5'
+            borderBottom: '1px solid #e8e8e8',
+            borderTop: '1px solid #e8e8e8'
+            // background: '#f5f5f5'
           }}>
             <span style={{
               color:'rgba(0,0,0,0.45)'

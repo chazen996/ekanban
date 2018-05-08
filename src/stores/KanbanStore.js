@@ -336,6 +336,30 @@ class KanbanStore{
       console.log(err);
     });
   }
+
+  @action clearTrash(){
+    this.userInfo = {};
+    this.projectInfo = {};
+    this.kanbanInfo = {};
+    this.columns = [];
+    this.kanbanPageMaskLoadingStatus = true;
+    this.openedColumnSettingPanelId = -1;
+    this.swimlanes = [];
+    this.startColumnId = -1;
+    this.endColumnId = -1;
+    this.openedSprints = [];
+    this.stagingAreaMaskLoadingStatus = true;
+    this.showStagingArea = false;
+    this.cardUnderKanban = [];
+    this.showCreateCardModal = false;
+    this.createCardMaskLoadingStatus = false;
+    this.cardTypeChecked = 'story';
+    this.allUserUnderProject = [];
+    this.targetCard = {};
+    this.showEditCardModal = false;
+    this.editCardMaskLoadingStatus = false;
+    this.assignedPersonId = 0;
+  }
 }
 
 const kanbanStore = new KanbanStore();

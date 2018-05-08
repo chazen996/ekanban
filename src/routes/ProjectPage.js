@@ -32,11 +32,15 @@ class ProjectPage extends Component{
     ProjectStore.loadData(this.props.match.params.projectId);
   }
 
+  componentWillUnmount(){
+    ProjectStore.clearTrash();
+  }
+
   resizeBodyContent=()=>{
     const bodyContainer = document.querySelector(".body-container");
     const header = document.querySelector("#header");
     bodyContainer.style.height = `${window.innerHeight - header.offsetHeight - 5}px`;
-  }
+  };
 
   render(){
     const projectId = this.props.match.params.projectId;

@@ -363,6 +363,34 @@ class ProjectStore{
       console.log(err);
     });
   }
+
+  @action clearTrash(){
+    this.allUserUnderProject = [];
+    this.projectPageMaskLoadingStatus=true;
+    this.userInfo = {};
+    this.projectInfo = {};
+    this.sprints = [];
+    this.showCreateSprintModal = false;
+    this.createSprintMaskLoadingStatus = false;
+    this.showEditOrViewSprintModal = false;
+    this.targetSprintId = -1;
+    this.editOrViewSprintMaskLoadingStatus = false;
+    this.editOrView = 'edit';
+    this.cardTypeChecked = 'story';
+    this.showCreateCardModal = false;
+    this.createCardMaskLoadingStatus = false;
+    this.targetCard = {};
+    this.showEditOrViewCardModal = false;
+    this.editOrViewCardMaskLoadingStatus = false;
+    this.kanbans = [];
+    this.showCreateKanbanModal = false;
+    this.createKanbanMaskLoadingStatus = false;
+    this.targetKanban = {};
+    this.showEditKanbanModal = false;
+    this.editKanbanMaskLodingStatus = false;
+
+    this.assignedPersonId = 0;
+  }
 }
 
 const projectStore = new ProjectStore();

@@ -78,6 +78,7 @@ class Card extends Component{
               transform: 'scale(0.8)',
               maxWidth: 59,
               overflow: 'hidden',
+              height:18
             }}>{this.props.card.cardType==='other'?this.props.card.cardDescription:this.props.card.cardType}</span>
           </div>
           <Icon type="close" style={{

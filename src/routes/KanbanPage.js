@@ -26,6 +26,10 @@ class KanbanPage extends Component{
     KanbanStore.loadSprints(this.props.match.params.kanbanId);
   }
 
+  componentWillUnmount(){
+    KanbanStore.clearTrash();
+  }
+
   resizeBodyContent=()=>{
     const kanbanContent = document.querySelector("#kanban-content");
     const header = document.querySelector("#header");

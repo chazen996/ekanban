@@ -202,6 +202,22 @@ class HomeStore {
       console.log(err);
     });
   }
+
+  @action clearTrash(){
+    this.showChangePasswordModal = false;
+    this.showPersonalInfoModal = false;
+    this.userInfoMaskLoadingStatus = true;
+    this.userInfo = {};
+    this.personalInfoButtonDisabled = true;
+    this.homePageMaskLoadingStatus = true;
+    this.projects = [];
+    this.projectsBackUp = [];
+    this.showCreateProjectModal = false;
+    this.createProjectMaskLoadingStatus = false;
+    this.editTargetProjectId = -1;
+    this.showEditTargetProjectModal = false;
+    this.editProjectMaskLoadingStatus = false;
+  }
 }
 
 const homeStore = new HomeStore();

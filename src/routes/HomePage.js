@@ -39,6 +39,7 @@ class HomePage extends Component{
 
   componentWillUnmount(){
     window.onresize = null;
+    HomeStore.clearTrash();
   }
 
   resizeBodyContent=()=>{
@@ -61,7 +62,7 @@ class HomePage extends Component{
       });
     }
     HomeStore.setProjects(resultArray);
-  }
+  };
 
   handleOnDeleteProject = (projectId)=>{
     Modal.confirm({
@@ -103,12 +104,12 @@ class HomePage extends Component{
 
   handleOnCannotClick = ()=>{
     message.warning('权限不足，无法进行相关操作');
-  }
+  };
 
   handleOnEditProject = (projectId)=>{
     HomeStore.setEditTargetProjectId(projectId);
     HomeStore.setShowEditTargetProjectModal(true);
-  }
+  };
 
   render(){
     const naviData = {

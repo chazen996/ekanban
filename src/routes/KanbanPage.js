@@ -23,6 +23,7 @@ class KanbanPage extends Component{
     };
     KanbanStore.setKanbanPageMaskLoadingStatus(false);
     KanbanStore.loadData(this.props.match.params.kanbanId);
+    KanbanStore.loadSprints(this.props.match.params.kanbanId);
   }
 
   resizeBodyContent=()=>{

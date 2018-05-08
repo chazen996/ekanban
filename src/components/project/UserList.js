@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Input,Icon,Pagination,message,Modal} from 'antd';
+import {Input,Icon,Pagination,message,Modal,Popover} from 'antd';
 import {observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import Config from "../../utils/Config";
@@ -289,7 +289,10 @@ class UserList extends Component{
               <span style={{
                 color: 'rgba(0, 0, 0, 0.2)',
                 fontSize: 16
-              }}>暂无成员</span>
+              }}>暂无成员
+                <Popover content={(<div>使用搜索框添加成员</div>)}>
+                  <Icon type="question-circle-o" style={{marginLeft:5,cursor:'pointer'}}/>
+                </Popover></span>
             </div>
           )
         }

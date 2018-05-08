@@ -49,6 +49,10 @@ class StagingArea extends Component{
           this.tdNextToBody[card.columnId].columnWidth<=card.positionY||
           kanbanInfo.kanbanHeight<=card.positionX
       ){
+        if(card.cardStatus!=='pretodo'){
+          card.cardStatus = 'pretodo';
+          KanbanStore.updateCard(card);
+        }
         kanbanCardArray.push(
           <div key={card.cardId} style={{
             margin:'6px 9px'

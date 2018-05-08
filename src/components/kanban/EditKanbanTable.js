@@ -626,10 +626,13 @@ class EditKanbanTable extends Component{
         // parentColumn = this.getParentColumn(this.columnMap,column);
         if(this.confirmSubColumnContainsTargetStatus(parentColumn.subColumn,'other')){
           parentColumn.status = 'other';
+          parentColumn.allowedEnd = false;
         }else if(parentColumn.subColumn.length>column.position+1){
           parentColumn.status = 'other';
+          parentColumn.allowedEnd = false;
         }else{
           parentColumn.status = 'todo';
+          parentColumn.allowedEnd = false;
         }
         for(let i=0;i<column.position;i++){
           this.initColumnStatusTool(parentColumn.subColumn[i],'todo');
@@ -651,10 +654,13 @@ class EditKanbanTable extends Component{
       while(parentColumn){
         if(this.confirmSubColumnContainsTargetStatus(parentColumn.subColumn,'other')){
           parentColumn.status = 'other';
+          parentColumn.allowedStart = false;
         }else if(column.position>0){
           parentColumn.status = 'other';
+          parentColumn.allowedStart = false;
         }else{
           parentColumn.status = 'done';
+          parentColumn.allowedStart = false;
         }
         for(let i=column.position+1;i<parentColumn.subColumn.length;i++){
           this.initColumnStatusTool(parentColumn.subColumn[i],'done');

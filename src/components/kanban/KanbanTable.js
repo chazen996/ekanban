@@ -460,8 +460,12 @@ class KanbanTable extends Component{
           alignItems: 'center'
         }}>
           <div style={{
-            width:150
+            width:150,
+            height:22
           }}>
+            <Icon type="arrow-left" style={{...iconStyle,position: 'absolute',left: 0}} onClick={()=>{
+              this.props.history.push(`/project/${projectInfo.projectId}`);
+            }}/>
             <Slider defaultValue={100} min={50} max={100} tipFormatter={(value)=>{
               return `${value}%`;
             }} onChange={(value)=>{

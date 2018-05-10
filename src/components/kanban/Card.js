@@ -111,7 +111,9 @@ class Card extends Component{
               WebkitBoxOrient: 'vertical',
               width:'100%',
               height:'100%',
-              color:'white'
+              color:'white',
+              whiteSpace: 'normal',
+              wordBreak: 'break-word'
             }}>
               {this.props.card.cardContent}
             </div>

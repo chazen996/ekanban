@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Modal,Form,Spin,Input,message} from 'antd';
+import {Modal,Form,Spin,Input,message,Select} from 'antd';
 import ProjectStore from "../../stores/ProjectStore";
 import {observer} from 'mobx-react';
 import CardType from './CardType';
@@ -7,6 +7,11 @@ import CardType from './CardType';
 const FormItem = Form.Item;
 @observer
 class CreateCardModal extends Component{
+
+  handleOnChangeAssignedPerson=(value)=>{
+    ProjectStore.setAssignedPersonId(value);
+  };
+
   render(){
     const { getFieldDecorator } = this.props.form;
     const projectInfo = ProjectStore.getProjectInfo;
@@ -19,6 +24,17 @@ class CreateCardModal extends Component{
         break;
       }
     }
+
+    const assignedPersonId = ProjectStore.getAssignedPersonId;
+
+    const allUser = ProjectStore.getAllUserUnderProject;
+    const userArray = [];
+    userArray.push(<Select.Option key={0} value={'0'}>无</Select.Option>);
+    for(let user of allUser){
+      userArray.push(<Select.Option key={user.id} value={user.id.toString()}>{user.username}</Select.Option>);
+    }
+
+
     return (
       <Modal
         title="新建任务"
@@ -47,6 +63,7 @@ class CreateCardModal extends Component{
               }else{
                 card['cardStatus']='pretodo';
               }
+              card.assignedPersonId = assignedPersonId;
 
               ProjectStore.createCard(card).then(response=>{
                 if(response){
@@ -93,6 +110,19 @@ class CreateCardModal extends Component{
                 )}
               </FormItem>
             ):(null)}
+            <FormItem
+              label="负责人"
+              hasFeedback>
+              <Select
+                showSearch
+                optionFilterProp="children"
+                value={assignedPersonId.toString()}
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                onChange={this.handleOnChangeAssignedPerson}
+              >
+                {userArray}
+              </Select>
+            </FormItem>
             <FormItem
               label="任务详情"
               hasFeedback>

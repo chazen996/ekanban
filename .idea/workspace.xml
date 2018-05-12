@@ -7,8 +7,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/Card.js" afterPath="$PROJECT_DIR$/src/components/kanban/Card.js" />
-      <change beforePath="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" afterPath="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" />
+      <change beforePath="$PROJECT_DIR$/src/components/project/CreateCardModal.js" afterPath="$PROJECT_DIR$/src/components/project/CreateCardModal.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="KanbanTable.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="KanbanTable.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="463" column="14" lean-forward="false" selection-start-line="463" selection-start-column="14" selection-end-line="463" selection-end-column="14" />
+            <state relative-caret-position="9060">
+              <caret line="470" column="28" lean-forward="false" selection-start-line="470" selection-start-column="28" selection-end-line="470" selection-end-column="28" />
               <folding>
                 <element signature="e#15129#15178#0" expanded="false" />
               </folding>
@@ -88,44 +87,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProjectStore.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stores/ProjectStore.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7760">
-              <caret line="391" column="30" lean-forward="false" selection-start-line="391" selection-start-column="30" selection-end-line="391" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SprintTable.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/project/SprintTable.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5660">
-              <caret line="301" column="26" lean-forward="false" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
-              <folding>
-                <element signature="e#2234#2677#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Card.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/kanban/Card.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="115" column="37" lean-forward="true" selection-start-line="115" selection-start-column="37" selection-end-line="115" selection-end-column="37" />
+            <state relative-caret-position="700">
+              <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="KanbanStore.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/stores/KanbanStore.js">
+      <file leaf-file-name="CardContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/kanban/CardContainer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7160">
-              <caret line="361" column="3" lean-forward="false" selection-start-line="361" selection-start-column="3" selection-end-line="361" selection-end-column="3" />
+            <state relative-caret-position="120">
+              <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="45" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditAndViewCardModal.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateCardModal.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/project/CreateCardModal.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="70" column="33" lean-forward="true" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -203,7 +202,6 @@
         <option value="$PROJECT_DIR$/src/components/project/UserItem.js" />
         <option value="$PROJECT_DIR$/src/components/project/UserItemForSearchPanel.js" />
         <option value="$PROJECT_DIR$/src/components/project/CardType.js" />
-        <option value="$PROJECT_DIR$/src/components/project/CreateCardModal.js" />
         <option value="$PROJECT_DIR$/src/components/project/EditKanbanModal.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableTd.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/Simlane.js" />
@@ -250,6 +248,7 @@
         <option value="$PROJECT_DIR$/src/routes/HomePage.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/Card.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/KanbanTable.js" />
+        <option value="$PROJECT_DIR$/src/components/project/CreateCardModal.js" />
       </list>
     </option>
   </component>
@@ -286,6 +285,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -320,6 +321,13 @@
               <item name="ekanban" type="b2602c69:ProjectViewProjectNode" />
               <item name="ekanban" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ekanban" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ekanban" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -338,8 +346,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -430,14 +436,8 @@
       <workItem from="1525521759994" duration="13417000" />
       <workItem from="1525586423507" duration="2382000" />
       <workItem from="1525763052356" duration="6481000" />
-      <workItem from="1525935886246" duration="1158000" />
-    </task>
-    <task id="LOCAL-00010" summary="[commit] 完善了用户头像上传的功能；初步设计了用户注册页面">
-      <created>1522081147560</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1522081147560</updated>
+      <workItem from="1525935886246" duration="2881000" />
+      <workItem from="1526107054931" duration="509000" />
     </task>
     <task id="LOCAL-00011" summary="[commit] 优化了css文件结构；完善了用户注册页面(仅剩最后的电子邮件查重验证)">
       <created>1522167261282</created>
@@ -775,11 +775,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525787106829</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="[commit] 修复了超长内容卡片在看板上不换行显示的bug以及缩放调不居中显示的问题">
+      <created>1525937135113</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1525937135113</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="712248000" />
+    <option name="totallyTimeSpent" value="714480000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -813,7 +820,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[commit] 初步完成了看板编辑页面的设计和功能" />
     <MESSAGE value="[commit] 准备着手拖动研究" />
     <MESSAGE value="[commit] 设计并实现了暂存区和卡片" />
     <MESSAGE value="[commit] 实现了自动删除无效任务卡片的功能" />
@@ -838,7 +844,8 @@
     <MESSAGE value="[commit] 删除了部分无用文件" />
     <MESSAGE value="[commit] 修复了切换看板后仍然加载上次数据的问题" />
     <MESSAGE value="[commit] 添加了返回箭头" />
-    <option name="LAST_COMMIT_MESSAGE" value="[commit] 添加了返回箭头" />
+    <MESSAGE value="[commit] 修复了超长内容卡片在看板上不换行显示的bug以及缩放调不居中显示的问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 修复了超长内容卡片在看板上不换行显示的bug以及缩放调不居中显示的问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -900,20 +907,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-556">
           <caret line="237" column="44" lean-forward="false" selection-start-line="237" selection-start-column="44" selection-end-line="237" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/CardContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/CreateCardModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="77" column="7" lean-forward="true" selection-start-line="77" selection-start-column="7" selection-end-line="77" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -1006,7 +999,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="40" column="21" lean-forward="false" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1014,16 +1006,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1400">
           <caret line="71" column="16" lean-forward="false" selection-start-line="71" selection-start-column="16" selection-end-line="75" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3720">
-          <caret line="191" column="26" lean-forward="false" selection-start-line="191" selection-start-column="26" selection-end-line="191" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1076,7 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="104">
           <caret line="50" column="14" lean-forward="false" selection-start-line="50" selection-start-column="14" selection-end-line="55" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1084,7 +1065,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="55" column="29" lean-forward="false" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1104,9 +1084,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5660">
           <caret line="301" column="26" lean-forward="false" selection-start-line="301" selection-start-column="26" selection-end-line="301" selection-end-column="26" />
-          <folding>
-            <element signature="e#2234#2677#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1172,20 +1149,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9060">
+          <caret line="470" column="28" lean-forward="false" selection-start-line="470" selection-start-column="28" selection-end-line="470" selection-end-column="28" />
+          <folding>
+            <element signature="e#15129#15178#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/kanban/Card.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="115" column="37" lean-forward="true" selection-start-line="115" selection-start-column="37" selection-end-line="115" selection-end-column="37" />
+        <state relative-caret-position="700">
+          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/kanban/KanbanTable.js">
+    <entry file="file://$PROJECT_DIR$/src/components/kanban/CardContainer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="463" column="14" lean-forward="false" selection-start-line="463" selection-start-column="14" selection-end-line="463" selection-end-column="14" />
+        <state relative-caret-position="120">
+          <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="79" column="16" lean-forward="true" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/project/CreateCardModal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="70" column="33" lean-forward="true" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
           <folding>
-            <element signature="e#15129#15178#0" expanded="false" />
+            <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>

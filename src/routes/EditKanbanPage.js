@@ -32,6 +32,10 @@ class EditKanbanPage extends Component{
     kanbanContent.style.height = `${window.innerHeight - header.offsetHeight - kanbanEditPanel.offsetHeight - 5}px`;
   };
 
+  componentWillUnmount(){
+    KanbanStore.clearTrash();
+  }
+
   render(){
     // const kanbanId = this.props.match.params.kanbanId;
     const projectInfo = KanbanStore.getProjectInfo;

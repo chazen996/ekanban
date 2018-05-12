@@ -1030,6 +1030,7 @@ class EditKanbanTable extends Component{
           <Icon type="save" style={iconStyle} onClick={this.handleOnSave}/>
 
           <Icon type="arrow-left" style={{...iconStyle,position: 'absolute',left: 0}} onClick={()=>{
+            KanbanStore.setKanbanPageMaskLoadingStatus(true);
             this.props.history.push(`/kanban/${kanbanInfo.kanbanId}`);
           }}/>
         </div>

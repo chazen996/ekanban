@@ -30,6 +30,7 @@ class EditKanbanModal extends Component{
               kanban['kanbanName'] = values.kanbanName;
               kanban['kanbanDescription'] = values.kanbanDescription;
               kanban['projectId'] = projectInfo.projectId;
+              kanban['kanbanId'] = targetKanban.kanbanId;
 
               ProjectStore.updateKanban(kanban).then(response=>{
                 if(response){

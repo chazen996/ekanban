@@ -5,8 +5,9 @@
     <bookmark url="file://$PROJECT_DIR$/.idea/workspace.xml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="[fix] 尝试修复编辑看板信息失败的问题">
+    <list default="true" id="dd08851f-807d-4b1c-bac8-840bc46185ed" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Config.js" afterPath="$PROJECT_DIR$/src/utils/Config.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,8 +56,8 @@
       <file leaf-file-name="Config.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/Config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+            <state relative-caret-position="20">
+              <caret line="1" column="27" lean-forward="false" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -193,7 +194,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="deploy" />
       </map>
     </option>
   </component>
@@ -227,7 +228,6 @@
         <option value="$PROJECT_DIR$/src/components/kanban/EditKanbanTableHeadTd.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/EditCardModal.js" />
         <option value="$PROJECT_DIR$/src/components/project/EditAndViewCardModal.js" />
-        <option value="$PROJECT_DIR$/src/utils/Config.js" />
         <option value="$PROJECT_DIR$/.webpackrc.js" />
         <option value="$PROJECT_DIR$/src/components/project/KanbanList.js" />
         <option value="$PROJECT_DIR$/src/components/kanban/StagingArea.js" />
@@ -251,6 +251,7 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/components/project/EditKanbanModal.js" />
+        <option value="$PROJECT_DIR$/src/utils/Config.js" />
       </list>
     </option>
   </component>
@@ -397,14 +398,7 @@
       <workItem from="1525935886246" duration="2881000" />
       <workItem from="1526107054931" duration="18742000" />
       <workItem from="1526361815122" duration="623000" />
-      <workItem from="1526547146090" duration="1247000" />
-    </task>
-    <task id="LOCAL-00015" summary="[fix] 修复了‘我参与的项目’下项目卡片时间显示的小bug">
-      <created>1522429822997</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1522429822997</updated>
+      <workItem from="1526547146090" duration="1327000" />
     </task>
     <task id="LOCAL-00016" summary="[commit] 实现了项目卡片状态下分页功能；增加了表格显示；完成了删除项目的功能（权限忘记做了）；实现了搜索功能；添加了刷新按钮和功能">
       <created>1522518222729</created>
@@ -742,16 +736,23 @@
       <option name="project" value="LOCAL" />
       <updated>1526267009979</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="[commit] 为尝试修改为提交状态做准备">
+      <created>1526651605440</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1526651605441</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="734583000" />
+    <option name="totallyTimeSpent" value="734663000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23645681" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23645681" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5058565" order="8" side_tool="true" content_ui="tabs" />
@@ -780,7 +781,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="[commit] 初步实现了卡片拖动功能" />
     <MESSAGE value="[commit] 完成了卡片拖动、看板上增加卡片和删除卡片的功能，实现了卡片的点击编辑和卡片类型的显示功能" />
     <MESSAGE value="[commit] 优化一波权限控制逻辑，基本完成了预期毕业设计" />
     <MESSAGE value="[commit] 修复了kanbanStore的异常问题（原因是this.username未及时更新）" />
@@ -805,7 +805,8 @@
     <MESSAGE value="[fix] 修复了编辑看板页面未清理trash的问题" />
     <MESSAGE value="[fix] 修复了编辑看板页面未清理trash的问题2" />
     <MESSAGE value="[fix] 尝试修复编辑看板信息失败的问题" />
-    <option name="LAST_COMMIT_MESSAGE" value="[fix] 尝试修复编辑看板信息失败的问题" />
+    <MESSAGE value="[commit] 为尝试修改为提交状态做准备" />
+    <option name="LAST_COMMIT_MESSAGE" value="[commit] 为尝试修改为提交状态做准备" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1145,8 +1146,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/Config.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="13" column="4" lean-forward="true" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        <state relative-caret-position="20">
+          <caret line="1" column="27" lean-forward="false" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
           <folding />
         </state>
       </provider>

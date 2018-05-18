@@ -1,5 +1,5 @@
 const Config = {
-  baseURL:'http://39.105.25.18:8080',
+  baseURL:'http://localhost:8080',
   ContentType:'application/json',
   secretQuestion:{
     0:'您母亲的姓名是?',

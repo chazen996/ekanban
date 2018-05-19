@@ -316,6 +316,7 @@ class EditKanbanTable extends Component{
         break;
       }
     }
+    const kanbanInfo = KanbanStore.getKanbanInfo;
     const acrossColumnArray = reference.acrossColumn.split(',');
     const groupMemberNumber = acrossColumnArray.length*reference.height;
     for(let i=0;i<reference.height;i++){
@@ -329,6 +330,7 @@ class EditKanbanTable extends Component{
           position:reference.position+i,
           swimlaneId: swimlaneId,
           groupId:reference.groupId,
+          kanbanId:kanbanInfo.kanbanId,
           height:1,
           acrossColumn:acrossColumnArray[j],
 

@@ -25,6 +25,7 @@ class CreateKanbanModal extends Component{
         destroyOnClose={true}
         okText='确定'
         cancelText='取消'
+        style={{top: 30}}
         onCancel={()=>{
           ProjectStore.setShowCreateKanbanModal(false);
         }}

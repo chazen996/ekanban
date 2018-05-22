@@ -502,13 +502,14 @@ class EditKanbanTable extends Component{
     KanbanStore.setKanbanInfo(kanbanInfo);
   };
   checkPositionSuccession(positionArray,result){
-    for(let i=1;i<positionArray.length-1;i++){
-      if((positionArray[i]-positionArray[i-1])!==(positionArray[i+1]-positionArray[i])||(positionArray[i]-positionArray[i-1])!==1){
+    for(let i=1;i<positionArray.length;i++){
+      if(positionArray[i] - positionArray[i-1]!==0&&positionArray[i] - positionArray[i-1]!==1){
+      // if((positionArray[i]-positionArray[i-1])!==(positionArray[i+1]-positionArray[i])||positionArray[i]-positionArray[i-1]!==1){
         result['flag'] = false;
         if(positionArray[i]-positionArray[i-1]===1){
-          result["successionPosition"]=i;
+          result["successionPosition"]=positionArray[i];
         }else{
-          result["successionPosition"]=i-1;
+          result["successionPosition"]=positionArray[i-1];
         }
         break;
       }
@@ -524,54 +525,237 @@ class EditKanbanTable extends Component{
       }
     }
   }
+  removeSpecialSwimlane(array,array2,value){
+    for(let i=0; i<array.length; i++) {
+      if(array[i] === value) {
+        this.addDeletedItem(array2[i],'swimlane');
+        array.splice(i, 1);
+        array2.splice(i,1);
+        i -= 1
+      }
+    }
+  }
 
   processSwimlane(swimlanes){
     let columns = PublicAuthKit.deepCopy(KanbanStore.getColumns);
     let flag = false;
     this.generateColumnMap(columns);
+    /* 改进后的算法 */
+    let groupArray = [];
     for(let i=0;i<swimlanes.length;i++){
       let swimlane = swimlanes[i];
-      let acrossColumn = swimlane.acrossColumn.split(',');
-      let acrossColumnPositionOfTdNextToBody = [];
-      for(let item of acrossColumn){
-        acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(this.columnMap[item]));
-      }
-      this.removeTargetValue(acrossColumnPositionOfTdNextToBody,acrossColumn,-1);
-      /* 检查对应column Y坐标是否连续 */
-      let result ={
-        flag:true,
-        successionPosition:acrossColumnPositionOfTdNextToBody[0]
-      };
-      this.checkPositionSuccession(acrossColumnPositionOfTdNextToBody,result);
-      let acrossColumnNumber = 0;
-      if(result.flag){
-        acrossColumnNumber = acrossColumnPositionOfTdNextToBody.length;
+      if(groupArray[swimlane.groupId]==null){
+        groupArray[swimlane.groupId] = {
+          groupMember:[]
+        };
+        groupArray[swimlane.groupId].groupMember.push(swimlane);
       }else{
-        acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
+        let groupItem = groupArray[swimlane.groupId];
+        groupItem.groupMember.push(swimlane);
       }
-      if(acrossColumnNumber===0||(acrossColumnNumber===1&&swimlane.columnPosition<acrossColumnPositionOfTdNextToBody[0])){
-        this.handleOnDeleteSwimlane(swimlane.swimlaneId,true);
-        swimlanes.splice(i,1);
-        i -= 1;
-      }else{
-        let totalWidth = 0;
-        for(let j=0;j<acrossColumnNumber;j++){
-          totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
-        }
-        swimlane.width = totalWidth;
-        if(swimlane.acrossColumn.split(',').length!==acrossColumn.length){
-          flag = true;
-        }
-        swimlane.acrossColumn = acrossColumn.join(',');
-        if(swimlane.columnPosition!==this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])){
-          flag = true;
-        }
-        swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
-      }
-
     }
+    for(let index in groupArray){
+      let groupItem = groupArray[index];
+      if(groupItem.groupMember.length>1){
+        let acrossColumnPositionOfTdNextToBody = [];
+        let noUseArray = [];
+        for(let item of groupItem.groupMember){
+          acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(this.columnMap[item.acrossColumn]));
+          item.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[item.acrossColumn]);
+          noUseArray.push(item);
+        }
+        noUseArray.sort((a,b)=>{
+          if(a.columnPosition<b.columnPosition){
+            return -1;
+          }else if(a.columnPosition>b.columnPosition){
+            return 1;
+          }else{
+            return 0;
+          }
+        });
+        acrossColumnPositionOfTdNextToBody.sort((a,b)=>{
+          if(a<b){
+            return -1;
+          }else if(a>b){
+            return 1;
+          }else{
+            return 0;
+          }
+        });
+        this.removeSpecialSwimlane(acrossColumnPositionOfTdNextToBody,noUseArray,-1);
+        if(acrossColumnPositionOfTdNextToBody.length!==groupItem.groupMember.length){
+          flag = true;
+        }
+        let result ={
+          flag:true,
+          successionPosition:acrossColumnPositionOfTdNextToBody[0]
+        };
+        this.checkPositionSuccession(acrossColumnPositionOfTdNextToBody,result);
+        let acrossColumnNumber = 0;
+        if(result.flag){
+          acrossColumnNumber = acrossColumnPositionOfTdNextToBody[acrossColumnPositionOfTdNextToBody.length-1]-acrossColumnPositionOfTdNextToBody[0]+1;
+        }else{
+          acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
+        }
+        for(let temp of groupItem.groupMember){
+          temp.delete = true;
+        }
+        for(let j=0;j<acrossColumnNumber;j++){
+          let column = this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j];
+          for(let swimItem of noUseArray){
+            if(swimItem.acrossColumn===column.columnId){
+              swimItem.width = column.columnWidth;
+              swimItem.columnPosition = acrossColumnPositionOfTdNextToBody[0]+j;
+              swimItem.delete = false;
+            }
+          }
+          // noUseArray[j].width = this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
+          // noUseArray[j].columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[noUseArray[j].acrossColumn]);
+        }
+        for(let l=0;l<noUseArray.length;l++){
+          let temp = noUseArray[l];
+          if(temp.delete){
+            noUseArray.splice(l,1);
+            l -= 1;
+          }
+        }
+        groupItem.groupMember = PublicAuthKit.deepCopy(noUseArray);
+      }else{
+        let swimlane = groupItem.groupMember[0];
+        let acrossColumn = swimlane.acrossColumn.split(',');
+        let acrossColumnPositionOfTdNextToBody = [];
+        for(let item of acrossColumn){
+          acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(this.columnMap[item]));
+        }
+        this.removeTargetValue(acrossColumnPositionOfTdNextToBody,acrossColumn,-1);
+        if(acrossColumnPositionOfTdNextToBody.length===0){
+          this.addDeletedItem(swimlane,'swimlane');
+          groupItem.groupMember = [];
+          flag = true;
+        }else{
+          /* 检查对应column Y坐标是否连续 */
+          let result ={
+            flag:true,
+            successionPosition:acrossColumnPositionOfTdNextToBody[0]
+          };
+          this.checkPositionSuccession(acrossColumnPositionOfTdNextToBody,result);
+          let acrossColumnNumber = 0;
+          if(result.flag){
+            acrossColumnNumber = acrossColumnPositionOfTdNextToBody.length;
+          }else{
+            acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
+          }
+
+          let totalWidth = 0;
+          for(let j=0;j<acrossColumnNumber;j++){
+            totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
+          }
+          swimlane.width = totalWidth;
+          if(swimlane.acrossColumn.split(',').length!==acrossColumn.length){
+            flag = true;
+          }
+          swimlane.acrossColumn = acrossColumn.join(',');
+          if(swimlane.columnPosition!==this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])){
+            flag = true;
+          }
+          swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
+        }
+      }
+    }
+
+
+    // for(let i=0;i<swimlanes.length;i++){
+    //   let swimlane = swimlanes[i];
+    //   let acrossColumn = swimlane.acrossColumn.split(',');
+    //   let successionSwimlane = [];
+    //   if(acrossColumn.length>1){
+    //
+    //   }else{
+    //     let acrossColumnPositionOfTdNextToBody = [];
+    //     for(let item of acrossColumn){
+    //       acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(this.columnMap[item]));
+    //     }
+    //     this.removeTargetValue(acrossColumnPositionOfTdNextToBody,acrossColumn,-1);
+    //     /* 检查对应column Y坐标是否连续 */
+    //     let result ={
+    //       flag:true,
+    //       successionPosition:acrossColumnPositionOfTdNextToBody[0]
+    //     };
+    //     this.checkPositionSuccession(acrossColumnPositionOfTdNextToBody,result);
+    //     let acrossColumnNumber = 0;
+    //     if(result.flag){
+    //       acrossColumnNumber = acrossColumnPositionOfTdNextToBody.length;
+    //     }else{
+    //       acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
+    //     }
+    //
+    //     let totalWidth = 0;
+    //     for(let j=0;j<acrossColumnNumber;j++){
+    //       totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
+    //     }
+    //     swimlane.width = totalWidth;
+    //     if(swimlane.acrossColumn.split(',').length!==acrossColumn.length){
+    //       flag = true;
+    //     }
+    //     swimlane.acrossColumn = acrossColumn.join(',');
+    //     if(swimlane.columnPosition!==this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])){
+    //       flag = true;
+    //     }
+    //     swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
+    //   }
+    // }
+    //
+    // /*  */
+    // for(let i=0;i<swimlanes.length;i++){
+    //   let swimlane = swimlanes[i];
+    //   let acrossColumn = swimlane.acrossColumn.split(',');
+    //   let acrossColumnPositionOfTdNextToBody = [];
+    //   for(let item of acrossColumn){
+    //     acrossColumnPositionOfTdNextToBody.push(this.getColumnPositionYOfTdNextToBody(this.columnMap[item]));
+    //   }
+    //   this.removeTargetValue(acrossColumnPositionOfTdNextToBody,acrossColumn,-1);
+    //   /* 检查对应column Y坐标是否连续 */
+    //   let result ={
+    //     flag:true,
+    //     successionPosition:acrossColumnPositionOfTdNextToBody[0]
+    //   };
+    //   this.checkPositionSuccession(acrossColumnPositionOfTdNextToBody,result);
+    //   let acrossColumnNumber = 0;
+    //   if(result.flag){
+    //     acrossColumnNumber = acrossColumnPositionOfTdNextToBody.length;
+    //   }else{
+    //     acrossColumnNumber = result.successionPosition - acrossColumnPositionOfTdNextToBody[0] + 1;
+    //   }
+    //   if(acrossColumnNumber===0||(acrossColumnNumber===1&&swimlane.columnPosition<acrossColumnPositionOfTdNextToBody[0])){
+    //     this.handleOnDeleteSwimlane(swimlane.swimlaneId,true);
+    //     swimlanes.splice(i,1);
+    //     i -= 1;
+    //   }else{
+    //     let totalWidth = 0;
+    //     for(let j=0;j<acrossColumnNumber;j++){
+    //       totalWidth += this.theadTdNextToBody[acrossColumnPositionOfTdNextToBody[0]+j].columnWidth;
+    //     }
+    //     swimlane.width = totalWidth;
+    //     if(swimlane.acrossColumn.split(',').length!==acrossColumn.length){
+    //       flag = true;
+    //     }
+    //     swimlane.acrossColumn = acrossColumn.join(',');
+    //     if(swimlane.columnPosition!==this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]])){
+    //       flag = true;
+    //     }
+    //     swimlane.columnPosition = this.getColumnPositionYOfTdNextToBody(this.columnMap[acrossColumn[0]]);
+    //   }
+    //
+    // }
     if(flag){
-      KanbanStore.setSwimlanes(swimlanes);
+      let tempArray = [];
+      for(let index in groupArray) {
+        let groupItem = groupArray[index];
+        for(let item of groupItem.groupMember){
+          tempArray.push(item);
+        }
+      }
+      KanbanStore.setSwimlanes(tempArray);
     }
   }
   getColumnPositionYOfTdNextToBody(column){
